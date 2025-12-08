@@ -99,6 +99,139 @@ export default function Home() {
         </div>
       </section>
 
+      {/* USP Visual Section */}
+      <section className="section usp-section" id="usp">
+        <div className="section-header">
+          <span className="section-tag">The Vision</span>
+          <h2>One Companion. Two Worlds. Infinite Connection.</h2>
+          <p>Your AI companion bridges the gap between gameplay and the real world.</p>
+        </div>
+
+        <div className="usp-visual">
+          {/* Top capability icons */}
+          <div className="usp-capabilities">
+            <div className="cap-icon" title="Observes">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 5C5.636 5 2 12 2 12s3.636 7 10 7 10-7 10-7-3.636-7-10-7z"/>
+              </svg>
+            </div>
+            <div className="cap-icon" title="Comments">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+            </div>
+            <div className="cap-icon" title="Speaks">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+            <div className="cap-arrow">→</div>
+            <div className="cap-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+              <span>SHARES STORIES</span>
+            </div>
+          </div>
+
+          <div className="usp-diagram">
+            {/* Game World Panel */}
+            <div className="usp-panel game-world">
+              <div className="panel-flow-label left-flow">
+                <span>OBSERVES</span>
+                <span>COMMENTS</span>
+                <span>LEARNS</span>
+              </div>
+              <h3>THE GAME WORLD</h3>
+              <div className="panel-icons">
+                <div className="panel-icon">🎮</div>
+                <div className="panel-icon">⚔️</div>
+                <div className="panel-icon">🧙</div>
+              </div>
+            </div>
+
+            {/* Center Robot */}
+            <div className="usp-robot">
+              <div className="robot-glow"></div>
+              <div className="robot-body">
+                <div className="robot-head">
+                  <div className="robot-antenna"></div>
+                  <div className="robot-face">
+                    <div className="robot-eye left"></div>
+                    <div className="robot-eye right"></div>
+                    <div className="robot-smile"></div>
+                  </div>
+                </div>
+                <div className="robot-torso">
+                  <div className="robot-light"></div>
+                </div>
+                <div className="robot-arms">
+                  <div className="robot-arm left"></div>
+                  <div className="robot-arm right"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Everywhere Layer Panel */}
+            <div className="usp-panel everywhere-layer">
+              <div className="panel-flow-label right-flow">
+                <span>SHARES</span>
+                <span>STORIES</span>
+              </div>
+              <h3>THE EVERYWHERE LAYER</h3>
+              <div className="panel-icons">
+                <div className="panel-icon-labeled">
+                  <span className="icon-svg tiktok">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
+                  </span>
+                  <span className="icon-label">TikTok</span>
+                </div>
+                <div className="panel-icon-labeled">
+                  <span className="icon-svg forums">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                  </span>
+                  <span className="icon-label">Forums</span>
+                </div>
+                <div className="panel-icon-labeled">
+                  <span className="icon-svg reddit">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+                    </svg>
+                  </span>
+                  <span className="icon-label">Reddit</span>
+                </div>
+                <div className="panel-icon-labeled">
+                  <span className="icon-svg llm">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm4 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-8 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                  </span>
+                  <span className="icon-label">LLM Apps</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Flow arrows for mobile */}
+          <div className="usp-flow-arrows">
+            <div className="flow-arrow left">
+              <span>← Observes, Comments, Learns</span>
+            </div>
+            <div className="flow-arrow right">
+              <span>Shares Stories →</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section className="section how-it-works" id="how-it-works">
         <div className="section-header">
