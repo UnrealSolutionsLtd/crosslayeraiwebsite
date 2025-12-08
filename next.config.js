@@ -4,9 +4,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // For GitHub Pages deployment - set your repo name
-  basePath: '/crosslayeraiwebsite',
-  assetPrefix: '/crosslayeraiwebsite/',
+  // Custom domain - no basePath needed
   trailingSlash: true,
 }
 
