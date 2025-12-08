@@ -411,6 +411,26 @@ body {
   line-height: 1.6;
 }
 
+.flow-tech {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(0, 245, 212, 0.1);
+  border: 1px solid rgba(0, 245, 212, 0.2);
+  color: var(--color-accent-cyan);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.flow-benefit {
+  display: block;
+  margin-top: 1rem;
+  color: var(--color-accent-magenta);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 /* Features Grid */
 .features-grid {
   max-width: 1200px;

@@ -103,9 +103,9 @@ export default function Home() {
       <section className="section how-it-works" id="how-it-works">
         <div className="section-header">
           <span className="section-tag">How It Works</span>
-          <h2>From Observer to Lifelong Companion</h2>
+          <h2>Three Steps to Better Retention</h2>
           <p>
-            CROSSLAYERAI companions don&apos;t just chat - they observe, remember, and grow with your players.
+            A simple integration that delivers measurable results.
           </p>
         </div>
 
@@ -113,41 +113,35 @@ export default function Home() {
           <div className="flow-card">
             <span className="flow-number">01</span>
             <div className="flow-icon">👁️</div>
-            <h3>Observe</h3>
+            <h3>Capture Player Context</h3>
             <p>
-              Our SDK captures gameplay events - kills, deaths, choices, achievements, 
-              emotional moments - feeding context to your companion in real-time.
+              Our SDK captures gameplay events automatically. Understand what your 
+              players do, when they struggle, and what keeps them engaged.
             </p>
+            <span className="flow-benefit">→ Reduce integration time to hours, not weeks</span>
           </div>
 
           <div className="flow-card">
             <span className="flow-number">02</span>
-            <div className="flow-icon">💭</div>
-            <h3>Engage</h3>
+            <div className="flow-icon">🧠</div>
+            <h3>Build Lasting Relationships</h3>
             <p>
-              The companion comments, celebrates, warns, and jokes. It builds emotional 
-              bonds through genuine reactions to player actions, not scripted dialogue.
+              Every session builds persistent memory. Players feel recognized and 
+              valued - the #1 driver of long-term retention.
             </p>
+            <span className="flow-tech">Powered by vector memory and real-time event streaming</span>
+            <span className="flow-benefit">→ Increase Day-30 retention by up to 20%</span>
           </div>
 
           <div className="flow-card">
             <span className="flow-number">03</span>
-            <div className="flow-icon">🧠</div>
-            <h3>Remember</h3>
-            <p>
-              Every interaction builds persistent memory. Your companion recalls past 
-              adventures, references shared jokes, and evolves its personality over time.
-            </p>
-          </div>
-
-          <div className="flow-card">
-            <span className="flow-number">04</span>
             <div className="flow-icon">🌐</div>
-            <h3>Travel</h3>
+            <h3>Stay Connected Everywhere</h3>
             <p>
-              The companion extends beyond the game - Discord, forums, social media. 
-              It shares stories, answers questions, and keeps the connection alive.
+              Companions follow players to Discord, social media, and beyond - 
+              keeping your game top-of-mind even when they&apos;re not playing.
             </p>
+            <span className="flow-benefit">→ 3x more re-engagement touchpoints</span>
           </div>
         </div>
       </section>
