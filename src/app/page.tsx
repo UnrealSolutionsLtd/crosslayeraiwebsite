@@ -54,7 +54,7 @@ export default function Home() {
         </p>
 
         <p className="hero-tagline">
-          Increase retention. Deepen engagement. Zero ML expertise required.
+          Increase retention. Deepen engagement. Easy to implement.
         </p>
         
         <div className="hero-cta-group">
