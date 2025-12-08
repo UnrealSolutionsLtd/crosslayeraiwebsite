@@ -50,11 +50,11 @@ export default function Home() {
         </h1>
         
         <p className="hero-subtitle">
-          AI companions that remember your players.
+          The companion engine that turns first-time players into loyal fans.
         </p>
 
         <p className="hero-tagline">
-          Increase retention. Deepen engagement. Easy to implement.
+          One SDK. Persistent memory. Cross-platform presence.
         </p>
         
         <div className="hero-cta-group">
