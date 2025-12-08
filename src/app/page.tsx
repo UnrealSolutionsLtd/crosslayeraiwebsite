@@ -42,7 +42,7 @@ export default function Home() {
         <div className="orb orb-cyan" />
         <div className="orb orb-magenta" />
         
-        <span className="hero-badge">🚀 Now Accepting Early Partners</span>
+        <span className="hero-badge">🚀 Join 50+ Studios on the Waitlist</span>
         
         <h1>
           The AI Companion That<br />
@@ -50,8 +50,11 @@ export default function Home() {
         </h1>
         
         <p className="hero-subtitle">
-          CROSSLAYERAI is the first persistent AI companion engine that observes your gameplay, 
-          builds memories, and travels with you across games, Discord, and beyond.
+          AI companions that remember your players.
+        </p>
+
+        <p className="hero-tagline">
+          Increase retention. Deepen engagement. Zero ML expertise required.
         </p>
         
         <div className="hero-cta-group">
@@ -220,9 +223,9 @@ export default function Home() {
       <section className="section" id="audiences" style={{ background: 'var(--color-bg-secondary)' }}>
         <div className="section-header">
           <span className="section-tag">Who It&apos;s For</span>
-          <h2>Built for Every Scale</h2>
+          <h2>Built for Game Studios</h2>
           <p>
-            From indie studios to AAA publishers, CROSSLAYERAI adapts to your needs.
+            From indie teams to AAA publishers, CROSSLAYERAI scales with you.
           </p>
         </div>
 
@@ -259,37 +262,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="audience-card">
-            <div className="audience-icon">💬</div>
-            <div className="audience-content">
-              <h3>LLM Companion Apps</h3>
-              <p>
-                Give your characters a world to inhabit. Ground emotional connections 
-                in real gameplay experiences and dramatically increase user retention.
-              </p>
-              <ul className="audience-benefits">
-                <li>API integration</li>
-                <li>Revenue share model</li>
-                <li>Cross-promotion</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="audience-card">
-            <div className="audience-icon">📺</div>
-            <div className="audience-content">
-              <h3>Creators & VTubers</h3>
-              <p>
-                Create AI co-hosts that engage your community 24/7. Persistent personas 
-                that remember fans, create content, and scale your presence.
-              </p>
-              <ul className="audience-benefits">
-                <li>Web-based setup</li>
-                <li>Auto-content generation</li>
-                <li>Community integration</li>
-              </ul>
-            </div>
-          </div>
         </div>
       </section>
 
