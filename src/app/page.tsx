@@ -77,7 +77,7 @@ export default function Home() {
             <div className="demo-header">
               <div className="demo-avatar">🤖</div>
               <div className="demo-info">
-                <h4>ARIA — Your AI Companion</h4>
+                <h4>Eva - Your AI Companion</h4>
                 <span>Observing • Building Memory • Always Present</span>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function Home() {
           <span className="section-tag">How It Works</span>
           <h2>From Observer to Lifelong Companion</h2>
           <p>
-            CROSSLAYERAI companions don&apos;t just chat — they observe, remember, and grow with your players.
+            CROSSLAYERAI companions don&apos;t just chat - they observe, remember, and grow with your players.
           </p>
         </div>
 
@@ -115,8 +115,8 @@ export default function Home() {
             <div className="flow-icon">👁️</div>
             <h3>Observe</h3>
             <p>
-              Our SDK captures gameplay events — kills, deaths, choices, achievements, 
-              emotional moments — feeding context to your companion in real-time.
+              Our SDK captures gameplay events - kills, deaths, choices, achievements, 
+              emotional moments - feeding context to your companion in real-time.
             </p>
           </div>
 
@@ -145,7 +145,7 @@ export default function Home() {
             <div className="flow-icon">🌐</div>
             <h3>Travel</h3>
             <p>
-              The companion extends beyond the game — Discord, forums, social media. 
+              The companion extends beyond the game - Discord, forums, social media. 
               It shares stories, answers questions, and keeps the connection alive.
             </p>
           </div>
@@ -177,7 +177,7 @@ export default function Home() {
             <h3>Emotional Modeling</h3>
             <p>
               Proprietary emotional architecture that creates genuine personality. 
-              Your companion feels happy, concerned, excited — never robotic.
+              Your companion feels happy, concerned, excited - never robotic.
             </p>
           </div>
 
