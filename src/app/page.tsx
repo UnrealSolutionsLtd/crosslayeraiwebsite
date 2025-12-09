@@ -42,19 +42,13 @@ export default function Home() {
         <div className="orb orb-cyan" />
         <div className="orb orb-magenta" />
         
-        <span className="hero-badge">🚀 Join 50+ Studios on the Waitlist</span>
-        
         <h1>
-          The AI Companion That<br />
-          <span className="highlight glow-cyan">Remembers Everything</span>
+          Turn Players Into<br />
+          <span className="highlight glow-cyan">Lifelong Fans</span>
         </h1>
         
         <p className="hero-subtitle">
-          The companion engine that turns first-time players into loyal fans.
-        </p>
-
-        <p className="hero-tagline">
-          One SDK. Persistent memory. Cross-platform presence.
+          AI companions that remember, connect, and keep them coming back.
         </p>
         
         <div className="hero-cta-group">
@@ -71,82 +65,83 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Demo Visual */}
+        {/* Differentiation Visual */}
         <div className="hero-visual">
-          <div className="companion-demo box-glow-cyan">
-            <div className="demo-header">
-              <div className="demo-avatar">🤖</div>
-              <div className="demo-info">
-                <h4>Eva - Your AI Companion</h4>
-                <span>Observing • Building Memory • Always Present</span>
+          <div className="diff-container">
+            <div className="diff-panel diff-old">
+              <div className="diff-header">
+                <span className="diff-label">Traditional Retention</span>
+              </div>
+              <div className="diff-items">
+                <div className="diff-item faded">
+                  <span className="diff-icon">📧</span>
+                  <span>Generic email blasts</span>
+                </div>
+                <div className="diff-item faded">
+                  <span className="diff-icon">🔔</span>
+                  <span>Annoying push notifications</span>
+                </div>
+                <div className="diff-item faded">
+                  <span className="diff-icon">🎁</span>
+                  <span>Same rewards for everyone</span>
+                </div>
+                <div className="diff-item faded">
+                  <span className="diff-icon">📊</span>
+                  <span>Players are just numbers</span>
+                </div>
+              </div>
+              <div className="diff-result negative">
+                <span>❌ Day-7 churn: 70%+</span>
               </div>
             </div>
-            <div className="demo-messages">
-              <div className="demo-message">
-                &quot;Nice dodge! That <span className="highlight">Obsidian Golem</span> almost got you with 2 HP left. 
-                Remember when we practiced that timing in the tutorial?&quot;
+
+            <div className="diff-divider">
+              <div className="diff-vs">VS</div>
+            </div>
+
+            <div className="diff-panel diff-new">
+              <div className="diff-header">
+                <span className="diff-label highlight">CrossLayerAI</span>
               </div>
-              <div className="demo-message">
-                &quot;I noticed you&apos;ve collected 47 rare crystals. Want me to remind you 
-                when the <span className="highlight">Moonlight Merchant</span> spawns tomorrow?&quot;
+              <div className="diff-items">
+                <div className="diff-item glow">
+                  <span className="diff-icon">🧠</span>
+                  <span>Remembers every player&apos;s journey</span>
+                </div>
+                <div className="diff-item glow">
+                  <span className="diff-icon">💬</span>
+                  <span>Personal conversations that matter</span>
+                </div>
+                <div className="diff-item glow">
+                  <span className="diff-icon">🌐</span>
+                  <span>Present everywhere they are</span>
+                </div>
+                <div className="diff-item glow">
+                  <span className="diff-icon">❤️</span>
+                  <span>Real emotional connection</span>
+                </div>
               </div>
-              <div className="demo-message">
-                &quot;Just shared your epic boss fight on Discord! The guild is already 
-                talking about your <span className="highlight">legendary parry combo</span>.&quot;
+              <div className="diff-result positive">
+                <span>✓ +20% Day-30 retention</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* USP Visual Section */}
-      <section className="section usp-section" id="usp">
+      {/* How It Works Visual */}
+      <section className="section usp-section" id="how-it-works">
         <div className="section-header">
-          <span className="section-tag">The Vision</span>
-          <h2>One Companion. Two Worlds. Infinite Connection.</h2>
-          <p>Your AI companion bridges the gap between gameplay and the real world.</p>
+          <span className="section-tag">How It Works</span>
+          <h2>In-Game → Everywhere</h2>
         </div>
 
         <div className="usp-visual">
-          {/* Top capability icons */}
-          <div className="usp-capabilities">
-            <div className="cap-icon" title="Observes">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M12 5C5.636 5 2 12 2 12s3.636 7 10 7 10-7 10-7-3.636-7-10-7z"/>
-              </svg>
-            </div>
-            <div className="cap-icon" title="Comments">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-              </svg>
-            </div>
-            <div className="cap-icon" title="Speaks">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/>
-                <line x1="8" y1="23" x2="16" y2="23"/>
-              </svg>
-            </div>
-            <div className="cap-arrow">→</div>
-            <div className="cap-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-              </svg>
-              <span>SHARES STORIES</span>
-            </div>
-          </div>
-
           <div className="usp-diagram">
             {/* Game World Panel */}
             <div className="usp-panel game-world">
-              <div className="panel-flow-label left-flow">
-                <span>OBSERVES</span>
-                <span>COMMENTS</span>
-                <span>LEARNS</span>
-              </div>
-              <h3>THE GAME WORLD</h3>
+              <h3>IN-GAME</h3>
+              <p className="panel-desc">Watches, learns, and builds memory</p>
               <div className="panel-icons">
                 <div className="panel-icon">🎮</div>
                 <div className="panel-icon">⚔️</div>
@@ -178,11 +173,8 @@ export default function Home() {
 
             {/* Everywhere Layer Panel */}
             <div className="usp-panel everywhere-layer">
-              <div className="panel-flow-label right-flow">
-                <span>SHARES</span>
-                <span>STORIES</span>
-              </div>
               <h3>THE EVERYWHERE LAYER</h3>
+              <p className="panel-desc">Shares stories and keeps players engaged</p>
               <div className="panel-icons">
                 <div className="panel-icon-labeled">
                   <span className="icon-svg tiktok">
@@ -193,12 +185,12 @@ export default function Home() {
                   <span className="icon-label">TikTok</span>
                 </div>
                 <div className="panel-icon-labeled">
-                  <span className="icon-svg forums">
+                  <span className="icon-svg discord">
                     <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                     </svg>
                   </span>
-                  <span className="icon-label">Forums</span>
+                  <span className="icon-label">Discord</span>
                 </div>
                 <div className="panel-icon-labeled">
                   <span className="icon-svg reddit">
@@ -216,65 +208,16 @@ export default function Home() {
                   </span>
                   <span className="icon-label">LLM Apps</span>
                 </div>
+                <div className="panel-icon-labeled">
+                  <span className="icon-svg web">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                  </span>
+                  <span className="icon-label">Web</span>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Flow arrows for mobile */}
-          <div className="usp-flow-arrows">
-            <div className="flow-arrow left">
-              <span>← Observes, Comments, Learns</span>
-            </div>
-            <div className="flow-arrow right">
-              <span>Shares Stories →</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="section how-it-works" id="how-it-works">
-        <div className="section-header">
-          <span className="section-tag">How It Works</span>
-          <h2>Three Steps to Better Retention</h2>
-          <p>
-            A simple integration that delivers measurable results.
-          </p>
-        </div>
-
-        <div className="flow-container">
-          <div className="flow-card">
-            <span className="flow-number">01</span>
-            <div className="flow-icon">👁️</div>
-            <h3>Capture Player Context</h3>
-            <p>
-              Our SDK captures gameplay events automatically. Understand what your 
-              players do, when they struggle, and what keeps them engaged.
-            </p>
-            <span className="flow-benefit">→ Reduce integration time to hours, not weeks</span>
-          </div>
-
-          <div className="flow-card">
-            <span className="flow-number">02</span>
-            <div className="flow-icon">🧠</div>
-            <h3>Build Lasting Relationships</h3>
-            <p>
-              Every session builds persistent memory. Players feel recognized and 
-              valued - the #1 driver of long-term retention.
-            </p>
-            <span className="flow-tech">Powered by vector memory and real-time event streaming</span>
-            <span className="flow-benefit">→ Increase Day-30 retention by up to 20%</span>
-          </div>
-
-          <div className="flow-card">
-            <span className="flow-number">03</span>
-            <div className="flow-icon">🌐</div>
-            <h3>Stay Connected Everywhere</h3>
-            <p>
-              Companions follow players to Discord, social media, and beyond - 
-              keeping your game top-of-mind even when they&apos;re not playing.
-            </p>
-            <span className="flow-benefit">→ 3x more re-engagement touchpoints</span>
           </div>
         </div>
       </section>
@@ -390,36 +333,7 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
-
-      {/* CTA / Signup Section */}
-      <section className="cta-section" id="signup">
-        <div className="cta-container">
-          <h2>
-            Be First to Build the<br />
-            <span className="highlight glow-cyan">Future of AI Companions</span>
-          </h2>
-          <p>
-            Join our early access program and shape the next generation of 
-            persistent gaming AI.
-          </p>
-
-          <div className="form-container">
-            <h3>🚀 Join the Waitlist</h3>
-            <p>Get notified when we launch and receive exclusive early partner benefits.</p>
-            
-            <button 
-              className="btn-primary" 
-              data-tally-open="EkK1Or" 
-              data-tally-emoji-text="👋" 
-              data-tally-emoji-animation="wave"
-              style={{ width: '100%', marginTop: '1rem', fontSize: '1.1rem', padding: '1.2rem 2rem' }}
-            >
-              Sign Up Now
-            </button>
-          </div>
-        </div>
-      </section>
+      </section>  
 
       {/* Footer */}
       <footer className="footer">
