@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Mail,
   Bell,
@@ -21,6 +21,8 @@ import {
   Mic,
   Link2,
   BarChart3,
+  Copy,
+  CheckCircle2,
 } from 'lucide-react'
 import LiveDemo from './components/LiveDemo'
 import Header from './components/Header'
@@ -29,6 +31,34 @@ import { GA_EVENTS } from './lib/analytics'
 export default function Home() {
   const viewedSections = useRef<Set<string>>(new Set())
   const scrollMilestones = useRef<Set<number>>(new Set())
+  const [copied, setCopied] = useState(false)
+
+  const codeSnippet = `// Initialize CrossLayerAI
+import { CrossLayerAI } from '@crosslayerai/sdk';
+
+const companion = new CrossLayerAI({
+  gameId: 'your-game-id',
+  apiKey: process.env.CROSSLAYER_API_KEY
+});
+
+// Track player events
+companion.trackEvent({
+  playerId: player.id,
+  event: 'boss_defeated',
+  metadata: {
+    bossName: 'Dragon Lord',
+    playerLevel: 42,
+    timeTaken: '8:32'
+  }
+});
+
+// Your companion now remembers this forever ✨`
+
+  const handleCopyCode = async () => {
+    await navigator.clipboard.writeText(codeSnippet)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   useEffect(() => {
     // Load Tally embed script
@@ -64,6 +94,7 @@ export default function Home() {
         { id: 'vs-section', name: 'VS Comparison', selector: '.vs-section' },
         { id: 'how-it-works', name: 'How It Works' },
         { id: 'features', name: 'Features' },
+        { id: 'integration', name: 'Integration Code' },
         { id: 'problem', name: 'The Problem' },
       ]
 
@@ -105,13 +136,15 @@ export default function Home() {
         <div className="orb orb-cyan" />
         <div className="orb orb-magenta" />
         
+        <span className="hero-badge">Retention Is Revenue</span>
+        
         <h1>
           Turn Players Into<br />
           <span className="highlight glow-cyan">Lifelong Fans</span>
         </h1>
         
         <p className="hero-subtitle">
-          AI companions that remember, connect, and keep them coming back.
+          <strong>Through companions, not campaigns.</strong>
         </p>
 
         {/* Live Demo - Right in Hero */}
@@ -343,6 +376,97 @@ export default function Home() {
               Companions communicate patches, events, and updates. They react to world 
               events and keep players engaged between sessions.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Code Snippet Section */}
+      <section className="section code-section" id="integration">
+        <div className="section-header">
+          <span className="section-tag">Integration</span>
+          <h2>Get Started in Minutes</h2>
+          <p>
+            Simple SDK setup. Powerful companion intelligence.
+          </p>
+        </div>
+
+        <div className="sdk-icons">
+          <div className="sdk-icon" title="Unity">
+            <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
+            <span>Unity</span>
+          </div>
+          <div className="sdk-icon" title="Unreal Engine">
+            <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
+            <span>Unreal</span>
+          </div>
+          <div className="sdk-icon" title="Discord">
+            <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
+            <span>Discord</span>
+          </div>
+          <div className="sdk-icon" title="HTML5 / Web Games">
+            <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
+            <span>HTML5</span>
+          </div>
+          <div className="sdk-icon" title="REST API">
+            <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
+            <span>REST API</span>
+          </div>
+          <div className="sdk-icon" title="JavaScript / TypeScript">
+            <img src="https://cdn.simpleicons.org/javascript/white" alt="JavaScript" />
+            <span>JavaScript</span>
+          </div>
+        </div>
+
+        <div className="code-container">
+          <div className="code-window">
+            <div className="code-header">
+              <div className="code-dots">
+                <span className="dot red"></span>
+                <span className="dot yellow"></span>
+                <span className="dot green"></span>
+              </div>
+              <span className="code-filename">companion.ts</span>
+              <button className="code-copy-btn" onClick={handleCopyCode}>
+                {copied ? (
+                  <>
+                    <CheckCircle2 size={14} />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            </div>
+            <pre className="code-content">
+              <code>{codeSnippet}</code>
+            </pre>
+          </div>
+
+          <div className="code-features">
+            <div className="code-feature">
+              <div className="code-feature-icon"><Zap size={20} /></div>
+              <div>
+                <h4>One-Line Init</h4>
+                <p>Drop in the SDK and start tracking in seconds</p>
+              </div>
+            </div>
+            <div className="code-feature">
+              <div className="code-feature-icon"><Database size={20} /></div>
+              <div>
+                <h4>Auto Memory</h4>
+                <p>Every event builds persistent player memory</p>
+              </div>
+            </div>
+            <div className="code-feature">
+              <div className="code-feature-icon"><Globe size={20} /></div>
+              <div>
+                <h4>Cross-Platform</h4>
+                <p>Works with Unity, Unreal, and web games</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
