@@ -17,12 +17,12 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CROSSLAYERAI | Persistent AI Companion Engine',
-  description: 'The first cross-world AI companion that observes your gameplay, builds memories, and travels with you across digital spaces.',
-  keywords: 'AI companion, gaming AI, NPC AI, game development, AI SDK, persistent companion',
+  title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
+  description: 'Boost retention with AI companions that remember every player. One SDK integration. Persistent memory. Cross-platform presence.',
+  keywords: 'AI companion, gaming AI, NPC AI, game development, AI SDK, player retention, game retention',
   openGraph: {
-    title: 'CROSSLAYERAI | Persistent AI Companion Engine',
-    description: 'The first cross-world AI companion that observes your gameplay, builds memories, and travels with you across digital spaces.',
+    title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
+    description: 'Boost retention with AI companions that remember every player. One SDK integration. Persistent memory. Cross-platform presence.',
     type: 'website',
   },
 }
