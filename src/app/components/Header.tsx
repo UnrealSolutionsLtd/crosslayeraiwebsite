@@ -42,20 +42,6 @@ export default function Header() {
     color: '#ffffff',
   }
 
-  const navActionsStyle: CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 'clamp(8px, 2vw, 24px)',
-  }
-
-  const navLinkStyle: CSSProperties = {
-    fontSize: 'clamp(0.7rem, 2vw, 0.9rem)',
-    fontWeight: 500,
-    color: '#c5c5d0',
-    textDecoration: 'none',
-    whiteSpace: 'nowrap',
-  }
-
   const navCtaStyle: CSSProperties = {
     padding: 'clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 24px)',
     background: 'transparent',
@@ -76,27 +62,22 @@ export default function Header() {
         <a href="/" style={logoStyle}>
           CROSSLAYER<span style={logoSpanStyle}>AI</span>
         </a>
-        <div style={navActionsStyle}>
-          <a href="#demo" style={navLinkStyle}>
-            Live Preview
-          </a>
-          <button
-            style={navCtaStyle}
-            data-tally-open="EkK1Or"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#00f5d4'
-              e.currentTarget.style.color = '#0a0a0f'
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 245, 212, 0.4)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'transparent'
-              e.currentTarget.style.color = '#00f5d4'
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-          >
-            Join Waitlist
-          </button>
-        </div>
+        <button
+          style={navCtaStyle}
+          data-tally-open="EkK1Or"
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#00f5d4'
+            e.currentTarget.style.color = '#0a0a0f'
+            e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 245, 212, 0.4)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent'
+            e.currentTarget.style.color = '#00f5d4'
+            e.currentTarget.style.boxShadow = 'none'
+          }}
+        >
+          Join Waitlist
+        </button>
       </div>
     </nav>
   )
