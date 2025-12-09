@@ -7,44 +7,44 @@ const DEMOS = [
   {
     game: 'Fortnite',
     event: 'Victory Royale • 12 kills',
-    getMessage: (name: string) => `@${name} just dropped a 12-BOMB 🎉
+    getMessage: (name: string) => `YOOO @${name} 12 KILLS??? 
 
-Your old record was 8. You told me you'd break it.
+bro your PR was 8 like a month ago lmaooo what happened
 
-Done. Highlight reel updated. GGs only 💜`,
+actually insane. im saving this clip forever 😭`,
     avatar: '🎮',
     color: '#00d4ff',
   },
   {
     game: 'Genshin Impact',
     event: 'Wish • 5-Star Pull',
-    getMessage: (name: string) => `@${name} FURINA CAME HOME ✨
+    getMessage: (name: string) => `@${name} WAIT WAIT WAIT
 
-8 months of saving. You skipped Nahida. Skipped Raiden.
+YOU GOT FURINA?? after skipping like 3 banners for her??
 
-76 pity. Worth every primo. Let's build her 💙`,
+bro i literally remember u malding over that fontaine trailer. 8 MONTHS. she's home 😭💙`,
     avatar: '✨',
     color: '#a855f7',
   },
   {
     game: 'VALORANT',
     event: 'ACE • 1v4 Clutch',
-    getMessage: (name: string) => `@${name} 1v4 ACE. I'm shaking 🎯
+    getMessage: (name: string) => `@${name} BRO WHAT WAS THAT
 
-Yesterday you said you were washed.
+a 1v4?? weren't u literally crying yesterday saying ur washed??
 
-Today you're HIM. That's growth ⚡`,
+nah ur actually him. that was DISGUSTING 🎯`,
     avatar: '🎯',
     color: '#ff4655',
   },
   {
     game: 'Elden Ring',
     event: 'Malenia • No Hit',
-    getMessage: (name: string) => `@${name} did it. 47 attempts. Zero hits ⚔️
+    getMessage: (name: string) => `@${name} NO SHOT
 
-Attempt 23 you almost quit. I talked you back.
+47 ATTEMPTS. ZERO DAMAGE. 
 
-Now you're in the 0.3%. Legendary 👑`,
+dude on attempt 23 you were gonna quit and i was like nah keep going. LOOK AT YOU NOW 😭👑`,
     avatar: '⚔️',
     color: '#fbbf24',
   },
@@ -82,9 +82,15 @@ export default function LiveDemo() {
 
   const startDemo = () => {
     if (!playerName.trim()) return
-    setStage('demo')
-    setIsTyping(true)
-    playMessage()
+    
+    // Shake effect!
+    document.body.classList.add('screen-shake')
+    setTimeout(() => {
+      document.body.classList.remove('screen-shake')
+      setStage('demo')
+      setIsTyping(true)
+      playMessage()
+    }, 500)
   }
 
   const playMessage = () => {
