@@ -16,7 +16,15 @@ interface Demo {
 
 const DEMOS: Demo[] = [
   {
-    // SCENARIO 1: Discord text message
+    // SCENARIO 1: Auto-generated video highlight
+    type: 'video',
+    game: 'VALORANT',
+    event: 'Auto-clipped • ACE',
+    getMessage: (name: string) => `${name}'s 1v4 ACE 🎯 They said they were "washed" yesterday lol`,
+    color: '#ff4655',
+  },
+  {
+    // SCENARIO 2: Discord text message
     type: 'discord',
     game: 'Fortnite',
     event: 'Victory Royale • 12 kills',
@@ -28,28 +36,20 @@ actually insane. saving this clip forever 😭`,
     color: '#5865f2',
   },
   {
-    // SCENARIO 2: Auto-generated video highlight
-    type: 'video',
-    game: 'VALORANT',
-    event: 'Auto-clipped • ACE',
-    getMessage: (name: string) => `${name}'s 1v4 ACE 🎯 They said they were "washed" yesterday lol`,
-    color: '#ff4655',
+    // SCENARIO 3: Voice message
+    type: 'voice',
+    game: 'Apex Legends',
+    event: 'Voice Message • Re-engagement',
+    getMessage: (name: string) => `Hey ${name}, it's been like 2 weeks... I still remember that 2800 damage game. You were ONE shot from your 3k badge.`,
+    color: '#e63946',
   },
   {
-    // SCENARIO 3: TikTok/Social shareable post
+    // SCENARIO 4: TikTok/Social shareable post
     type: 'tiktok',
     game: 'Elden Ring',
     event: 'Generated • Achievement Post',
     getMessage: (name: string) => `147 hours. 34 deaths to Margit. Almost quit twice. @${name} just got the Platinum. This is what persistence looks like. 👑`,
     color: '#00f2ea',
-  },
-  {
-    // SCENARIO 4: Voice message
-    type: 'voice',
-    game: 'Apex Legends',
-    event: 'Voice Message • Re-engagement',
-    getMessage: (name: string) => `Hey ${name}, it's been like 2 weeks... I still remember that 2800 damage game. You were ONE shot from your 3k badge. Season 19 just dropped. Your wingman misses you.`,
-    color: '#e63946',
   },
 ]
 
@@ -136,17 +136,17 @@ export default function LiveDemo() {
     }
   }, [currentIndex])
 
-  // Control audio playback for voice demo
+  // Control audio playback for voice demo - play immediately when voice demo is shown
   useEffect(() => {
     if (audioRef.current) {
-      if (isPlaying && demo.type === 'voice') {
+      if (stage === 'demo' && demo.type === 'voice') {
         audioRef.current.currentTime = 0
         audioRef.current.play()
       } else {
         audioRef.current.pause()
       }
     }
-  }, [isPlaying, demo.type])
+  }, [stage, demo.type, currentIndex])
 
   const nextDemo = () => {
     const nextIndex = (currentIndex + 1) % DEMOS.length
@@ -209,7 +209,7 @@ export default function LiveDemo() {
                 muted={isMuted}
                 playsInline
               />
-              <div className="demo-video-game-overlay">VALORANT</div>
+                <div className="demo-video-game-overlay">VALORANT</div>
               <button 
                 className="demo-video-mute-btn"
                 onClick={() => setIsMuted(!isMuted)}
