@@ -2105,6 +2105,18 @@ body {
   white-space: pre-wrap;
 }
 
+/* Playertag highlight - used in all demo types */
+.demo-playertag-highlight {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.25), rgba(131, 56, 236, 0.25));
+  color: var(--color-accent-cyan);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+  box-shadow: 0 0 8px rgba(0, 245, 212, 0.3);
+  border: 1px solid rgba(0, 245, 212, 0.3);
+}
+
 /* ========== VIDEO FORMAT ========== */
 .demo-video {
   padding: 16px;

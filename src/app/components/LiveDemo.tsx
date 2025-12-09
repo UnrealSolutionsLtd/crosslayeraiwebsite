@@ -78,6 +78,30 @@ export default function LiveDemo() {
   const demo = DEMOS[currentIndex]
   const displayName = playerName || 'Player'
 
+  // Helper to highlight the playertag in displayed text
+  const highlightPlayerTag = (text: string) => {
+    if (!displayName) return text
+    
+    // Split by the player name (with or without @)
+    const patterns = [`@${displayName}`, displayName]
+    let result: (string | JSX.Element)[] = [text]
+    
+    patterns.forEach(pattern => {
+      result = result.flatMap((part, idx) => {
+        if (typeof part !== 'string') return part
+        const parts = part.split(pattern)
+        if (parts.length === 1) return part
+        return parts.flatMap((p, i) => 
+          i < parts.length - 1 
+            ? [p, <span key={`${idx}-${i}`} className="demo-playertag-highlight">{pattern}</span>]
+            : p
+        )
+      })
+    })
+    
+    return result
+  }
+
   const handleYes = () => {
     GA_EVENTS.DEMO_CHOICE_YES()
     setStage('name')
@@ -188,7 +212,7 @@ export default function LiveDemo() {
               <div className="demo-discord-content">
                 <div className="demo-discord-name">Blin <span className="demo-bot-tag">BOT</span></div>
                 <div className="demo-discord-text">
-                  {displayedText}
+                  {highlightPlayerTag(displayedText)}
                   {isTyping && <span className="demo-cursor">|</span>}
                 </div>
               </div>
@@ -219,7 +243,7 @@ export default function LiveDemo() {
               </button>
             </div>
             <div className="demo-video-caption">
-              {displayedText}
+              {highlightPlayerTag(displayedText)}
               {isTyping && <span className="demo-cursor">|</span>}
             </div>
             <div className="demo-video-actions">
@@ -244,7 +268,7 @@ export default function LiveDemo() {
                 <img src="/tiktok_post.png" alt="Elden Ring Platinum Achievement" />
               </div>
               <div className="demo-tiktok-text">
-                {displayedText}
+                {highlightPlayerTag(displayedText)}
                 {isTyping && <span className="demo-cursor">|</span>}
               </div>
               <div className="demo-tiktok-tags">#gaming #eldenring #platinum #persistence</div>
@@ -282,7 +306,7 @@ export default function LiveDemo() {
                   ))}
                 </div>
                 <div className="demo-voice-transcript">
-                  "{displayedText}"
+                  "{highlightPlayerTag(displayedText)}"
                   {isTyping && <span className="demo-cursor">|</span>}
                 </div>
               </div>
