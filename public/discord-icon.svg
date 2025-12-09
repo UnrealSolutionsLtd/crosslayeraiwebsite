@@ -13,20 +13,20 @@
     </filter>
   </defs>
   
-  <!-- Background -->
-  <rect width="512" height="512" fill="#0a0a0f"/>
+  <!-- Background - subtle border for visibility -->
+  <rect width="512" height="512" rx="96" fill="transparent" stroke="rgba(0, 245, 212, 0.3)" stroke-width="4"/>
   
-  <!-- 3 THICK Horizontal Layers - fill more space -->
-  <!-- Top Layer (cyan glow) - THICK 80px -->
-  <rect x="40" y="80" width="432" height="80" rx="16" fill="#1a1a25" stroke="url(#dcg1)" stroke-width="8" filter="url(#dcglow)"/>
+  <!-- 3 THICK Horizontal Layers -->
+  <!-- Top Layer (cyan glow) -->
+  <rect x="40" y="80" width="432" height="80" rx="16" fill="rgba(255,255,255,0.08)" stroke="url(#dcg1)" stroke-width="8" filter="url(#dcglow)"/>
   
-  <!-- Middle Layer (purple) - THICK 80px -->
-  <rect x="40" y="196" width="432" height="80" rx="16" fill="#1a1a25" stroke="#8338ec" stroke-width="7"/>
+  <!-- Middle Layer (purple) -->
+  <rect x="40" y="196" width="432" height="80" rx="16" fill="rgba(255,255,255,0.08)" stroke="#8338ec" stroke-width="7"/>
   
-  <!-- Bottom Layer (gray) - THICK 80px -->
-  <rect x="40" y="312" width="432" height="80" rx="16" fill="#1a1a25" stroke="#2a2a3a" stroke-width="6"/>
+  <!-- Bottom Layer -->
+  <rect x="40" y="312" width="432" height="80" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="6"/>
   
-  <!-- Large AI Core at center - overlapping middle layer -->
+  <!-- Large AI Core at center -->
   <circle cx="256" cy="236" r="72" fill="#00f5d4" filter="url(#dcglow)"/>
   <circle cx="256" cy="236" r="44" fill="#ffffff"/>
   <circle cx="238" cy="218" r="14" fill="rgba(255,255,255,0.5)"/>
