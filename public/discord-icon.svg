@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="dcg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="100%" stop-color="#00d4aa"/>
+    </linearGradient>
+    <linearGradient id="dcg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="50%" stop-color="#8338ec"/>
+      <stop offset="100%" stop-color="#ff6b9d"/>
+    </linearGradient>
+    <filter id="dcglow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="#0a0a0f"/>
+  
+  <!-- Glow orb -->
+  <circle cx="256" cy="256" r="220" fill="rgba(0, 245, 212, 0.1)"/>
+  
+  <!-- BIG Bold Cross - the main element -->
+  <rect x="220" y="60" width="72" height="392" rx="36" fill="url(#dcg2)" filter="url(#dcglow)"/>
+  <rect x="60" y="220" width="392" height="72" rx="36" fill="url(#dcg2)" filter="url(#dcglow)"/>
+  
+  <!-- Large AI Core - very prominent -->
+  <circle cx="256" cy="256" r="80" fill="#00f5d4" filter="url(#dcglow)"/>
+  <circle cx="256" cy="256" r="45" fill="#ffffff"/>
+  
+  <!-- Highlight -->
+  <circle cx="235" cy="235" r="15" fill="rgba(255,255,255,0.5)"/>
+</svg>
