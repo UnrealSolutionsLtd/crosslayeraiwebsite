@@ -22,6 +22,7 @@ import {
   Link2,
   BarChart3,
 } from 'lucide-react'
+import LiveDemo from './components/LiveDemo'
 
 export default function Home() {
   useEffect(() => {
@@ -47,12 +48,17 @@ export default function Home() {
           <a href="/" className="logo">
             CROSSLAYER<span>AI</span>
           </a>
-          <button 
-            className="nav-cta" 
-            data-tally-open="EkK1Or" 
-          >
-            Join Waitlist
-          </button>
+          <div className="nav-actions">
+            <a href="#demo" className="nav-link">
+              Live Preview
+            </a>
+            <button 
+              className="nav-cta" 
+              data-tally-open="EkK1Or" 
+            >
+              Join Waitlist
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -240,6 +246,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Live Demo */}
+      <LiveDemo />
 
       {/* Features */}
       <section className="section" id="features">

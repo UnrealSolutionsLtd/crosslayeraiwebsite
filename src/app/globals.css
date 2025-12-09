@@ -108,6 +108,24 @@ body {
   color: var(--color-text-primary);
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--color-cyan);
+}
+
 .nav-cta {
   padding: 0.6rem 1.5rem;
   background: transparent;
@@ -1346,5 +1364,392 @@ body {
   background: rgba(131, 56, 236, 0.1);
   top: 50%;
   left: 30%;
+}
+
+/* ==================== LIVE DEMO SECTION ==================== */
+
+.demo-section {
+  padding: 80px 24px;
+  background: var(--color-bg);
+}
+
+.demo-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.demo-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 0, 110, 0.15));
+  color: var(--color-cyan);
+  margin-bottom: 16px;
+}
+
+.demo-header h2 {
+  font-family: var(--font-primary);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.demo-header p {
+  font-family: var(--font-primary);
+  color: var(--color-text-secondary);
+  font-size: 18px;
+}
+
+/* Choice Stage */
+.demo-choice-hook {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-cyan);
+  margin-bottom: 16px;
+}
+
+.demo-choice-question {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+.demo-choice-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.demo-choice-btn {
+  padding: 20px 44px;
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.demo-choice-yes {
+  background: #00f5d4;
+  border: 3px solid #00f5d4;
+  color: #000;
+  box-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
+}
+
+.demo-choice-yes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(0, 245, 212, 0.7);
+}
+
+.demo-choice-no {
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px solid #fff;
+  color: #fff;
+}
+
+.demo-choice-no:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Rejection Stage */
+.demo-rejection-msg {
+  font-family: var(--font-primary);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.demo-try-again {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: var(--color-cyan);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.demo-try-again:hover {
+  color: #fff;
+}
+
+/* Name Stage */
+.demo-name-prompt {
+  font-family: var(--font-primary);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Demo Card - Discord-style */
+.demo-card {
+  background: #313338;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.demo-event-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.demo-game {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--demo-color);
+}
+
+.demo-event {
+  font-size: 12px;
+  color: #b5bac1;
+}
+
+.demo-message-container {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  min-height: 200px;
+}
+
+.demo-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.demo-message-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.demo-bot-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-primary);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.demo-bot-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: #5865f2;
+  color: #fff;
+}
+
+.demo-message-text {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #dbdee1;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.demo-cursor {
+  color: var(--color-cyan);
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.demo-refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #b5bac1;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.demo-refresh:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.demo-refresh:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.demo-refresh .spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Scenario Dots */
+.demo-scenarios-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.demo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.demo-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.demo-dot.active {
+  transform: scale(1.2);
+}
+
+/* Demo Input Card */
+.demo-input-card {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(255, 0, 110, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+
+.demo-input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.demo-name-input {
+  flex: 1;
+  padding: 14px 20px;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.demo-name-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.demo-name-input:focus {
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.demo-start-btn {
+  padding: 18px 40px;
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  border: 3px solid #00f5d4;
+  background: #00f5d4;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
+}
+
+.demo-start-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(0, 245, 212, 0.7);
+}
+
+.demo-start-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.demo-change-name {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.demo-change-name:hover {
+  color: var(--color-cyan);
+}
+
+@media (max-width: 500px) {
+  .demo-input-row {
+    flex-direction: column;
+  }
+  
+  .demo-input-card {
+    padding: 24px;
+  }
 }
 
