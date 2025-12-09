@@ -471,46 +471,6 @@ companion.trackEvent({
         </div>
       </section>
 
-      {/* The Problem */}
-      <section className="section" id="problem" style={{ background: 'var(--color-bg-secondary)' }}>
-        <div className="section-header">
-          <span className="section-tag">The Problem</span>
-          <h2>Retention Is Broken</h2>
-          <p>
-            Most players leave and never come back. Traditional methods don&apos;t work anymore.
-          </p>
-        </div>
-
-        <div className="audiences-container">
-          <div className="audience-card">
-            <div className="audience-icon"><BarChart2 size={36} /></div>
-            <div className="audience-content">
-              <h3>Day 7 retention averages 4%</h3>
-              <p>
-                96% of players are gone within a week. Push notifications get ignored. 
-                Email campaigns get filtered. Discount pop-ups feel desperate. 
-                Players don&apos;t leave because your game is bad - they leave because 
-                nothing pulls them back. They are lost forever.
-              </p>
-            </div>
-          </div>
-
-          <div className="audience-card">
-            <div className="audience-icon"><Heart size={36} /></div>
-            <div className="audience-content">
-              <h3>Connection is what&apos;s missing</h3>
-              <p>
-                The games people return to for years have one thing in common: 
-                they create relationships. CrossLayerAI gives every player someone 
-                who remembers them, talks to them between sessions, and makes 
-                coming back feel like coming home. Everywhere.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>  
-
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
