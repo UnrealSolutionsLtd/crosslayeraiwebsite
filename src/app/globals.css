@@ -791,9 +791,31 @@ body {
   .nav {
     padding: 1rem;
   }
+
+  .nav-actions {
+    gap: 12px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .nav-cta {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
   
   .hero {
     padding: 5rem 1.5rem 3rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
   
   .section {
@@ -1815,13 +1837,104 @@ body {
   color: var(--color-cyan);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+  .demo-wrapper {
+    max-width: 100%;
+  }
+
+  .demo-input-card {
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
+
+  .demo-choice-question {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .demo-choice-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .demo-choice-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 15px;
+  }
+
+  .demo-name-prompt {
+    font-size: 22px;
+  }
+
   .demo-input-row {
     flex-direction: column;
+    gap: 12px;
   }
-  
-  .demo-input-card {
-    padding: 24px;
+
+  .demo-name-input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+
+  .demo-start-btn {
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  /* Demo card mobile */
+  .demo-card {
+    border-radius: 10px;
+  }
+
+  .demo-message-container {
+    padding: 12px;
+    gap: 12px;
+    min-height: 160px;
+  }
+
+  .demo-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .demo-bot-name {
+    font-size: 14px;
+  }
+
+  .demo-message-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .demo-refresh {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .demo-cta-section {
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .demo-cta-text {
+    font-size: 16px;
+  }
+
+  .demo-cta-btn {
+    padding: 16px 32px;
+    font-size: 14px;
+  }
+
+  .demo-scenarios-dots {
+    margin-top: 16px;
+  }
+
+  .demo-dot {
+    width: 8px;
+    height: 8px;
   }
 }
 
