@@ -23,6 +23,10 @@ import {
   BarChart3,
   Copy,
   CheckCircle2,
+  Camera,
+  Video,
+  Trophy,
+  FileText,
 } from 'lucide-react'
 import LiveDemo from './components/LiveDemo'
 import Header from './components/Header'
@@ -225,12 +229,43 @@ companion.trackEvent({
           <h2>In-Game → Everywhere</h2>
         </div>
 
+        {/* Media Types - What We Capture */}
+        <div className="media-types-container">
+          <p className="media-types-label">Capture any media feed from your game</p>
+          <div className="media-types-grid">
+            <div className="media-type-item">
+              <Camera size={24} />
+              <span>Screenshots</span>
+            </div>
+            <div className="media-type-item">
+              <Mic size={24} />
+              <span>Voice / Audio</span>
+            </div>
+            <div className="media-type-item">
+              <Video size={24} />
+              <span>Video / Highlights</span>
+            </div>
+            <div className="media-type-item">
+              <MessageCircle size={24} />
+              <span>Text / Chat</span>
+            </div>
+            <div className="media-type-item">
+              <Trophy size={24} />
+              <span>Achievements</span>
+            </div>
+            <div className="media-type-item">
+              <FileText size={24} />
+              <span>Any Event Data</span>
+            </div>
+          </div>
+        </div>
+
         <div className="usp-visual">
           <div className="usp-diagram">
             {/* Game World Panel */}
             <div className="usp-panel game-world">
               <h3>IN-GAME</h3>
-              <p className="panel-desc">Watches, learns, and builds memory</p>
+              <p className="panel-desc">Captures everything, builds memory</p>
               <div className="panel-icons">
                 <div className="panel-icon"><Gamepad2 size={32} /></div>
                 <div className="panel-icon"><Swords size={32} /></div>
