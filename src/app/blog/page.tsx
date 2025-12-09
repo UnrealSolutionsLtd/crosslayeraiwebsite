@@ -89,16 +89,16 @@ export default function BlogPage() {
           <p>
             <strong>CrossLayerAI</strong> represents a new category: the <em>AI companion platform</em> that combines 
             in-game intelligence with cross-platform engagement. Unlike traditional solutions that stay confined to the game, 
-            CrossLayerAI companions follow players to Discord, social media, and beyond—maintaining persistent memory 
+            CrossLayerAI companions follow players to Discord, social media, and beyond-maintaining persistent memory 
             and building real relationships over time.
           </p>
           <h3>Key Topics We Cover</h3>
           <ul>
-            <li><strong>AI Game Companions</strong> — How intelligent companions transform player engagement</li>
-            <li><strong>Player Retention Strategies</strong> — Moving beyond push notifications to emotional connections</li>
-            <li><strong>Discord Bot Development</strong> — Building community with AI that knows your players</li>
-            <li><strong>Game Analytics vs AI</strong> — Why data alone isn&apos;t enough for modern retention</li>
-            <li><strong>LiveOps Automation</strong> — Personalized re-engagement at scale</li>
+            <li><strong>AI Game Companions</strong> - How intelligent companions transform player engagement</li>
+            <li><strong>Player Retention Strategies</strong> - Moving beyond push notifications to emotional connections</li>
+            <li><strong>Discord Bot Development</strong> - Building community with AI that knows your players</li>
+            <li><strong>Game Analytics vs AI</strong> - Why data alone isn&apos;t enough for modern retention</li>
+            <li><strong>LiveOps Automation</strong> - Personalized re-engagement at scale</li>
           </ul>
         </div>
       </section>

@@ -17,9 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
-  description: 'Boost player retention with AI companions that remember every player. Capture in-game events, analyze player behavior, and re-engage everywhere—Discord, TikTok, and beyond.',
-  keywords: 'AI companion, gaming AI, NPC AI, game development, AI SDK, player retention, game retention, Inworld AI alternative, Convai alternative, game analytics, Discord bot, player engagement, LiveOps, re-engagement',
+  title: 'CROSSLAYERAI | Stop Losing Players. Start Bringing Them Back.',
+  description: 'The player re-engagement engine powered by AI companions. Reduce churn, increase LTV, and bring churned players back-automatically through Discord, TikTok, and beyond.',
+  keywords: 'player retention, reduce churn, player re-engagement, gaming AI, AI companion, game development, AI SDK, game retention, Inworld AI alternative, Convai alternative, game analytics, Discord bot, player engagement, LiveOps, win-back',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.svg',
   },
   openGraph: {
-    title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
-    description: 'AI companions that remember, connect, and keep players coming back. Boost retention with persistent memory and cross-platform presence.',
+    title: 'CROSSLAYERAI | Stop Losing Players. Start Bringing Them Back.',
+    description: 'The player re-engagement engine powered by AI companions. Reduce churn, increase LTV, and bring churned players back automatically.',
     type: 'website',
     url: 'https://crosslayerai.com',
     siteName: 'CrossLayerAI',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
-    description: 'AI companions that remember, connect, and keep players coming back.',
+    title: 'CROSSLAYERAI | Stop Losing Players. Start Bringing Them Back.',
+    description: 'The player re-engagement engine powered by AI companions. Reduce churn and bring players back automatically.',
     images: ['https://crosslayerai.com/og-image.png'],
   },
   metadataBase: new URL('https://crosslayerai.com'),

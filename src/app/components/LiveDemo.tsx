@@ -232,6 +232,10 @@ export default function LiveDemo() {
                 loop
                 muted={isMuted}
                 playsInline
+                onLoadedMetadata={(e) => {
+                  const video = e.currentTarget
+                  video.volume = 0.5
+                }}
               />
                 <div className="demo-video-game-overlay">VALORANT</div>
               <button 
@@ -321,18 +325,10 @@ export default function LiveDemo() {
       <div className="demo-wrapper">
         {stage === 'choice' && (
           <div className="demo-input-card">
-            <div className="demo-choice-question">Want to be remembered?</div>
+            <div className="demo-choice-question">See personalized re-engagement</div>
             <div className="demo-choice-buttons">
-              <button className="demo-choice-btn demo-choice-yes" onClick={handleYes}>Yes, show me</button>
-              <button className="demo-choice-btn demo-choice-no" onClick={handleNo}>No thanks</button>
+              <button className="demo-choice-btn demo-choice-yes" onClick={handleYes}>Show me</button>
             </div>
-          </div>
-        )}
-
-        {stage === 'rejected' && (
-          <div className="demo-input-card">
-            <div className="demo-rejection-msg">{rejectionMsg}</div>
-            <button className="demo-try-again" onClick={handleReconsider}>Wait, let me reconsider...</button>
           </div>
         )}
 
@@ -387,7 +383,7 @@ export default function LiveDemo() {
             </div>
 
             <div className="demo-cta-section">
-              <p className="demo-cta-text">This could be your community. Everywhere.</p>
+              <p className="demo-cta-text">This is how you bring players back.</p>
               <button className="demo-cta-btn" data-tally-open="EkK1Or" onClick={handleDemoCTA}>Join Waitlist</button>
               <button className="demo-change-name" onClick={reset}>Try again</button>
             </div>

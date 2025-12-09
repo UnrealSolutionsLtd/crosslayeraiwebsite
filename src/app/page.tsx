@@ -136,15 +136,13 @@ companion.trackEvent({
         <div className="orb orb-cyan" />
         <div className="orb orb-magenta" />
         
-        <span className="hero-badge">Retention Is Revenue</span>
-        
         <h1>
-          Turn Players Into<br />
-          <span className="highlight glow-cyan">Lifelong Fans</span>
+          Stop Losing Players.<br />
+          <span className="highlight glow-cyan">Start Bringing Them Back.</span>
         </h1>
         
         <p className="hero-subtitle">
-          <strong>Through companions, not campaigns.</strong>
+          Powered by AI companions that never forget.
         </p>
 
         {/* Live Demo - Right in Hero */}
@@ -328,7 +326,7 @@ companion.trackEvent({
             <div className="feature-icon"><BarChart3 size={28} /></div>
             <h3>Intelligent Event Analysis</h3>
             <p>
-              Not just data collection—<em>understanding</em>. We analyze in-game events to surface 
+              Not just data collection - <em>understanding</em>. We analyze in-game events to surface 
               what matters: the clutch plays, emotional moments, and stories worth telling. 
               Turn raw events into actionable player intelligence.
             </p>
