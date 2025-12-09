@@ -325,20 +325,11 @@ companion.trackEvent({
 
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon"><Zap size={28} /></div>
-            <h3>Drop-in SDK</h3>
+            <div className="feature-icon"><BarChart3 size={28} /></div>
+            <h3>Re-engagement Engine</h3>
             <p>
-              Unity, Unreal, Godot, and HTML5 plugins that integrate in minutes. 
-              One-line initialization, automatic event capture, zero configuration hassle.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Sparkles size={28} /></div>
-            <h3>Emotional Modeling</h3>
-            <p>
-              Proprietary emotional architecture that creates genuine personality. 
-              Your companion feels happy, concerned, excited - never robotic.
+              Knows when players drift away. Reaches out with <em>their</em> highlights - 
+              that almost-clutch, the personal best, the near-miss. Nostalgia that converts.
             </p>
           </div>
 
@@ -352,15 +343,6 @@ companion.trackEvent({
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon"><Mic size={28} /></div>
-            <h3>Multimodal Output</h3>
-            <p>
-              Text, voice, video clips, screenshots. Your companion communicates 
-              however your players do - and attaches the receipts.
-            </p>
-          </div>
-
-          <div className="feature-card">
             <div className="feature-icon"><Link2 size={28} /></div>
             <h3>The Everywhere Layer</h3>
             <p>
@@ -370,11 +352,29 @@ companion.trackEvent({
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon"><BarChart3 size={28} /></div>
-            <h3>Re-engagement Engine</h3>
+            <div className="feature-icon"><Mic size={28} /></div>
+            <h3>Multimodal Output</h3>
             <p>
-              Automatic detection of inactive players. Personalized re-engagement messages 
-              that reference their best moments and pull them back into the game.
+              Text, voice, video clips, screenshots. Your companion communicates 
+              however your players do - and attaches the receipts.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon"><Sparkles size={28} /></div>
+            <h3>Emotional Modeling</h3>
+            <p>
+              Proprietary emotional architecture that creates genuine personality. 
+              Your companion feels happy, concerned, excited - never robotic.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon"><Zap size={28} /></div>
+            <h3>Drop-in SDK</h3>
+            <p>
+              Unity, Unreal, Godot, and HTML5 plugins that integrate in minutes. 
+              One-line initialization, automatic event capture, zero configuration hassle.
             </p>
           </div>
         </div>
