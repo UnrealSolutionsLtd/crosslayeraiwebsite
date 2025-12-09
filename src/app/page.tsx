@@ -122,7 +122,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="diff-result positive">
-                <span>✓ +20% Day-30 retention</span>
+                <span>✓ Players who want to stay</span>
               </div>
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function Home() {
               <h3>Indie & Mid-size Studios</h3>
               <p>
                 Compete on innovation without enterprise resources. Add emotional AI 
-                companions that increase retention by 15%+ with minimal engineering lift.
+                companions that keep players engaged - with minimal engineering lift.
               </p>
               <ul className="audience-benefits">
                 <li>Free tier available</li>
