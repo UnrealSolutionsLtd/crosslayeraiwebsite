@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" fill="none">
+  <defs>
+    <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="100%" stop-color="#00d4aa"/>
+    </linearGradient>
+    <linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="50%" stop-color="#8338ec"/>
+      <stop offset="100%" stop-color="#ff6b9d"/>
+    </linearGradient>
+    <filter id="hglow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="htglow">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Icon Section -->
+  <g transform="translate(10, 10)">
+    <!-- Layers -->
+    <rect x="8" y="38" width="44" height="9" rx="1.5" fill="#1a1a25" stroke="#2a2a3a" stroke-width="1"/>
+    <rect x="8" y="27" width="44" height="9" rx="1.5" fill="#1a1a25" stroke="#8338ec" stroke-width="1"/>
+    <rect x="8" y="16" width="44" height="9" rx="1.5" fill="#1a1a25" stroke="url(#hg1)" stroke-width="1.5"/>
+    
+    <!-- Cross -->
+    <path d="M30 8 L30 52" stroke="url(#hg2)" stroke-width="3" stroke-linecap="round" filter="url(#hglow)"/>
+    <path d="M14 30 L46 30" stroke="url(#hg2)" stroke-width="3" stroke-linecap="round" filter="url(#hglow)"/>
+    
+    <!-- Core -->
+    <circle cx="30" cy="30" r="5" fill="#00f5d4" filter="url(#hglow)"/>
+    <circle cx="30" cy="30" r="2.5" fill="#fff"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="80" y="50" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="700" letter-spacing="1" fill="#00f5d4" filter="url(#htglow)">CROSSLAYER</text>
+  <text x="292" y="50" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="700" letter-spacing="1" fill="#ffffff">AI</text>
+</svg>
+

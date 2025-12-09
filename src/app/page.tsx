@@ -390,7 +390,10 @@ export default function Home() {
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
-          <div className="footer-logo">CROSSLAYERAI</div>
+          <div className="footer-logo-container">
+            <img src="/logo-icon.svg" alt="CrossLayerAI" width={40} height={40} />
+            <div className="footer-logo">CROSSLAYERAI</div>
+          </div>
           <p>
             Building the first persistent AI companion identity layer.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.

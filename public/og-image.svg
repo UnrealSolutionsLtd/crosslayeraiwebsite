@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="50%" stop-color="#0d0d14"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="100%" stop-color="#00d4aa"/>
+    </linearGradient>
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="50%" stop-color="#8338ec"/>
+      <stop offset="100%" stop-color="#ff6b9d"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="textGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(0, 245, 212, 0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Decorative orbs -->
+  <ellipse cx="1050" cy="150" rx="200" ry="200" fill="rgba(0, 245, 212, 0.1)" filter="blur(60px)"/>
+  <ellipse cx="150" cy="500" rx="180" ry="180" fill="rgba(255, 107, 157, 0.08)" filter="blur(50px)"/>
+  <ellipse cx="600" cy="315" rx="250" ry="250" fill="rgba(131, 56, 236, 0.06)" filter="blur(80px)"/>
+  
+  <!-- Logo Mark - Left Side -->
+  <g transform="translate(120, 215)">
+    <!-- Layers -->
+    <rect x="0" y="120" width="160" height="30" rx="4" fill="#1a1a25" stroke="#2a2a3a" stroke-width="2"/>
+    <rect x="0" y="80" width="160" height="30" rx="4" fill="#1a1a25" stroke="#8338ec" stroke-width="2"/>
+    <rect x="0" y="40" width="160" height="30" rx="4" fill="#1a1a25" stroke="url(#cyanGrad)" stroke-width="3" filter="url(#glow)"/>
+    
+    <!-- Cross -->
+    <path d="M80 10 L80 190" stroke="url(#crossGrad)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M30 100 L130 100" stroke="url(#crossGrad)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+    
+    <!-- Core -->
+    <circle cx="80" cy="100" r="18" fill="#00f5d4" filter="url(#glow)"/>
+    <circle cx="80" cy="100" r="9" fill="#fff"/>
+  </g>
+  
+  <!-- Brand Text -->
+  <g transform="translate(350, 240)">
+    <text x="0" y="60" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="72" font-weight="700" letter-spacing="2" fill="#00f5d4" filter="url(#textGlow)">CROSSLAYER</text>
+    <text x="502" y="60" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="72" font-weight="700" letter-spacing="2" fill="#ffffff">AI</text>
+  </g>
+  
+  <!-- Tagline -->
+  <text x="350" y="360" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="500" fill="#c5c5d0">Turn Players Into Lifelong Fans</text>
+  
+  <!-- Subtitle -->
+  <text x="350" y="410" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="400" fill="#8a8a9a">AI companions that remember, connect, and keep them coming back.</text>
+  
+  <!-- Bottom accent line -->
+  <rect x="0" y="620" width="1200" height="10" fill="url(#crossGrad)"/>
+  
+  <!-- Corner decorations -->
+  <path d="M0 0 L80 0 L0 80 Z" fill="rgba(0, 245, 212, 0.1)"/>
+  <path d="M1200 630 L1120 630 L1200 550 Z" fill="rgba(255, 107, 157, 0.1)"/>
+</svg>
+

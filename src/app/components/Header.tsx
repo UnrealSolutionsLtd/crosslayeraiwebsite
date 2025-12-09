@@ -1,6 +1,7 @@
 'use client'
 
 import { CSSProperties } from 'react'
+import Image from 'next/image'
 import { GA_EVENTS } from '../lib/analytics'
 
 export default function Header() {
@@ -30,12 +31,18 @@ export default function Header() {
     boxSizing: 'border-box',
   }
 
-  const logoStyle: CSSProperties = {
+  const logoLinkStyle: CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    textDecoration: 'none',
+  }
+
+  const logoTextStyle: CSSProperties = {
     fontSize: 'clamp(0.875rem, 3vw, 1.5rem)',
     fontWeight: 700,
     letterSpacing: '1px',
     color: '#00f5d4',
-    textDecoration: 'none',
     whiteSpace: 'nowrap',
   }
 
@@ -60,8 +67,17 @@ export default function Header() {
   return (
     <nav style={navStyle}>
       <div style={navContentStyle}>
-        <a href="/" style={logoStyle}>
-          CROSSLAYER<span style={logoSpanStyle}>AI</span>
+        <a href="/" style={logoLinkStyle}>
+          <Image 
+            src="/logo-icon.svg" 
+            alt="CrossLayerAI Logo" 
+            width={32} 
+            height={32}
+            style={{ minWidth: '28px', minHeight: '28px' }}
+          />
+          <span style={logoTextStyle}>
+            CROSSLAYER<span style={logoSpanStyle}>AI</span>
+          </span>
         </a>
         <button
           style={navCtaStyle}
