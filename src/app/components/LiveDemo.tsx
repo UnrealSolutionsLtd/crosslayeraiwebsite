@@ -225,9 +225,18 @@ export default function LiveDemo() {
               ))}
             </div>
 
-            <button className="demo-change-name" onClick={reset}>
-              Start over
-            </button>
+            <div className="demo-cta-section">
+              <p className="demo-cta-text">This could be your players.</p>
+              <button 
+                className="demo-cta-btn"
+                data-tally-open="EkK1Or"
+              >
+                Join Waitlist
+              </button>
+              <button className="demo-change-name" onClick={reset}>
+                Try again
+              </button>
+            </div>
           </>
         )}
       </div>

@@ -51,13 +51,13 @@ export default function Home() {
           <div className="nav-actions">
             <a href="#demo" className="nav-link">
               Live Preview
-            </a>
-            <button 
-              className="nav-cta" 
-              data-tally-open="EkK1Or" 
-            >
-              Join Waitlist
-            </button>
+          </a>
+          <button 
+            className="nav-cta" 
+            data-tally-open="EkK1Or" 
+          >
+            Join Waitlist
+          </button>
           </div>
         </div>
       </nav>
@@ -75,80 +75,75 @@ export default function Home() {
         <p className="hero-subtitle">
           AI companions that remember, connect, and keep them coming back.
         </p>
-        
-        <div className="hero-cta-group">
-          <button 
-            className="btn-primary" 
-            data-tally-open="EkK1Or" 
-          >
-            Get Early Access
-          </button>
-          <a href="#how-it-works" className="btn-secondary">
-            Learn More
-          </a>
+
+        {/* Live Demo - Right in Hero */}
+        <LiveDemo />
+      </section>
+
+      {/* VS Comparison - Own Section */}
+      <section className="section vs-section">
+        <div className="section-header">
+          <span className="section-tag">The Difference</span>
+          <h2>Old Way vs New Way</h2>
         </div>
-
-        {/* Differentiation Visual */}
-        <div className="hero-visual">
-          <div className="diff-container">
-            <div className="diff-panel diff-old">
-              <div className="diff-header">
-                <span className="diff-label">Traditional Retention</span>
+        <div className="diff-container">
+          <div className="diff-panel diff-old">
+            <div className="diff-header">
+              <span className="diff-label">Traditional Retention</span>
+            </div>
+            <div className="diff-items">
+              <div className="diff-item faded">
+                <span className="diff-icon"><Mail size={18} /></span>
+                <span>Generic email blasts</span>
               </div>
-              <div className="diff-items">
-                <div className="diff-item faded">
-                  <span className="diff-icon"><Mail size={18} /></span>
-                  <span>Generic email blasts</span>
-                </div>
-                <div className="diff-item faded">
-                  <span className="diff-icon"><Bell size={18} /></span>
-                  <span>Annoying push notifications</span>
-                </div>
-                <div className="diff-item faded">
-                  <span className="diff-icon"><Gift size={18} /></span>
-                  <span>Same rewards for everyone</span>
-                </div>
-                <div className="diff-item faded">
-                  <span className="diff-icon"><BarChart2 size={18} /></span>
-                  <span>Players are just numbers</span>
-                </div>
+              <div className="diff-item faded">
+                <span className="diff-icon"><Bell size={18} /></span>
+                <span>Annoying push notifications</span>
               </div>
-              <div className="diff-result negative">
-                <X size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-                <span>Most players never return</span>
+              <div className="diff-item faded">
+                <span className="diff-icon"><Gift size={18} /></span>
+                <span>Same rewards for everyone</span>
+              </div>
+              <div className="diff-item faded">
+                <span className="diff-icon"><BarChart2 size={18} /></span>
+                <span>Players are just numbers</span>
               </div>
             </div>
-
-            <div className="diff-divider">
-              <div className="diff-vs">VS</div>
+            <div className="diff-result negative">
+              <X size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+              <span>Most players never return</span>
             </div>
+          </div>
 
-            <div className="diff-panel diff-new">
-              <div className="diff-header">
-                <span className="diff-label highlight">CrossLayerAI</span>
+          <div className="diff-divider">
+            <div className="diff-vs">VS</div>
+          </div>
+
+          <div className="diff-panel diff-new">
+            <div className="diff-header">
+              <span className="diff-label highlight">CrossLayerAI</span>
+            </div>
+            <div className="diff-items">
+              <div className="diff-item glow">
+                <span className="diff-icon"><Brain size={18} /></span>
+                <span>Remembers every player&apos;s journey</span>
               </div>
-              <div className="diff-items">
-                <div className="diff-item glow">
-                  <span className="diff-icon"><Brain size={18} /></span>
-                  <span>Remembers every player&apos;s journey</span>
-                </div>
-                <div className="diff-item glow">
-                  <span className="diff-icon"><MessageCircle size={18} /></span>
-                  <span>Personal conversations that matter</span>
-                </div>
-                <div className="diff-item glow">
-                  <span className="diff-icon"><Globe size={18} /></span>
-                  <span>Present everywhere they are</span>
-                </div>
-                <div className="diff-item glow">
-                  <span className="diff-icon"><Heart size={18} /></span>
-                  <span>Real emotional connection</span>
-                </div>
+              <div className="diff-item glow">
+                <span className="diff-icon"><MessageCircle size={18} /></span>
+                <span>Personal conversations that matter</span>
               </div>
-              <div className="diff-result positive">
-                <Check size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-                <span>Players who want to stay</span>
+              <div className="diff-item glow">
+                <span className="diff-icon"><Globe size={18} /></span>
+                <span>Present everywhere they are</span>
               </div>
+              <div className="diff-item glow">
+                <span className="diff-icon"><Heart size={18} /></span>
+                <span>Real emotional connection</span>
+              </div>
+            </div>
+            <div className="diff-result positive">
+              <Check size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+              <span>Players who want to stay</span>
             </div>
           </div>
         </div>
@@ -246,9 +241,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Live Demo */}
-      <LiveDemo />
 
       {/* Features */}
       <section className="section" id="features">
