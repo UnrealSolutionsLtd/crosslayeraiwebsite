@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { RefreshCw, Play, Volume2, Share2, Heart, MessageCircle, Bookmark } from 'lucide-react'
+import { RefreshCw, Play, Share2, Heart, MessageCircle, Bookmark } from 'lucide-react'
+import { GA_EVENTS } from '../lib/analytics'
 
 type DemoType = 'discord' | 'video' | 'tiktok' | 'voice'
 
@@ -74,15 +75,26 @@ export default function LiveDemo() {
   const demo = DEMOS[currentIndex]
   const displayName = playerName || 'Player'
 
-  const handleYes = () => setStage('name')
+  const handleYes = () => {
+    GA_EVENTS.DEMO_CHOICE_YES()
+    setStage('name')
+  }
 
   const handleNo = () => {
+    GA_EVENTS.DEMO_CHOICE_NO()
     setRejectionMsg(REJECTION_MESSAGES[Math.floor(Math.random() * REJECTION_MESSAGES.length)])
     setStage('rejected')
   }
 
+  const handleReconsider = () => {
+    GA_EVENTS.DEMO_RECONSIDER()
+    setStage('choice')
+  }
+
   const startDemo = () => {
     if (!playerName.trim()) return
+    GA_EVENTS.DEMO_NAME_SUBMITTED(playerName)
+    GA_EVENTS.DEMO_STARTED()
     document.body.classList.add('screen-shake')
     setTimeout(() => {
       document.body.classList.remove('screen-shake')
@@ -121,13 +133,31 @@ export default function LiveDemo() {
     }
   }, [currentIndex])
 
-  const nextDemo = () => setCurrentIndex((prev) => (prev + 1) % DEMOS.length)
+  const nextDemo = () => {
+    const nextIndex = (currentIndex + 1) % DEMOS.length
+    const nextDemoData = DEMOS[nextIndex]
+    GA_EVENTS.DEMO_FORMAT_CHANGE(nextDemoData.type, nextDemoData.game)
+    setCurrentIndex(nextIndex)
+  }
+
+  const selectScenario = (index: number) => {
+    if (isTyping) return
+    const selectedDemo = DEMOS[index]
+    GA_EVENTS.DEMO_SCENARIO_SELECT(index, selectedDemo.type, selectedDemo.game)
+    setCurrentIndex(index)
+  }
 
   const reset = () => {
+    GA_EVENTS.DEMO_RESET()
     setStage('choice')
     setPlayerName('')
     setDisplayedText('')
     setCurrentIndex(0)
+  }
+
+  const handleDemoCTA = () => {
+    GA_EVENTS.DEMO_CTA_CLICK()
+    GA_EVENTS.WAITLIST_FORM_OPEN('demo')
   }
 
   const renderDemoContent = () => {
@@ -252,7 +282,7 @@ export default function LiveDemo() {
         {stage === 'rejected' && (
           <div className="demo-input-card">
             <div className="demo-rejection-msg">{rejectionMsg}</div>
-            <button className="demo-try-again" onClick={() => setStage('choice')}>Wait, let me reconsider...</button>
+            <button className="demo-try-again" onClick={handleReconsider}>Wait, let me reconsider...</button>
           </div>
         )}
 
@@ -299,7 +329,7 @@ export default function LiveDemo() {
                 <button
                   key={i}
                   className={`demo-dot ${i === currentIndex ? 'active' : ''}`}
-                  onClick={() => !isTyping && setCurrentIndex(i)}
+                  onClick={() => selectScenario(i)}
                   style={{ background: i === currentIndex ? DEMOS[i].color : undefined }}
                   title={`${d.type}: ${d.game}`}
                 />
@@ -308,7 +338,7 @@ export default function LiveDemo() {
 
             <div className="demo-cta-section">
               <p className="demo-cta-text">This could be your players.</p>
-              <button className="demo-cta-btn" data-tally-open="EkK1Or">Join Waitlist</button>
+              <button className="demo-cta-btn" data-tally-open="EkK1Or" onClick={handleDemoCTA}>Join Waitlist</button>
               <button className="demo-change-name" onClick={reset}>Try again</button>
             </div>
           </>

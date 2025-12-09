@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   Mail,
   Bell,
@@ -24,8 +24,12 @@ import {
 } from 'lucide-react'
 import LiveDemo from './components/LiveDemo'
 import Header from './components/Header'
+import { GA_EVENTS } from './lib/analytics'
 
 export default function Home() {
+  const viewedSections = useRef<Set<string>>(new Set())
+  const scrollMilestones = useRef<Set<number>>(new Set())
+
   useEffect(() => {
     // Load Tally embed script
     const script = document.createElement('script')
@@ -36,6 +40,56 @@ export default function Home() {
     return () => {
       document.body.removeChild(script)
     }
+  }, [])
+
+  // Scroll depth and section view tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      // Track scroll depth milestones (25%, 50%, 75%, 100%)
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const scrollPercent = Math.round((scrollTop / docHeight) * 100)
+
+      const milestones = [25, 50, 75, 100]
+      milestones.forEach((milestone) => {
+        if (scrollPercent >= milestone && !scrollMilestones.current.has(milestone)) {
+          scrollMilestones.current.add(milestone)
+          GA_EVENTS.SCROLL_DEPTH('page', milestone)
+        }
+      })
+
+      // Track section views using Intersection Observer alternative
+      const sections = [
+        { id: 'demo', name: 'Live Demo' },
+        { id: 'vs-section', name: 'VS Comparison', selector: '.vs-section' },
+        { id: 'how-it-works', name: 'How It Works' },
+        { id: 'features', name: 'Features' },
+        { id: 'problem', name: 'The Problem' },
+      ]
+
+      sections.forEach((section) => {
+        const el = section.selector 
+          ? document.querySelector(section.selector) 
+          : document.getElementById(section.id)
+        if (el && !viewedSections.current.has(section.id)) {
+          const rect = el.getBoundingClientRect()
+          const isVisible = rect.top < window.innerHeight * 0.75 && rect.bottom > 0
+          if (isVisible) {
+            viewedSections.current.add(section.id)
+            GA_EVENTS.SECTION_VIEW(section.name)
+          }
+        }
+      })
+    }
+
+    // Track initial page view
+    GA_EVENTS.PAGE_VIEW('Home')
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    // Run once on mount to catch above-fold content
+    handleScroll()
+
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (

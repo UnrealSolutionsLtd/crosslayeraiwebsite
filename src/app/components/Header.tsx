@@ -1,6 +1,7 @@
 'use client'
 
 import { CSSProperties } from 'react'
+import { GA_EVENTS } from '../lib/analytics'
 
 export default function Header() {
   const navStyle: CSSProperties = {
@@ -65,6 +66,10 @@ export default function Header() {
         <button
           style={navCtaStyle}
           data-tally-open="EkK1Or"
+          onClick={() => {
+            GA_EVENTS.HEADER_CTA_CLICK()
+            GA_EVENTS.WAITLIST_FORM_OPEN('header')
+          }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#00f5d4'
             e.currentTarget.style.color = '#0a0a0f'
