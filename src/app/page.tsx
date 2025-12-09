@@ -328,8 +328,8 @@ companion.trackEvent({
             <div className="feature-icon"><Zap size={28} /></div>
             <h3>Drop-in SDK</h3>
             <p>
-              Unity and Unreal plugins that integrate in minutes. One-line initialization, 
-              automatic event capture, zero configuration hassle.
+              Unity, Unreal, Godot, and HTML5 plugins that integrate in minutes. 
+              One-line initialization, automatic event capture, zero configuration hassle.
             </p>
           </div>
 
@@ -346,35 +346,35 @@ companion.trackEvent({
             <div className="feature-icon"><Database size={28} /></div>
             <h3>Persistent Memory</h3>
             <p>
-              Cross-session, cross-platform memory that never forgets. The companion 
-              builds a true relationship with each player over months and years.
+              Schemaless event storage that accepts any data. Cross-session, cross-platform 
+              memory that builds a true relationship with each player forever.
             </p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon"><Mic size={28} /></div>
-            <h3>Voice & Text</h3>
+            <h3>Multimodal Output</h3>
             <p>
-              Support for both text chat and voice output. Multiple voice styles, 
-              emotional intonation, and seamless switching between modes.
+              Text, voice, video clips, screenshots. Your companion communicates 
+              however your players do - and attaches the receipts.
             </p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon"><Link2 size={28} /></div>
-            <h3>Border Region Integrations</h3>
+            <h3>The Everywhere Layer</h3>
             <p>
-              Discord bots, web widgets, forum assistants. Your companion tells stories 
-              about player adventures, creating viral social moments.
+              Discord bots, web widgets, TikTok, Reddit. Your companion reaches players 
+              wherever they are, sharing stories and creating viral social moments.
             </p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon"><BarChart3 size={28} /></div>
-            <h3>LiveOps Intelligence</h3>
+            <h3>Re-engagement Engine</h3>
             <p>
-              Companions communicate patches, events, and updates. They react to world 
-              events and keep players engaged between sessions.
+              Automatic detection of inactive players. Personalized re-engagement messages 
+              that reference their best moments and pull them back into the game.
             </p>
           </div>
         </div>
@@ -399,21 +399,21 @@ companion.trackEvent({
             <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
             <span>Unreal</span>
           </div>
-          <div className="sdk-icon" title="Discord">
-            <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
-            <span>Discord</span>
+          <div className="sdk-icon" title="Godot">
+            <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
+            <span>Godot</span>
           </div>
           <div className="sdk-icon" title="HTML5 / Web Games">
             <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
             <span>HTML5</span>
           </div>
+          <div className="sdk-icon" title="Discord">
+            <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
+            <span>Discord</span>
+          </div>
           <div className="sdk-icon" title="REST API">
             <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
             <span>REST API</span>
-          </div>
-          <div className="sdk-icon" title="JavaScript / TypeScript">
-            <img src="https://cdn.simpleicons.org/javascript/white" alt="JavaScript" />
-            <span>JavaScript</span>
           </div>
         </div>
 
