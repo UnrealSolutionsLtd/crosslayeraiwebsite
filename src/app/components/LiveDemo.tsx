@@ -261,7 +261,7 @@ export default function LiveDemo() {
       case 'voice':
         return (
           <div className="demo-voice">
-            <audio ref={audioRef} src="/voice-message.mp3" preload="auto" />
+            <audio ref={audioRef} src="/voice.m4a" preload="auto" />
             <div className="demo-voice-message">
               <div className="demo-voice-avatar">🎙️</div>
               <div className="demo-voice-content">
