@@ -23,6 +23,7 @@ import {
   BarChart3,
 } from 'lucide-react'
 import LiveDemo from './components/LiveDemo'
+import Header from './components/Header'
 
 export default function Home() {
   useEffect(() => {
@@ -43,24 +44,7 @@ export default function Home() {
       <div className="grid-bg" />
 
       {/* Navigation */}
-      <nav className="nav">
-        <div className="nav-content">
-          <a href="/" className="logo">
-            CROSSLAYER<span>AI</span>
-          </a>
-          <div className="nav-actions">
-            <a href="#demo" className="nav-link">
-              Live Preview
-          </a>
-          <button 
-            className="nav-cta" 
-            data-tally-open="EkK1Or" 
-          >
-            Join Waitlist
-          </button>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Hero Section */}
       <section className="hero">

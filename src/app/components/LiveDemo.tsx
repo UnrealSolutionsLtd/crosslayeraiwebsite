@@ -1,52 +1,54 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { RefreshCw } from 'lucide-react'
+import { RefreshCw, Play, Volume2, Share2, Heart, MessageCircle, Bookmark } from 'lucide-react'
 
-const DEMOS = [
+type DemoType = 'discord' | 'video' | 'tiktok' | 'voice'
+
+interface Demo {
+  type: DemoType
+  game: string
+  event: string
+  getMessage: (name: string) => string
+  color: string
+}
+
+const DEMOS: Demo[] = [
   {
+    // SCENARIO 1: Discord text message
+    type: 'discord',
     game: 'Fortnite',
     event: 'Victory Royale • 12 kills',
     getMessage: (name: string) => `YOOO @${name} 12 KILLS??? 
 
-bro your PR was 8 like a month ago lmaooo what happened
+bro your PR was 8 like a month ago lmaooo
 
-actually insane. im saving this clip forever 😭`,
-    avatar: '🎮',
-    color: '#00d4ff',
+actually insane. saving this clip forever 😭`,
+    color: '#5865f2',
   },
   {
-    game: 'Genshin Impact',
-    event: 'Wish • 5-Star Pull',
-    getMessage: (name: string) => `@${name} WAIT WAIT WAIT
-
-YOU GOT FURINA?? after skipping like 3 banners for her??
-
-bro i literally remember u malding over that fontaine trailer. 8 MONTHS. she's home 😭💙`,
-    avatar: '✨',
-    color: '#a855f7',
-  },
-  {
+    // SCENARIO 2: Auto-generated video highlight
+    type: 'video',
     game: 'VALORANT',
-    event: 'ACE • 1v4 Clutch',
-    getMessage: (name: string) => `@${name} BRO WHAT WAS THAT
-
-a 1v4?? weren't u literally crying yesterday saying ur washed??
-
-nah ur actually him. that was DISGUSTING 🎯`,
-    avatar: '🎯',
+    event: 'Auto-clipped • ACE',
+    getMessage: (name: string) => `${name}'s 1v4 ACE 🎯 They said they were "washed" yesterday lol`,
     color: '#ff4655',
   },
   {
+    // SCENARIO 3: TikTok/Social shareable post
+    type: 'tiktok',
     game: 'Elden Ring',
-    event: 'Malenia • No Hit',
-    getMessage: (name: string) => `@${name} NO SHOT
-
-47 ATTEMPTS. ZERO DAMAGE. 
-
-dude on attempt 23 you were gonna quit and i was like nah keep going. LOOK AT YOU NOW 😭👑`,
-    avatar: '⚔️',
-    color: '#fbbf24',
+    event: 'Generated • Achievement Post',
+    getMessage: (name: string) => `147 hours. 34 deaths to Margit. Almost quit twice. @${name} just got the Platinum. This is what persistence looks like. 👑`,
+    color: '#00f2ea',
+  },
+  {
+    // SCENARIO 4: Voice message
+    type: 'voice',
+    game: 'Apex Legends',
+    event: 'Voice Message • Re-engagement',
+    getMessage: (name: string) => `Hey ${name}, it's been like 2 weeks... I still remember that 2800 damage game. You were ONE shot from your 3k badge. Season 19 just dropped. Your wingman misses you.`,
+    color: '#e63946',
   },
 ]
 
@@ -67,13 +69,12 @@ export default function LiveDemo() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
   const [displayedText, setDisplayedText] = useState('')
+  const [isPlaying, setIsPlaying] = useState(false)
   
   const demo = DEMOS[currentIndex]
   const displayName = playerName || 'Player'
 
-  const handleYes = () => {
-    setStage('name')
-  }
+  const handleYes = () => setStage('name')
 
   const handleNo = () => {
     setRejectionMsg(REJECTION_MESSAGES[Math.floor(Math.random() * REJECTION_MESSAGES.length)])
@@ -82,8 +83,6 @@ export default function LiveDemo() {
 
   const startDemo = () => {
     if (!playerName.trim()) return
-    
-    // Shake effect!
     document.body.classList.add('screen-shake')
     setTimeout(() => {
       document.body.classList.remove('screen-shake')
@@ -96,9 +95,11 @@ export default function LiveDemo() {
   const playMessage = () => {
     setDisplayedText('')
     setIsTyping(true)
+    setIsPlaying(false)
     
     let i = 0
     const text = demo.getMessage(displayName)
+    const speed = demo.type === 'voice' ? 30 : 18
     const interval = setInterval(() => {
       if (i < text.length) {
         setDisplayedText(text.slice(0, i + 1))
@@ -106,9 +107,11 @@ export default function LiveDemo() {
       } else {
         clearInterval(interval)
         setIsTyping(false)
+        if (demo.type === 'video' || demo.type === 'voice') {
+          setIsPlaying(true)
+        }
       }
-    }, 18)
-
+    }, speed)
     return () => clearInterval(interval)
   }
 
@@ -118,9 +121,7 @@ export default function LiveDemo() {
     }
   }, [currentIndex])
 
-  const nextDemo = () => {
-    setCurrentIndex((prev) => (prev + 1) % DEMOS.length)
-  }
+  const nextDemo = () => setCurrentIndex((prev) => (prev + 1) % DEMOS.length)
 
   const reset = () => {
     setStage('choice')
@@ -129,21 +130,121 @@ export default function LiveDemo() {
     setCurrentIndex(0)
   }
 
+  const renderDemoContent = () => {
+    switch (demo.type) {
+      case 'discord':
+        return (
+          <div className="demo-discord">
+            <div className="demo-discord-header">
+              <span className="demo-discord-channel"># victory-feed</span>
+            </div>
+            <div className="demo-discord-message">
+              <div className="demo-discord-avatar">🤖</div>
+              <div className="demo-discord-content">
+                <div className="demo-discord-name">Pixel <span className="demo-bot-tag">BOT</span></div>
+                <div className="demo-discord-text">
+                  {displayedText}
+                  {isTyping && <span className="demo-cursor">|</span>}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 'video':
+        return (
+          <div className="demo-video">
+            <div className="demo-video-player">
+              <div className="demo-video-thumbnail">
+                <div className="demo-video-game-overlay">VALORANT</div>
+                {isPlaying ? (
+                  <div className="demo-video-playing">
+                    <div className="demo-video-bar"></div>
+                  </div>
+                ) : (
+                  <div className="demo-video-play-btn"><Play size={32} fill="#fff" /></div>
+                )}
+              </div>
+            </div>
+            <div className="demo-video-caption">
+              {displayedText}
+              {isTyping && <span className="demo-cursor">|</span>}
+            </div>
+            <div className="demo-video-actions">
+              <span>🔥 Auto-clipped by Pixel</span>
+              <button className="demo-video-share"><Share2 size={16} /> Share</button>
+            </div>
+          </div>
+        )
+
+      case 'tiktok':
+        return (
+          <div className="demo-tiktok">
+            <div className="demo-tiktok-post">
+              <div className="demo-tiktok-header">
+                <div className="demo-tiktok-avatar">👑</div>
+                <div className="demo-tiktok-user">
+                  <span className="demo-tiktok-name">pixel.ai</span>
+                  <span className="demo-tiktok-handle">@pixelcompanion</span>
+                </div>
+              </div>
+              <div className="demo-tiktok-text">
+                {displayedText}
+                {isTyping && <span className="demo-cursor">|</span>}
+              </div>
+              <div className="demo-tiktok-tags">#gaming #eldenring #platinum #persistence</div>
+              <div className="demo-tiktok-actions">
+                <span><Heart size={18} /> 24.5K</span>
+                <span><MessageCircle size={18} /> 892</span>
+                <span><Bookmark size={18} /></span>
+                <span><Share2 size={18} /></span>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 'voice':
+        return (
+          <div className="demo-voice">
+            <div className="demo-voice-message">
+              <div className="demo-voice-avatar">🎙️</div>
+              <div className="demo-voice-content">
+                <div className="demo-voice-header">
+                  <span className="demo-voice-name">Pixel</span>
+                  <span className="demo-voice-time">Voice Message • 0:12</span>
+                </div>
+                <div className="demo-voice-wave">
+                  {[...Array(32)].map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`demo-voice-bar ${isPlaying ? 'playing' : ''}`}
+                      style={{ 
+                        height: `${20 + Math.random() * 60}%`,
+                        animationDelay: `${i * 0.05}s`
+                      }}
+                    />
+                  ))}
+                </div>
+                <div className="demo-voice-transcript">
+                  "{displayedText}"
+                  {isTyping && <span className="demo-cursor">|</span>}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+    }
+  }
+
   return (
     <section className="demo-section" id="demo">
       <div className="demo-wrapper">
         {stage === 'choice' && (
           <div className="demo-input-card">
-            <div className="demo-choice-question">
-              Want to be remembered?
-            </div>
+            <div className="demo-choice-question">Want to be remembered?</div>
             <div className="demo-choice-buttons">
-              <button className="demo-choice-btn demo-choice-yes" onClick={handleYes}>
-                Yes, show me
-              </button>
-              <button className="demo-choice-btn demo-choice-no" onClick={handleNo}>
-                No thanks
-              </button>
+              <button className="demo-choice-btn demo-choice-yes" onClick={handleYes}>Yes, show me</button>
+              <button className="demo-choice-btn demo-choice-no" onClick={handleNo}>No thanks</button>
             </div>
           </div>
         )}
@@ -151,17 +252,13 @@ export default function LiveDemo() {
         {stage === 'rejected' && (
           <div className="demo-input-card">
             <div className="demo-rejection-msg">{rejectionMsg}</div>
-            <button className="demo-try-again" onClick={() => setStage('choice')}>
-              Wait, let me reconsider...
-            </button>
+            <button className="demo-try-again" onClick={() => setStage('choice')}>Wait, let me reconsider...</button>
           </div>
         )}
 
         {stage === 'name' && (
           <div className="demo-input-card">
-            <div className="demo-name-prompt">
-              What do they call you?
-            </div>
+            <div className="demo-name-prompt">What do they call you?</div>
             <div className="demo-input-row">
               <input
                 type="text"
@@ -173,11 +270,7 @@ export default function LiveDemo() {
                 maxLength={20}
                 autoFocus
               />
-              <button 
-                className="demo-start-btn" 
-                onClick={startDemo}
-                disabled={!playerName.trim()}
-              >
+              <button className="demo-start-btn" onClick={startDemo} disabled={!playerName.trim()}>
                 Let&apos;s go
               </button>
             </div>
@@ -190,26 +283,14 @@ export default function LiveDemo() {
               <div className="demo-event-bar">
                 <span className="demo-game">{demo.game}</span>
                 <span className="demo-event">{demo.event}</span>
+                <span className="demo-type-badge">{demo.type.toUpperCase()}</span>
               </div>
-
-              <div className="demo-message-container">
-                <div className="demo-avatar" style={{ background: demo.color }}>
-                  {demo.avatar}
-                </div>
-                <div className="demo-message-content">
-                  <div className="demo-bot-name">
-                    Pixel <span className="demo-bot-tag">BOT</span>
-                  </div>
-                  <div className="demo-message-text">
-                    {displayedText}
-                    {isTyping && <span className="demo-cursor">|</span>}
-                  </div>
-                </div>
-              </div>
+              
+              {renderDemoContent()}
 
               <button className="demo-refresh" onClick={nextDemo} disabled={isTyping}>
                 <RefreshCw size={16} className={isTyping ? 'spinning' : ''} />
-                <span>Try another game</span>
+                <span>Try different format</span>
               </button>
             </div>
 
@@ -220,22 +301,15 @@ export default function LiveDemo() {
                   className={`demo-dot ${i === currentIndex ? 'active' : ''}`}
                   onClick={() => !isTyping && setCurrentIndex(i)}
                   style={{ background: i === currentIndex ? DEMOS[i].color : undefined }}
-                  title={d.game}
+                  title={`${d.type}: ${d.game}`}
                 />
               ))}
             </div>
 
             <div className="demo-cta-section">
               <p className="demo-cta-text">This could be your players.</p>
-              <button 
-                className="demo-cta-btn"
-                data-tally-open="EkK1Or"
-              >
-                Join Waitlist
-              </button>
-              <button className="demo-change-name" onClick={reset}>
-                Try again
-              </button>
+              <button className="demo-cta-btn" data-tally-open="EkK1Or">Join Waitlist</button>
+              <button className="demo-change-name" onClick={reset}>Try again</button>
             </div>
           </>
         )}
