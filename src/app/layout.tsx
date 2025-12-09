@@ -30,11 +30,11 @@ export const metadata: Metadata = {
     title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
     description: 'AI companions that remember, connect, and keep players coming back. Boost retention with persistent memory and cross-platform presence.',
     type: 'website',
-    url: 'https://crosslayer.ai',
+    url: 'https://crosslayerai.com',
     siteName: 'CrossLayerAI',
     images: [
       {
-        url: '/og-image.svg',
+        url: 'https://crosslayerai.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'CrossLayerAI - Turn Players Into Lifelong Fans',
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
     description: 'AI companions that remember, connect, and keep players coming back.',
-    images: ['/og-image.svg'],
+    images: ['https://crosslayerai.com/og-image.png'],
   },
-  metadataBase: new URL('https://crosslayer.ai'),
+  metadataBase: new URL('https://crosslayerai.com'),
 }
 
 export default function RootLayout({
