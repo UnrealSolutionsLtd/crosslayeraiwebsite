@@ -1801,6 +1801,13 @@ body {
   margin-bottom: 12px;
 }
 
+.demo-video-element {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
 .demo-video-thumbnail {
   aspect-ratio: 16/9;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -1820,6 +1827,29 @@ body {
   background: rgba(255, 70, 85, 0.9);
   border-radius: 4px;
   color: #fff;
+}
+
+.demo-video-mute-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.demo-video-mute-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
 }
 
 .demo-video-play-btn {
@@ -1926,6 +1956,18 @@ body {
 .demo-tiktok-handle {
   font-size: 13px;
   color: #888;
+}
+
+.demo-tiktok-image {
+  margin-bottom: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.demo-tiktok-image img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .demo-tiktok-text {

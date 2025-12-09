@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { RefreshCw, Play, Share2, Heart, MessageCircle, Bookmark } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { RefreshCw, Play, Share2, Heart, MessageCircle, Bookmark, Volume2, VolumeX } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
 type DemoType = 'discord' | 'video' | 'tiktok' | 'voice'
@@ -71,6 +71,9 @@ export default function LiveDemo() {
   const [isTyping, setIsTyping] = useState(false)
   const [displayedText, setDisplayedText] = useState('')
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   
   const demo = DEMOS[currentIndex]
   const displayName = playerName || 'Player'
@@ -133,6 +136,18 @@ export default function LiveDemo() {
     }
   }, [currentIndex])
 
+  // Control audio playback for voice demo
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying && demo.type === 'voice') {
+        audioRef.current.currentTime = 0
+        audioRef.current.play()
+      } else {
+        audioRef.current.pause()
+      }
+    }
+  }, [isPlaying, demo.type])
+
   const nextDemo = () => {
     const nextIndex = (currentIndex + 1) % DEMOS.length
     const nextDemoData = DEMOS[nextIndex]
@@ -169,9 +184,9 @@ export default function LiveDemo() {
               <span className="demo-discord-channel"># victory-feed</span>
             </div>
             <div className="demo-discord-message">
-              <div className="demo-discord-avatar">🤖</div>
+              <div className="demo-discord-avatar">🥞</div>
               <div className="demo-discord-content">
-                <div className="demo-discord-name">Pixel <span className="demo-bot-tag">BOT</span></div>
+                <div className="demo-discord-name">Blin <span className="demo-bot-tag">BOT</span></div>
                 <div className="demo-discord-text">
                   {displayedText}
                   {isTyping && <span className="demo-cursor">|</span>}
@@ -185,23 +200,30 @@ export default function LiveDemo() {
         return (
           <div className="demo-video">
             <div className="demo-video-player">
-              <div className="demo-video-thumbnail">
-                <div className="demo-video-game-overlay">VALORANT</div>
-                {isPlaying ? (
-                  <div className="demo-video-playing">
-                    <div className="demo-video-bar"></div>
-                  </div>
-                ) : (
-                  <div className="demo-video-play-btn"><Play size={32} fill="#fff" /></div>
-                )}
-              </div>
+              <video 
+                ref={videoRef}
+                className="demo-video-element"
+                src="/ace-clip.mp4"
+                autoPlay
+                loop
+                muted={isMuted}
+                playsInline
+              />
+              <div className="demo-video-game-overlay">VALORANT</div>
+              <button 
+                className="demo-video-mute-btn"
+                onClick={() => setIsMuted(!isMuted)}
+                title={isMuted ? 'Unmute' : 'Mute'}
+              >
+                {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              </button>
             </div>
             <div className="demo-video-caption">
               {displayedText}
               {isTyping && <span className="demo-cursor">|</span>}
             </div>
             <div className="demo-video-actions">
-              <span>🔥 Auto-clipped by Pixel</span>
+              <span>🔥 Auto-clipped by Gopnik</span>
               <button className="demo-video-share"><Share2 size={16} /> Share</button>
             </div>
           </div>
@@ -212,11 +234,14 @@ export default function LiveDemo() {
           <div className="demo-tiktok">
             <div className="demo-tiktok-post">
               <div className="demo-tiktok-header">
-                <div className="demo-tiktok-avatar">👑</div>
+                <div className="demo-tiktok-avatar">👵</div>
                 <div className="demo-tiktok-user">
-                  <span className="demo-tiktok-name">pixel.ai</span>
-                  <span className="demo-tiktok-handle">@pixelcompanion</span>
+                  <span className="demo-tiktok-name">Babushka</span>
+                  <span className="demo-tiktok-handle">@babushka.gaming</span>
                 </div>
+              </div>
+              <div className="demo-tiktok-image">
+                <img src="/tiktok_post.png" alt="Elden Ring Platinum Achievement" />
               </div>
               <div className="demo-tiktok-text">
                 {displayedText}
@@ -236,11 +261,12 @@ export default function LiveDemo() {
       case 'voice':
         return (
           <div className="demo-voice">
+            <audio ref={audioRef} src="/voice-message.mp3" preload="auto" />
             <div className="demo-voice-message">
               <div className="demo-voice-avatar">🎙️</div>
               <div className="demo-voice-content">
                 <div className="demo-voice-header">
-                  <span className="demo-voice-name">Pixel</span>
+                  <span className="demo-voice-name">Boris</span>
                   <span className="demo-voice-time">Voice Message • 0:12</span>
                 </div>
                 <div className="demo-voice-wave">
