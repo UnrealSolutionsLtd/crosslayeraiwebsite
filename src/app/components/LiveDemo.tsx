@@ -387,7 +387,7 @@ export default function LiveDemo() {
             </div>
 
             <div className="demo-cta-section">
-              <p className="demo-cta-text">This could be your players.</p>
+              <p className="demo-cta-text">This could be your community. Everywhere.</p>
               <button className="demo-cta-btn" data-tally-open="EkK1Or" onClick={handleDemoCTA}>Join Waitlist</button>
               <button className="demo-change-name" onClick={reset}>Try again</button>
             </div>
