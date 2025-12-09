@@ -18,8 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'CROSSLAYERAI | Turn Players Into Lifelong Fans',
-  description: 'Boost retention with AI companions that remember every player. One SDK integration. Persistent memory. Cross-platform presence.',
-  keywords: 'AI companion, gaming AI, NPC AI, game development, AI SDK, player retention, game retention',
+  description: 'Boost player retention with AI companions that remember every player. Capture in-game events, analyze player behavior, and re-engage everywhere—Discord, TikTok, and beyond.',
+  keywords: 'AI companion, gaming AI, NPC AI, game development, AI SDK, player retention, game retention, Inworld AI alternative, Convai alternative, game analytics, Discord bot, player engagement, LiveOps, re-engagement',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

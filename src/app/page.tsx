@@ -326,10 +326,11 @@ companion.trackEvent({
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon"><BarChart3 size={28} /></div>
-            <h3>Re-engagement Engine</h3>
+            <h3>Intelligent Event Analysis</h3>
             <p>
-              Knows when players drift away. Reaches out with <em>their</em> highlights - 
-              that almost-clutch, the personal best, the near-miss. Nostalgia that converts.
+              Not just data collection—<em>understanding</em>. We analyze in-game events to surface 
+              what matters: the clutch plays, emotional moments, and stories worth telling. 
+              Turn raw events into actionable player intelligence.
             </p>
           </div>
 
@@ -352,11 +353,12 @@ companion.trackEvent({
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon"><Mic size={28} /></div>
-            <h3>Multimodal Output</h3>
+            <div className="feature-icon"><Heart size={28} /></div>
+            <h3>Personalized Re-engagement</h3>
             <p>
-              Text, voice, video clips, screenshots. Your companion communicates 
-              however your players do - and attaches the receipts.
+              No more generic &quot;come back&quot; messages. Your companion reaches out with 
+              player-specific memories: &quot;Remember that Dragon Lord fight? You got him to 2%!&quot;
+              Nostalgia that actually converts.
             </p>
           </div>
 
@@ -371,12 +373,70 @@ companion.trackEvent({
 
           <div className="feature-card">
             <div className="feature-icon"><Zap size={28} /></div>
-            <h3>Drop-in SDK</h3>
+            <h3>Real-Time + Batch Intelligence</h3>
             <p>
-              Unity, Unreal, Godot, and HTML5 plugins that integrate in minutes. 
-              One-line initialization, automatic event capture, zero configuration hassle.
+              Instant responses in-game, intelligent re-engagement campaigns over time.
+              Player-level insights that power both real-time interaction and long-term retention.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Why Different - Competitor Positioning */}
+      <section className="section why-different-section" id="why-different">
+        <div className="section-header">
+          <span className="section-tag">Why CrossLayerAI</span>
+          <h2>The Only Solution That Does It All</h2>
+          <p>
+            Other platforms solve pieces of the puzzle. We connect them all.
+          </p>
+        </div>
+
+        <div className="positioning-visual">
+          <div className="position-column">
+            <div className="position-category">
+              <span className="category-label">AI NPC Platforms</span>
+              <span className="category-example">Inworld, Convai</span>
+            </div>
+            <div className="position-does">
+              <Check size={16} /> AI personalities in-game
+            </div>
+            <div className="position-doesnt">
+              <X size={16} /> No presence outside the game
+            </div>
+          </div>
+
+          <div className="position-column center-column">
+            <div className="position-bridge">
+              <span className="bridge-label">CrossLayerAI</span>
+              <span className="bridge-tagline">The Bridge</span>
+            </div>
+            <div className="bridge-features">
+              <div className="bridge-feature"><Check size={14} /> AI Companion</div>
+              <div className="bridge-feature"><Check size={14} /> Event Analytics</div>
+              <div className="bridge-feature"><Check size={14} /> Everywhere Layer</div>
+              <div className="bridge-feature"><Check size={14} /> Retention Engine</div>
+            </div>
+          </div>
+
+          <div className="position-column">
+            <div className="position-category">
+              <span className="category-label">Analytics Tools</span>
+              <span className="category-example">GameAnalytics, Amplitude</span>
+            </div>
+            <div className="position-does">
+              <Check size={16} /> Track player behavior
+            </div>
+            <div className="position-doesnt">
+              <X size={16} /> Can&apos;t act on insights
+            </div>
+          </div>
+        </div>
+
+        <div className="position-cta">
+          <a href="/blog/why-crosslayerai-is-different" className="position-link">
+            Read the full comparison →
+          </a>
         </div>
       </section>
 

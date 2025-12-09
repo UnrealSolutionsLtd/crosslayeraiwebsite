@@ -2,6 +2,7 @@
 
 import { CSSProperties } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { GA_EVENTS } from '../lib/analytics'
 
 export default function Header() {
@@ -50,6 +51,21 @@ export default function Header() {
     color: '#ffffff',
   }
 
+  const navLinksStyle: CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'clamp(12px, 3vw, 24px)',
+  }
+
+  const navLinkStyle: CSSProperties = {
+    color: '#c5c5d0',
+    textDecoration: 'none',
+    fontSize: 'clamp(0.7rem, 1.8vw, 0.9rem)',
+    fontWeight: 500,
+    letterSpacing: '0.5px',
+    transition: 'color 0.2s ease',
+  }
+
   const navCtaStyle: CSSProperties = {
     padding: 'clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 24px)',
     background: 'transparent',
@@ -79,26 +95,40 @@ export default function Header() {
             CROSSLAYER<span style={logoSpanStyle}>AI</span>
           </span>
         </a>
-        <button
-          style={navCtaStyle}
-          data-tally-open="EkK1Or"
-          onClick={() => {
-            GA_EVENTS.HEADER_CTA_CLICK()
-            GA_EVENTS.WAITLIST_FORM_OPEN('header')
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#00f5d4'
-            e.currentTarget.style.color = '#0a0a0f'
-            e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 245, 212, 0.4)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent'
-            e.currentTarget.style.color = '#00f5d4'
-            e.currentTarget.style.boxShadow = 'none'
-          }}
-        >
-          Join Waitlist
-        </button>
+        <div style={navLinksStyle}>
+          <Link 
+            href="/blog" 
+            style={navLinkStyle}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#00f5d4'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#c5c5d0'
+            }}
+          >
+            Blog
+          </Link>
+          <button
+            style={navCtaStyle}
+            data-tally-open="EkK1Or"
+            onClick={() => {
+              GA_EVENTS.HEADER_CTA_CLICK()
+              GA_EVENTS.WAITLIST_FORM_OPEN('header')
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#00f5d4'
+              e.currentTarget.style.color = '#0a0a0f'
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 245, 212, 0.4)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = '#00f5d4'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
+          >
+            Join Waitlist
+          </button>
+        </div>
       </div>
     </nav>
   )
