@@ -327,8 +327,15 @@ body {
 }
 
 .diff-icon {
-  font-size: 1.1rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+.diff-item.glow .diff-icon {
+  color: var(--color-accent-cyan);
 }
 
 .diff-result {
@@ -558,8 +565,10 @@ body {
 }
 
 .feature-icon {
-  font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--color-accent-cyan);
+  display: flex;
+  align-items: center;
 }
 
 .feature-card h3 {
@@ -597,8 +606,10 @@ body {
 }
 
 .audience-icon {
-  font-size: 2.5rem;
   flex-shrink: 0;
+  color: var(--color-accent-magenta);
+  display: flex;
+  align-items: center;
 }
 
 .audience-content h3 {
@@ -933,8 +944,15 @@ body {
 }
 
 .panel-icon {
-  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.game-world .panel-icon {
+  color: #7EC8CF;
 }
 
 .panel-icon-labeled {

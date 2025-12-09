@@ -1,6 +1,27 @@
 'use client'
 
 import { useEffect } from 'react'
+import {
+  Mail,
+  Bell,
+  Gift,
+  BarChart2,
+  X,
+  Brain,
+  MessageCircle,
+  Globe,
+  Heart,
+  Check,
+  Gamepad2,
+  Swords,
+  Wand2,
+  Zap,
+  Sparkles,
+  Database,
+  Mic,
+  Link2,
+  BarChart3,
+} from 'lucide-react'
 
 export default function Home() {
   useEffect(() => {
@@ -29,8 +50,6 @@ export default function Home() {
           <button 
             className="nav-cta" 
             data-tally-open="EkK1Or" 
-            data-tally-emoji-text="👋" 
-            data-tally-emoji-animation="wave"
           >
             Join Waitlist
           </button>
@@ -55,8 +74,6 @@ export default function Home() {
           <button 
             className="btn-primary" 
             data-tally-open="EkK1Or" 
-            data-tally-emoji-text="🚀" 
-            data-tally-emoji-animation="tada"
           >
             Get Early Access
           </button>
@@ -74,24 +91,25 @@ export default function Home() {
               </div>
               <div className="diff-items">
                 <div className="diff-item faded">
-                  <span className="diff-icon">📧</span>
+                  <span className="diff-icon"><Mail size={18} /></span>
                   <span>Generic email blasts</span>
                 </div>
                 <div className="diff-item faded">
-                  <span className="diff-icon">🔔</span>
+                  <span className="diff-icon"><Bell size={18} /></span>
                   <span>Annoying push notifications</span>
                 </div>
                 <div className="diff-item faded">
-                  <span className="diff-icon">🎁</span>
+                  <span className="diff-icon"><Gift size={18} /></span>
                   <span>Same rewards for everyone</span>
                 </div>
                 <div className="diff-item faded">
-                  <span className="diff-icon">📊</span>
+                  <span className="diff-icon"><BarChart2 size={18} /></span>
                   <span>Players are just numbers</span>
                 </div>
               </div>
               <div className="diff-result negative">
-                <span>❌ Day-7 churn: 70%+</span>
+                <X size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+                <span>Most players never return</span>
               </div>
             </div>
 
@@ -105,24 +123,25 @@ export default function Home() {
               </div>
               <div className="diff-items">
                 <div className="diff-item glow">
-                  <span className="diff-icon">🧠</span>
+                  <span className="diff-icon"><Brain size={18} /></span>
                   <span>Remembers every player&apos;s journey</span>
                 </div>
                 <div className="diff-item glow">
-                  <span className="diff-icon">💬</span>
+                  <span className="diff-icon"><MessageCircle size={18} /></span>
                   <span>Personal conversations that matter</span>
                 </div>
                 <div className="diff-item glow">
-                  <span className="diff-icon">🌐</span>
+                  <span className="diff-icon"><Globe size={18} /></span>
                   <span>Present everywhere they are</span>
                 </div>
                 <div className="diff-item glow">
-                  <span className="diff-icon">❤️</span>
+                  <span className="diff-icon"><Heart size={18} /></span>
                   <span>Real emotional connection</span>
                 </div>
               </div>
               <div className="diff-result positive">
-                <span>✓ Players who want to stay</span>
+                <Check size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+                <span>Players who want to stay</span>
               </div>
             </div>
           </div>
@@ -143,9 +162,9 @@ export default function Home() {
               <h3>IN-GAME</h3>
               <p className="panel-desc">Watches, learns, and builds memory</p>
               <div className="panel-icons">
-                <div className="panel-icon">🎮</div>
-                <div className="panel-icon">⚔️</div>
-                <div className="panel-icon">🧙</div>
+                <div className="panel-icon"><Gamepad2 size={32} /></div>
+                <div className="panel-icon"><Swords size={32} /></div>
+                <div className="panel-icon"><Wand2 size={32} /></div>
               </div>
             </div>
 
@@ -234,7 +253,7 @@ export default function Home() {
 
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon">⚡</div>
+            <div className="feature-icon"><Zap size={28} /></div>
             <h3>Drop-in SDK</h3>
             <p>
               Unity and Unreal plugins that integrate in minutes. One-line initialization, 
@@ -243,7 +262,7 @@ export default function Home() {
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon">🎭</div>
+            <div className="feature-icon"><Sparkles size={28} /></div>
             <h3>Emotional Modeling</h3>
             <p>
               Proprietary emotional architecture that creates genuine personality. 
@@ -252,7 +271,7 @@ export default function Home() {
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon">💾</div>
+            <div className="feature-icon"><Database size={28} /></div>
             <h3>Persistent Memory</h3>
             <p>
               Cross-session, cross-platform memory that never forgets. The companion 
@@ -261,7 +280,7 @@ export default function Home() {
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon">🎤</div>
+            <div className="feature-icon"><Mic size={28} /></div>
             <h3>Voice & Text</h3>
             <p>
               Support for both text chat and voice output. Multiple voice styles, 
@@ -270,7 +289,7 @@ export default function Home() {
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon">🔗</div>
+            <div className="feature-icon"><Link2 size={28} /></div>
             <h3>Border Region Integrations</h3>
             <p>
               Discord bots, web widgets, forum assistants. Your companion tells stories 
@@ -279,7 +298,7 @@ export default function Home() {
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon">📊</div>
+            <div className="feature-icon"><BarChart3 size={28} /></div>
             <h3>LiveOps Intelligence</h3>
             <p>
               Companions communicate patches, events, and updates. They react to world 
@@ -289,46 +308,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Target Audiences */}
-      <section className="section" id="audiences" style={{ background: 'var(--color-bg-secondary)' }}>
+      {/* The Problem */}
+      <section className="section" id="problem" style={{ background: 'var(--color-bg-secondary)' }}>
         <div className="section-header">
-          <span className="section-tag">Who It&apos;s For</span>
-          <h2>Built for Game Studios</h2>
+          <span className="section-tag">The Problem</span>
+          <h2>Retention Is Broken</h2>
           <p>
-            From indie teams to AAA publishers, CROSSLAYERAI scales with you.
+            Most players leave and never come back. Traditional methods don&apos;t work anymore.
           </p>
         </div>
 
         <div className="audiences-container">
           <div className="audience-card">
-            <div className="audience-icon">🎮</div>
+            <div className="audience-icon"><BarChart2 size={36} /></div>
             <div className="audience-content">
-              <h3>Indie & Mid-size Studios</h3>
+              <h3>Day 7 retention averages 4%</h3>
               <p>
-                Compete on innovation without enterprise resources. Add emotional AI 
-                companions that keep players engaged - with minimal engineering lift.
+                96% of players are gone within a week. Push notifications get ignored. 
+                Email campaigns get filtered. Discount pop-ups feel desperate. 
+                Players don&apos;t leave because your game is bad - they leave because 
+                nothing pulls them back. They are lost forever.
               </p>
-              <ul className="audience-benefits">
-                <li>Free tier available</li>
-                <li>One-line integration</li>
-                <li>No ML expertise needed</li>
-              </ul>
             </div>
           </div>
 
           <div className="audience-card">
-            <div className="audience-icon">🏢</div>
+            <div className="audience-icon"><Heart size={36} /></div>
             <div className="audience-content">
-              <h3>AAA Publishers</h3>
+              <h3>Connection is what&apos;s missing</h3>
               <p>
-                Player-level personalization at scale. Build persistent characters across 
-                titles and unlock new monetization through companion customization.
+                The games people return to for years have one thing in common: 
+                they create relationships. CrossLayerAI gives every player someone 
+                who remembers them, talks to them between sessions, and makes 
+                coming back feel like coming home. Everywhere.
               </p>
-              <ul className="audience-benefits">
-                <li>Enterprise SLA</li>
-                <li>Custom voice training</li>
-                <li>White-label options</li>
-              </ul>
             </div>
           </div>
 
@@ -348,4 +361,3 @@ export default function Home() {
     </main>
   )
 }
-
