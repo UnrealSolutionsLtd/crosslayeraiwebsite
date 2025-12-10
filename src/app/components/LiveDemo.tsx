@@ -7,6 +7,12 @@ import { GA_EVENTS } from '../lib/analytics'
 type DemoType = 'discord' | 'dm'
 type MediaType = 'video' | 'image' | 'voice' | null
 
+interface ChatMessage {
+  username: string
+  avatar: string
+  message: string
+}
+
 interface Demo {
   type: DemoType
   channel: string
@@ -16,6 +22,8 @@ interface Demo {
   getMessage: () => string
   media: MediaType
   mediaSrc?: string
+  contextMessages?: ChatMessage[]
+  communityReply?: ChatMessage
 }
 
 const DEMOS: Demo[] = [
@@ -28,6 +36,15 @@ const DEMOS: Demo[] = [
     getMessage: () => `clean ace from @Ninja_42 🎯 chat said he was washed btw`,
     media: 'video',
     mediaSrc: '/ace-clip.mp4',
+    contextMessages: [
+      { username: 'aim_demon', avatar: '🎯', message: 'anyone got clips from last night?' },
+      { username: 'headshot_hero', avatar: '💀', message: 'check this one out ⬇️' },
+    ],
+    communityReply: {
+      username: 'shadow_striker',
+      avatar: '🔥',
+      message: 'bro went INSANE 😭'
+    }
   },
   {
     type: 'discord',
@@ -41,6 +58,15 @@ bro your PR was 8 like a month ago
 
 certified growth arc 📈`,
     media: null,
+    contextMessages: [
+      { username: 'bush_camper', avatar: '🌳', message: 'solo queue is brutal rn' },
+      { username: 'buildmaster_x', avatar: '🏗️', message: 'just got 6 kills i thought that was good...' },
+    ],
+    communityReply: {
+      username: 'dropmaster_99',
+      avatar: '🎮',
+      message: 'what loadout tho?? 👀'
+    }
   },
   {
     type: 'dm',
@@ -55,6 +81,7 @@ I still remember that 2800 damage game. You were ONE shot away from that 3k badg
 Just saying. 👀`,
     media: 'voice',
     mediaSrc: '/voice.m4a',
+    // No context messages or reply for DMs
   },
   {
     type: 'discord',
@@ -69,6 +96,15 @@ Just saying. 👀`,
 the server witnessed the whole journey`,
     media: 'image',
     mediaSrc: '/tiktok_post.png',
+    contextMessages: [
+      { username: 'maidenless_420', avatar: '💀', message: 'anyone else stuck on malenia?' },
+      { username: 'parry_king', avatar: '🛡️', message: 'took me 200 tries no shame' },
+    ],
+    communityReply: {
+      username: 'git_gud_or_die',
+      avatar: '⚔️',
+      message: 'the dedication 🙏 respect'
+    }
   },
 ]
 
@@ -276,28 +312,19 @@ export default function LiveDemo() {
                 </div>
 
                 <div className="discord-messages">
-                  {/* Previous messages for context */}
-                  <div className="discord-message old">
-                    <div className="discord-msg-avatar">🎮</div>
-                    <div className="discord-msg-content">
-                      <div className="discord-msg-header">
-                        <span className="discord-msg-author">gamer_andy</span>
-                        <span className="discord-msg-time">Today at 4:28 PM</span>
+                  {/* Previous messages for context - only for server channels */}
+                  {demo.contextMessages && demo.contextMessages.map((msg, i) => (
+                    <div key={i} className="discord-message old">
+                      <div className="discord-msg-avatar">{msg.avatar}</div>
+                      <div className="discord-msg-content">
+                        <div className="discord-msg-header">
+                          <span className="discord-msg-author">{msg.username}</span>
+                          <span className="discord-msg-time">Today at 4:{28 + i * 2} PM</span>
+                        </div>
+                        <div className="discord-msg-text">{msg.message}</div>
                       </div>
-                      <div className="discord-msg-text">anyone playing rn?</div>
                     </div>
-                  </div>
-
-                  <div className="discord-message old">
-                    <div className="discord-msg-avatar">🎯</div>
-                    <div className="discord-msg-content">
-                      <div className="discord-msg-header">
-                        <span className="discord-msg-author">quickscope_queen</span>
-                        <span className="discord-msg-time">Today at 4:30 PM</span>
-                      </div>
-                      <div className="discord-msg-text">maybe later, grinding ranked</div>
-                    </div>
-                  </div>
+                  ))}
 
                   {/* Main bot message */}
                   <div className="discord-message bot">
@@ -388,15 +415,15 @@ export default function LiveDemo() {
                   </div>
 
                   {/* Reply from community member */}
-                  {showReactions && (
+                  {showReactions && demo.communityReply && (
                     <div className="discord-message reply">
-                      <div className="discord-msg-avatar">🔥</div>
+                      <div className="discord-msg-avatar">{demo.communityReply.avatar}</div>
                       <div className="discord-msg-content">
                         <div className="discord-msg-header">
-                          <span className="discord-msg-author">shadow_striker</span>
+                          <span className="discord-msg-author">{demo.communityReply.username}</span>
                           <span className="discord-msg-time">Today at 4:33 PM</span>
                         </div>
-                        <div className="discord-msg-text">LETS GOOO 🎉</div>
+                        <div className="discord-msg-text">{demo.communityReply.message}</div>
                       </div>
                     </div>
                   )}
