@@ -22,17 +22,24 @@ import {
   Video,
   Trophy,
   FileText,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+  Brain,
+  Send,
 } from 'lucide-react'
 import LiveDemo from './components/LiveDemo'
 import Header from './components/Header'
 import { GA_EVENTS } from './lib/analytics'
 
-export default function Home() {
-  const viewedSections = useRef<Set<string>>(new Set())
-  const scrollMilestones = useRef<Set<number>>(new Set())
-  const [copied, setCopied] = useState(false)
-
-  const codeSnippet = `// Initialize CrossLayerAI
+// Code snippet examples for the carousel
+const codeExamples = [
+  {
+    id: 'init',
+    title: 'Initialize',
+    icon: Play,
+    filename: 'setup.ts',
+    code: `// Initialize CrossLayerAI in 3 lines
 import { CrossLayerAI } from '@crosslayerai/sdk';
 
 const crosslayer = new CrossLayerAI({
@@ -40,25 +47,115 @@ const crosslayer = new CrossLayerAI({
   apiKey: process.env.CROSSLAYER_API_KEY
 });
 
-// Track player events
+// That's it! You're ready to capture moments.`,
+  },
+  {
+    id: 'events',
+    title: 'Track Events',
+    icon: Gamepad2,
+    filename: 'events.ts',
+    code: `// Track any in-game event
 crosslayer.trackEvent({
   playerId: player.id,
   event: 'boss_defeated',
   metadata: {
     bossName: 'Dragon Lord',
     playerLevel: 42,
+    attempts: 7,
     timeTaken: '8:32'
   }
 });
 
-// CrossLayerAI now remembers this forever ✨`
+// CrossLayerAI remembers this forever ✨`,
+  },
+  {
+    id: 'media',
+    title: 'Send Media',
+    icon: Camera,
+    filename: 'media.ts',
+    code: `// Capture screenshots and clips
+await crosslayer.sendScreenshot({
+  playerId: player.id,
+  image: screenshotBuffer,
+  context: 'Clutch 1v5 ace!'
+});
+
+// Send video clips
+await crosslayer.sendClip({
+  playerId: player.id,
+  video: clipBuffer,
+  duration: 15,
+  tags: ['ace', 'clutch', 'ranked']
+});`,
+  },
+  {
+    id: 'memory',
+    title: 'Get Memory',
+    icon: Brain,
+    filename: 'memory.ts',
+    code: `// Retrieve player's full history
+const memory = await crosslayer.getMemory({
+  playerId: player.id
+});
+
+// Returns everything about this player:
+// - Past achievements
+// - Play patterns  
+// - Favorite weapons/characters
+// - Social connections
+// - Memorable moments`,
+  },
+  {
+    id: 'outreach',
+    title: 'AI Outreach',
+    icon: Send,
+    filename: 'outreach.ts',
+    code: `// AI crafts personalized messages
+const message = await crosslayer.generateOutreach({
+  playerId: player.id,
+  channel: 'discord',
+  trigger: 'win_streak_ended'
+});
+
+// Result: "Hey Alex! That 12-game win streak
+// was legendary 🔥 Ready to start a new one?"
+
+// Works on Discord, TikTok, email, push...`,
+  },
+]
+
+export default function Home() {
+  const viewedSections = useRef<Set<string>>(new Set())
+  const scrollMilestones = useRef<Set<number>>(new Set())
+  const [copied, setCopied] = useState(false)
+  const [activeExample, setActiveExample] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   const handleCopyCode = async () => {
-    await navigator.clipboard.writeText(codeSnippet)
+    await navigator.clipboard.writeText(codeExamples[activeExample].code)
     setCopied(true)
     GA_EVENTS.CODE_COPY()
     setTimeout(() => setCopied(false), 2000)
   }
+
+  const nextExample = () => {
+    setActiveExample((prev) => (prev + 1) % codeExamples.length)
+    setIsAutoPlaying(false)
+  }
+
+  const prevExample = () => {
+    setActiveExample((prev) => (prev - 1 + codeExamples.length) % codeExamples.length)
+    setIsAutoPlaying(false)
+  }
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return
+    const interval = setInterval(() => {
+      setActiveExample((prev) => (prev + 1) % codeExamples.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [isAutoPlaying])
 
   useEffect(() => {
     // Load Tally embed script
@@ -379,7 +476,7 @@ crosslayer.trackEvent({
         </div>
       </section>
 
-      {/* Code Snippet Section */}
+      {/* Code Snippet Carousel Section */}
       <section className="section code-section" id="integration">
         <div className="section-header">
           <span className="section-tag">Integration</span>
@@ -416,55 +513,109 @@ crosslayer.trackEvent({
           </div>
         </div>
 
-        <div className="code-container">
-          <div className="code-window">
-            <div className="code-header">
-              <div className="code-dots">
-                <span className="dot red"></span>
-                <span className="dot yellow"></span>
-                <span className="dot green"></span>
-              </div>
-              <span className="code-filename">crosslayer.ts</span>
-              <button className="code-copy-btn" onClick={handleCopyCode}>
-                {copied ? (
-                  <>
-                    <CheckCircle2 size={14} />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={14} />
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
-            </div>
-            <pre className="code-content">
-              <code>{codeSnippet}</code>
-            </pre>
+        {/* Code Carousel */}
+        <div className="code-carousel">
+          {/* Tab Navigation */}
+          <div className="code-tabs">
+            {codeExamples.map((example, index) => {
+              const IconComponent = example.icon
+              return (
+                <button
+                  key={example.id}
+                  className={`code-tab ${activeExample === index ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveExample(index)
+                    setIsAutoPlaying(false)
+                  }}
+                >
+                  <IconComponent size={18} />
+                  <span>{example.title}</span>
+                </button>
+              )
+            })}
           </div>
 
-          <div className="code-features">
-            <div className="code-feature">
-              <div className="code-feature-icon"><Zap size={20} /></div>
-              <div>
-                <h4>One-Line Init</h4>
-                <p>Drop in the SDK and start tracking in seconds</p>
+          <div className="code-carousel-container">
+            {/* Prev Button */}
+            <button className="carousel-nav prev" onClick={prevExample} aria-label="Previous example">
+              <ChevronLeft size={24} />
+            </button>
+
+            {/* Code Window */}
+            <div className="code-window">
+              <div className="code-header">
+                <div className="code-dots">
+                  <span className="dot red"></span>
+                  <span className="dot yellow"></span>
+                  <span className="dot green"></span>
+                </div>
+                <span className="code-filename">{codeExamples[activeExample].filename}</span>
+                <button className="code-copy-btn" onClick={handleCopyCode}>
+                  {copied ? (
+                    <>
+                      <CheckCircle2 size={14} />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
+              <div className="code-content-wrapper">
+                <pre className="code-content" key={activeExample}>
+                  <code>{codeExamples[activeExample].code}</code>
+                </pre>
               </div>
             </div>
-            <div className="code-feature">
-              <div className="code-feature-icon"><Database size={20} /></div>
-              <div>
-                <h4>Auto Memory</h4>
-                <p>Every event builds persistent player memory</p>
-              </div>
+
+            {/* Next Button */}
+            <button className="carousel-nav next" onClick={nextExample} aria-label="Next example">
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          {/* Progress Dots */}
+          <div className="carousel-progress">
+            {codeExamples.map((_, index) => (
+              <button
+                key={index}
+                className={`progress-dot ${activeExample === index ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveExample(index)
+                  setIsAutoPlaying(false)
+                }}
+                aria-label={`Go to example ${index + 1}`}
+              >
+                <span className="progress-fill" style={{ animationDuration: isAutoPlaying && activeExample === index ? '4s' : '0s' }} />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Features below carousel */}
+        <div className="code-features-row">
+          <div className="code-feature">
+            <div className="code-feature-icon"><Zap size={20} /></div>
+            <div>
+              <h4>One-Line Init</h4>
+              <p>Drop in the SDK and start tracking in seconds</p>
             </div>
-            <div className="code-feature">
-              <div className="code-feature-icon"><Globe size={20} /></div>
-              <div>
-                <h4>Cross-Platform</h4>
-                <p>Works with Unity, Unreal, and web games</p>
-              </div>
+          </div>
+          <div className="code-feature">
+            <div className="code-feature-icon"><Database size={20} /></div>
+            <div>
+              <h4>Auto Memory</h4>
+              <p>Every event builds persistent player memory</p>
+            </div>
+          </div>
+          <div className="code-feature">
+            <div className="code-feature-icon"><Globe size={20} /></div>
+            <div>
+              <h4>Cross-Platform</h4>
+              <p>Works with Unity, Unreal, and web games</p>
             </div>
           </div>
         </div>

@@ -1748,7 +1748,7 @@ body {
   justify-content: center;
   gap: 1.5rem;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -1799,6 +1799,182 @@ body {
 
 .sdk-icon:hover span {
   color: var(--color-text-primary);
+}
+
+/* Code Carousel */
+.code-carousel {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.code-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.code-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.code-tab:hover {
+  background: rgba(0, 245, 212, 0.08);
+  border-color: rgba(0, 245, 212, 0.3);
+  color: var(--color-text-secondary);
+}
+
+.code-tab.active {
+  background: rgba(0, 245, 212, 0.15);
+  border-color: var(--color-accent-cyan);
+  color: var(--color-accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.15);
+}
+
+.code-tab svg {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.code-tab:hover svg,
+.code-tab.active svg {
+  opacity: 1;
+}
+
+.code-carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.carousel-nav {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-nav:hover {
+  background: rgba(0, 245, 212, 0.1);
+  border-color: var(--color-accent-cyan);
+  color: var(--color-accent-cyan);
+  transform: scale(1.05);
+}
+
+.carousel-nav:active {
+  transform: scale(0.95);
+}
+
+.code-carousel-container .code-window {
+  flex: 1;
+  min-width: 0;
+}
+
+.code-content-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.code-carousel .code-content {
+  animation: fadeSlideIn 0.4s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Progress Dots */
+.carousel-progress {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.progress-dot {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.progress-dot:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.progress-dot.active {
+  background: rgba(0, 245, 212, 0.3);
+}
+
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--color-accent-cyan);
+  border-radius: 2px;
+}
+
+.progress-dot.active .progress-fill {
+  width: 100%;
+  animation: progressFill linear forwards;
+}
+
+@keyframes progressFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Features Row */
+.code-features-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.code-features-row .code-feature {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
 }
 
 .code-container {
@@ -1985,6 +2161,37 @@ body {
     flex: 1;
     min-width: 200px;
   }
+  
+  /* Carousel responsive */
+  .code-tabs {
+    gap: 0.35rem;
+  }
+  
+  .code-tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .code-tab span {
+    display: none;
+  }
+  
+  .code-tab svg {
+    margin: 0;
+  }
+  
+  .carousel-nav {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .code-features-row {
+    gap: 1rem;
+  }
+  
+  .code-features-row .code-feature {
+    min-width: 200px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -2036,6 +2243,45 @@ body {
   
   .code-copy-btn {
     padding: 6px 8px;
+  }
+  
+  /* Carousel mobile */
+  .code-carousel {
+    margin-bottom: 2rem;
+  }
+  
+  .carousel-nav {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .carousel-nav svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .code-tabs {
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .code-tab {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .code-features-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .code-features-row .code-feature {
+    min-width: 100%;
+    max-width: none;
+  }
+  
+  .progress-dot {
+    width: 28px;
+    height: 3px;
   }
 }
 
