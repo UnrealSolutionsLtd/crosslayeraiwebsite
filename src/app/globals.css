@@ -105,25 +105,30 @@ body {
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  letter-spacing: -1px;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
   animation: fadeInUp 0.8s ease 0.1s forwards;
   opacity: 0;
+  max-width: 700px;
+  background: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero h1 .highlight {
-  color: var(--color-accent-cyan);
-  position: relative;
+  color: #fff;
+  font-weight: 800;
 }
 
-/* Hero Pillars - CAPTURE · REMEMBER · RE-ENGAGE */
+/* Hero Subheadline */
 .hero-subheadline {
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-  font-weight: 400;
-  color: var(--color-text-secondary);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: 500;
+  color: #a5b4fc;
   margin-bottom: 2rem;
   max-width: 600px;
   line-height: 1.6;
@@ -809,7 +814,7 @@ body {
 
 .media-types-label {
   font-size: 1.1rem;
-  color: var(--color-text-secondary);
+  color: #e2e8f0;
   margin-bottom: 1.5rem;
   font-weight: 500;
 }
@@ -976,6 +981,7 @@ body {
   font-weight: 500;
   color: var(--color-text-secondary);
   margin-bottom: 1.5rem;
+  white-space: nowrap;
 }
 
 .game-world {
@@ -983,6 +989,85 @@ body {
   border: 1px solid rgba(91, 150, 156, 0.3);
   margin-right: -30px;
   z-index: 1;
+}
+
+/* Media types inside CAPTURE panel - floating pills */
+.panel-media-types {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1.2rem;
+}
+
+.panel-media-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(91, 150, 156, 0.15);
+  border: 1px solid rgba(91, 150, 156, 0.3);
+  border-radius: 20px;
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+.panel-media-item:nth-child(1) { animation-delay: 0s; }
+.panel-media-item:nth-child(2) { animation-delay: 0.4s; }
+.panel-media-item:nth-child(3) { animation-delay: 0.8s; }
+.panel-media-item:nth-child(4) { animation-delay: 1.2s; }
+.panel-media-item:nth-child(5) { animation-delay: 1.6s; }
+.panel-media-item:nth-child(6) { animation-delay: 2s; }
+
+.panel-media-item:hover {
+  transform: translateY(-3px);
+  background: rgba(91, 150, 156, 0.3);
+  box-shadow: 0 4px 15px rgba(91, 150, 156, 0.3);
+}
+
+.panel-media-item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Colorful media type icons */
+.panel-media-item .icon-camera {
+  color: #00D4FF;
+  filter: drop-shadow(0 0 4px rgba(0, 212, 255, 0.5));
+}
+
+.panel-media-item .icon-video {
+  color: #FF6B6B;
+  filter: drop-shadow(0 0 4px rgba(255, 107, 107, 0.5));
+}
+
+.panel-media-item .icon-mic {
+  color: #4ADE80;
+  filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.5));
+}
+
+.panel-media-item .icon-chat {
+  color: #FBBF24;
+  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));
+}
+
+.panel-media-item .icon-trophy {
+  color: #F59E0B;
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.5));
+}
+
+.panel-media-item .icon-events {
+  color: #C084FC;
+  filter: drop-shadow(0 0 4px rgba(192, 132, 252, 0.5));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 .game-world h3 {

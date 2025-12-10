@@ -2,12 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import {
-  Mail,
-  Bell,
-  Gift,
-  BarChart2,
   X,
-  Brain,
   MessageCircle,
   Globe,
   Heart,
@@ -141,58 +136,29 @@ companion.trackEvent({
         <div className="orb orb-magenta" />
         
         <h1>
-          80% of players quit in 7 days.
+          Turn wins, clips, and clutch plays<br />
+          into personalized outreach.
         </h1>
         
         <p className="hero-subheadline">
-          Turn wins, clips, and clutch plays into personalized outreach<br />
-          on Discord, TikTok, and everywhere players are.
+          On Discord, TikTok, and everywhere players are.
         </p>
 
         {/* How It Works - Full Visual */}
         <div className="hero-how-it-works">
-          {/* Media Types - What We Capture */}
-          <div className="media-types-container">
-            <p className="media-types-label">Capture any media feed from your game</p>
-            <div className="media-types-grid">
-              <div className="media-type-item">
-                <Camera size={24} />
-                <span>Screenshots</span>
-              </div>
-              <div className="media-type-item">
-                <Mic size={24} />
-                <span>Voice / Audio</span>
-              </div>
-              <div className="media-type-item">
-                <Video size={24} />
-                <span>Video / Highlights</span>
-              </div>
-              <div className="media-type-item">
-                <MessageCircle size={24} />
-                <span>Text / Chat</span>
-              </div>
-              <div className="media-type-item">
-                <Trophy size={24} />
-                <span>Achievements</span>
-              </div>
-              <div className="media-type-item">
-                <FileText size={24} />
-                <span>Any Event Data</span>
-              </div>
-            </div>
-          </div>
-
           {/* Robot Diagram */}
           <div className="usp-visual">
             <div className="usp-diagram">
-              {/* Game World Panel */}
+              {/* Game World Panel - with media types */}
               <div className="usp-panel game-world">
-                <h3>IN-GAME</h3>
-                <p className="panel-desc">Captures everything, builds memory</p>
-                <div className="panel-icons">
-                  <div className="panel-icon"><Gamepad2 size={32} /></div>
-                  <div className="panel-icon"><Swords size={32} /></div>
-                  <div className="panel-icon"><Wand2 size={32} /></div>
+                <h3>CAPTURE any game media</h3>
+                <div className="panel-media-types">
+                  <div className="panel-media-item"><Camera size={18} className="icon-camera" /><span>Screenshots</span></div>
+                  <div className="panel-media-item"><Video size={18} className="icon-video" /><span>Video</span></div>
+                  <div className="panel-media-item"><Mic size={18} className="icon-mic" /><span>Voice</span></div>
+                  <div className="panel-media-item"><MessageCircle size={18} className="icon-chat" /><span>Chat</span></div>
+                  <div className="panel-media-item"><Trophy size={18} className="icon-trophy" /><span>Achievements</span></div>
+                  <div className="panel-media-item"><Gamepad2 size={18} className="icon-events" /><span>In-Game Events</span></div>
                 </div>
               </div>
 
@@ -273,74 +239,6 @@ companion.trackEvent({
         <LiveDemo />
       </section>
 
-      {/* VS Comparison - Old Way vs New Way */}
-      <section className="section vs-section">
-        <div className="section-header">
-          <span className="section-tag">The Difference</span>
-          <h2>Old Way vs New Way</h2>
-        </div>
-        <div className="diff-container">
-          <div className="diff-panel diff-old">
-            <div className="diff-header">
-              <span className="diff-label">Traditional Retention</span>
-            </div>
-            <div className="diff-items">
-              <div className="diff-item faded">
-                <span className="diff-icon"><Mail size={18} /></span>
-                <span>Generic email blasts</span>
-              </div>
-              <div className="diff-item faded">
-                <span className="diff-icon"><Bell size={18} /></span>
-                <span>Annoying push notifications</span>
-              </div>
-              <div className="diff-item faded">
-                <span className="diff-icon"><Gift size={18} /></span>
-                <span>Same rewards for everyone</span>
-              </div>
-              <div className="diff-item faded">
-                <span className="diff-icon"><BarChart2 size={18} /></span>
-                <span>Players are just numbers</span>
-              </div>
-            </div>
-            <div className="diff-result negative">
-              <X size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-              <span>Most players never return</span>
-            </div>
-          </div>
-
-          <div className="diff-divider">
-            <div className="diff-vs">VS</div>
-          </div>
-
-          <div className="diff-panel diff-new">
-            <div className="diff-header">
-              <span className="diff-label highlight">CrossLayerAI</span>
-            </div>
-            <div className="diff-items">
-              <div className="diff-item glow">
-                <span className="diff-icon"><Brain size={18} /></span>
-                <span>Remembers every player&apos;s journey</span>
-              </div>
-              <div className="diff-item glow">
-                <span className="diff-icon"><MessageCircle size={18} /></span>
-                <span>Personal conversations that matter</span>
-              </div>
-              <div className="diff-item glow">
-                <span className="diff-icon"><Globe size={18} /></span>
-                <span>Present everywhere they are</span>
-              </div>
-              <div className="diff-item glow">
-                <span className="diff-icon"><Heart size={18} /></span>
-                <span>Real emotional connection</span>
-              </div>
-            </div>
-            <div className="diff-result positive">
-              <Check size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-              <span>Players who want to stay</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Features */}
       <section className="section" id="features">
@@ -415,9 +313,9 @@ companion.trackEvent({
       <section className="section why-different-section" id="why-different">
         <div className="section-header">
           <span className="section-tag">Why CrossLayerAI</span>
-          <h2>The Only Solution That Does It All</h2>
+          <h2>From In-Game Moments to Everywhere</h2>
           <p>
-            Other platforms solve pieces of the puzzle. We connect them all.
+            Others stop at data or AI. We connect the entire player journey.
           </p>
         </div>
 
@@ -431,33 +329,39 @@ companion.trackEvent({
               <Check size={16} /> AI personalities in-game
             </div>
             <div className="position-doesnt">
-              <X size={16} /> No presence outside the game
+              <X size={16} /> Memory resets each session
+            </div>
+            <div className="position-doesnt">
+              <X size={16} /> Stuck inside the game
             </div>
           </div>
 
           <div className="position-column center-column">
             <div className="position-bridge">
               <span className="bridge-label">CrossLayerAI</span>
-              <span className="bridge-tagline">The Bridge</span>
+              <span className="bridge-tagline">The Complete Loop</span>
             </div>
             <div className="bridge-features">
-              <div className="bridge-feature"><Check size={14} /> AI Companion</div>
-              <div className="bridge-feature"><Check size={14} /> Event Analytics</div>
-              <div className="bridge-feature"><Check size={14} /> Everywhere Layer</div>
-              <div className="bridge-feature"><Check size={14} /> Retention Engine</div>
+              <div className="bridge-feature"><Check size={14} /> Capture any content</div>
+              <div className="bridge-feature"><Check size={14} /> Persistent player memory</div>
+              <div className="bridge-feature"><Check size={14} /> Reach players everywhere</div>
+              <div className="bridge-feature"><Check size={14} /> Personalized re-engagement</div>
             </div>
           </div>
 
           <div className="position-column">
             <div className="position-category">
-              <span className="category-label">Analytics Tools</span>
+              <span className="category-label">Analytics Platforms</span>
               <span className="category-example">GameAnalytics, Amplitude</span>
             </div>
             <div className="position-does">
               <Check size={16} /> Track player behavior
             </div>
             <div className="position-doesnt">
-              <X size={16} /> Can&apos;t act on insights
+              <X size={16} /> Data without action
+            </div>
+            <div className="position-doesnt">
+              <X size={16} /> No personalized outreach
             </div>
           </div>
         </div>
