@@ -17,9 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CROSSLAYERAI | Stop Losing Players. Start Bringing Them Back.',
-  description: 'The player re-engagement engine powered by AI companions. Reduce churn, increase LTV, and bring churned players back-automatically through Discord, TikTok, and beyond.',
-  keywords: 'player retention, reduce churn, player re-engagement, gaming AI, AI companion, game development, AI SDK, game retention, Inworld AI alternative, Convai alternative, game analytics, Discord bot, player engagement, LiveOps, win-back',
+  title: 'CrossLayerAI | Turn Game Moments into Personalized Outreach',
+  description: 'Capture wins, clips, and clutch plays. Reach players on Discord, TikTok, and everywhere they are with AI-powered personalized engagement.',
+  keywords: 'player retention, player re-engagement, gaming AI, AI companion, game development, AI SDK, Discord bot, TikTok gaming, player engagement, LiveOps, personalized outreach, game clips, Inworld AI alternative, Convai alternative',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.svg',
   },
   openGraph: {
-    title: 'CROSSLAYERAI | Stop Losing Players. Start Bringing Them Back.',
-    description: 'The player re-engagement engine powered by AI companions. Reduce churn, increase LTV, and bring churned players back automatically.',
+    title: 'CrossLayerAI | Turn Game Moments into Personalized Outreach',
+    description: 'Capture wins, clips, and clutch plays. Reach players on Discord, TikTok, and everywhere they are with AI-powered personalized engagement.',
     type: 'website',
     url: 'https://crosslayerai.com',
     siteName: 'CrossLayerAI',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CROSSLAYERAI | Stop Losing Players. Start Bringing Them Back.',
-    description: 'The player re-engagement engine powered by AI companions. Reduce churn and bring players back automatically.',
+    title: 'CrossLayerAI | Turn Game Moments into Personalized Outreach',
+    description: 'Capture wins, clips, and clutch plays. Reach players on Discord, TikTok, and everywhere they are.',
     images: ['https://crosslayerai.com/og-image.png'],
   },
   metadataBase: new URL('https://crosslayerai.com'),
