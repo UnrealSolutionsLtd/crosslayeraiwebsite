@@ -39,15 +39,7 @@ export const GA_EVENTS = {
     demo_stage: 'choice',
   }),
 
-  // Demo funnel step 2: User enters gamertag
-  DEMO_NAME_SUBMITTED: (name: string) => trackEvent('demo_name_submitted', {
-    category: 'Demo',
-    label: 'Name Submitted',
-    demo_stage: 'name',
-    player_name_length: name.length,
-  }),
-
-  // Demo viewing stage (funnel step 3)
+  // Demo funnel step 2: Demo content is shown
   DEMO_STARTED: () => trackEvent('demo_started', {
     category: 'Demo',
     label: 'Demo Started',

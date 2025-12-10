@@ -1,124 +1,120 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { RefreshCw, Play, Share2, Heart, MessageCircle, Bookmark, Volume2, VolumeX } from 'lucide-react'
+import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
-type DemoType = 'discord' | 'video' | 'tiktok' | 'voice'
+type DemoType = 'discord' | 'dm'
+type MediaType = 'video' | 'image' | 'voice' | null
 
 interface Demo {
   type: DemoType
+  channel: string
   game: string
-  event: string
-  getMessage: (name: string) => string
-  color: string
+  botName: string
+  botEmoji: string
+  getMessage: () => string
+  media: MediaType
+  mediaSrc?: string
 }
 
 const DEMOS: Demo[] = [
   {
-    // SCENARIO 1: Auto-generated video highlight
-    type: 'video',
-    game: 'VALORANT',
-    event: 'Auto-clipped • ACE',
-    getMessage: (name: string) => `${name}'s 1v4 ACE 🎯 They said they were "washed" yesterday lol`,
-    color: '#ff4655',
-  },
-  {
-    // SCENARIO 2: Discord text message
     type: 'discord',
-    game: 'Fortnite',
-    event: 'Victory Royale • 12 kills',
-    getMessage: (name: string) => `YOOO @${name} 12 KILLS??? 
-
-bro your PR was 8 like a month ago lmaooo
-
-actually insane. saving this clip forever 😭`,
-    color: '#5865f2',
+    channel: 'clips',
+    game: 'Valorant Community',
+    botName: 'Blin',
+    botEmoji: '🎬',
+    getMessage: () => `clean ace from @Ninja_42 🎯 chat said he was washed btw`,
+    media: 'video',
+    mediaSrc: '/ace-clip.mp4',
   },
   {
-    // SCENARIO 3: Voice message
-    type: 'voice',
-    game: 'Apex Legends',
-    event: 'Voice Message • Re-engagement',
-    getMessage: (name: string) => `Hey ${name}, it's been like 2 weeks... I still remember that 2800 damage game. You were ONE shot from your 3k badge.`,
-    color: '#e63946',
+    type: 'discord',
+    channel: 'victory-royale',
+    game: 'Fortnite Legends',
+    botName: 'Gopnik',
+    botEmoji: '🥞',
+    getMessage: () => `yo @xKira_TTV just dropped 12 KILLS in solos 💀
+
+bro your PR was 8 like a month ago
+
+certified growth arc 📈`,
+    media: null,
   },
   {
-    // SCENARIO 4: TikTok/Social shareable post
-    type: 'tiktok',
+    type: 'dm',
+    channel: 'Boris',
+    game: '',
+    botName: 'Boris',
+    botEmoji: '🎙️',
+    getMessage: () => `Hey, it's been like 2 weeks since you played...
+
+I still remember that 2800 damage game. You were ONE shot away from that 3k badge.
+
+Just saying. 👀`,
+    media: 'voice',
+    mediaSrc: '/voice.m4a',
+  },
+  {
+    type: 'discord',
+    channel: 'achievements',
     game: 'Elden Ring',
-    event: 'Generated • Achievement Post',
-    getMessage: (name: string) => `147 hours. 34 deaths to Margit. Almost quit twice. @${name} just got the Platinum. This is what persistence looks like. 👑`,
-    color: '#00f2ea',
+    botName: 'Babushka',
+    botEmoji: '👵',
+    getMessage: () => `147 hours. 34 deaths to Margit. Almost quit twice.
+
+@SoulsBorne_Dan finally got the Platinum 👑
+
+the server witnessed the whole journey`,
+    media: 'image',
+    mediaSrc: '/tiktok_post.png',
   },
 ]
 
-type Stage = 'choice' | 'name' | 'demo'
+type Stage = 'choice' | 'demo'
 
 export default function LiveDemo() {
   const [stage, setStage] = useState<Stage>('choice')
-  const [playerName, setPlayerName] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
   const [displayedText, setDisplayedText] = useState('')
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [showReactions, setShowReactions] = useState(false)
+  const [showMedia, setShowMedia] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
+  const [isVoicePlaying, setIsVoicePlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   
   const demo = DEMOS[currentIndex]
-  const displayName = playerName || 'Player'
 
-  // Helper to highlight the playertag in displayed text
-  const highlightPlayerTag = (text: string) => {
-    if (!displayName) return text
-    
-    // Split by the player name (with or without @)
-    const patterns = [`@${displayName}`, displayName]
-    let result: (string | JSX.Element)[] = [text]
-    
-    patterns.forEach(pattern => {
-      result = result.flatMap((part, idx) => {
-        if (typeof part !== 'string') return part
-        const parts = part.split(pattern)
-        if (parts.length === 1) return part
-        return parts.flatMap((p, i) => 
-          i < parts.length - 1 
-            ? [p, <span key={`${idx}-${i}`} className="demo-playertag-highlight">{pattern}</span>]
-            : p
-        )
-      })
-    })
-    
-    return result
+  const highlightMentions = (text: string) => {
+    const parts = text.split(/(@[\w_]+)/g)
+    return parts.map((part, idx) => 
+      part.startsWith('@') 
+        ? <span key={idx} className="discord-mention">{part}</span>
+        : part
+    )
   }
 
   const handleShowMe = () => {
     GA_EVENTS.DEMO_SHOW_ME()
-    setStage('name')
-  }
-
-  const startDemo = () => {
-    if (!playerName.trim()) return
-    GA_EVENTS.DEMO_NAME_SUBMITTED(playerName)
     GA_EVENTS.DEMO_STARTED()
-    document.body.classList.add('screen-shake')
-    setTimeout(() => {
-      document.body.classList.remove('screen-shake')
-      setStage('demo')
-      setIsTyping(true)
-      playMessage()
-    }, 500)
+    setStage('demo')
+    setIsTyping(true)
+    playMessage()
   }
 
   const playMessage = () => {
     setDisplayedText('')
     setIsTyping(true)
-    setIsPlaying(false)
+    setShowReactions(false)
+    setShowMedia(false)
+    setIsVoicePlaying(false)
     
     let i = 0
-    const text = demo.getMessage(displayName)
-    const speed = demo.type === 'voice' ? 30 : 18
+    const text = demo.getMessage()
+    const speed = 20
     const interval = setInterval(() => {
       if (i < text.length) {
         setDisplayedText(text.slice(0, i + 1))
@@ -126,9 +122,16 @@ export default function LiveDemo() {
       } else {
         clearInterval(interval)
         setIsTyping(false)
-        if (demo.type === 'video' || demo.type === 'voice') {
-          setIsPlaying(true)
-        }
+        // Show media first, then reactions
+        setTimeout(() => {
+          setShowMedia(true)
+          if (demo.media === 'voice' && audioRef.current) {
+            audioRef.current.currentTime = 0
+            audioRef.current.play().catch(() => {})
+            setIsVoicePlaying(true)
+          }
+        }, 200)
+        setTimeout(() => setShowReactions(true), 500)
       }
     }, speed)
     return () => clearInterval(interval)
@@ -140,38 +143,37 @@ export default function LiveDemo() {
     }
   }, [currentIndex])
 
-  // Control audio playback for voice demo - play immediately when voice demo is shown
+  // Handle audio end
   useEffect(() => {
-    if (audioRef.current) {
-      if (stage === 'demo' && demo.type === 'voice') {
-        audioRef.current.currentTime = 0
-        audioRef.current.play()
-      } else {
-        audioRef.current.pause()
-      }
+    const audio = audioRef.current
+    if (audio) {
+      const handleEnded = () => setIsVoicePlaying(false)
+      audio.addEventListener('ended', handleEnded)
+      return () => audio.removeEventListener('ended', handleEnded)
     }
-  }, [stage, demo.type, currentIndex])
+  }, [])
 
   const nextDemo = () => {
     const nextIndex = (currentIndex + 1) % DEMOS.length
-    const nextDemoData = DEMOS[nextIndex]
-    GA_EVENTS.DEMO_FORMAT_CHANGE(nextDemoData.type, nextDemoData.game)
+    GA_EVENTS.DEMO_FORMAT_CHANGE(DEMOS[nextIndex].type, DEMOS[nextIndex].game)
     setCurrentIndex(nextIndex)
   }
 
   const selectScenario = (index: number) => {
     if (isTyping) return
-    const selectedDemo = DEMOS[index]
-    GA_EVENTS.DEMO_SCENARIO_SELECT(index, selectedDemo.type, selectedDemo.game)
+    GA_EVENTS.DEMO_SCENARIO_SELECT(index, DEMOS[index].type, DEMOS[index].game)
     setCurrentIndex(index)
   }
 
   const reset = () => {
     GA_EVENTS.DEMO_RESET()
     setStage('choice')
-    setPlayerName('')
     setDisplayedText('')
     setCurrentIndex(0)
+    setShowReactions(false)
+    setShowMedia(false)
+    setIsVoicePlaying(false)
+    if (audioRef.current) audioRef.current.pause()
   }
 
   const handleDemoCTA = () => {
@@ -179,193 +181,267 @@ export default function LiveDemo() {
     GA_EVENTS.WAITLIST_FORM_OPEN('demo')
   }
 
-  const renderDemoContent = () => {
-    switch (demo.type) {
-      case 'discord':
-        return (
-          <div className="demo-discord">
-            <div className="demo-discord-header">
-              <span className="demo-discord-channel"># victory-feed</span>
-            </div>
-            <div className="demo-discord-message">
-              <div className="demo-discord-avatar">🥞</div>
-              <div className="demo-discord-content">
-                <div className="demo-discord-name">Blin <span className="demo-bot-tag">BOT</span></div>
-                <div className="demo-discord-text">
-                  {highlightPlayerTag(displayedText)}
-                  {isTyping && <span className="demo-cursor">|</span>}
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-
-      case 'video':
-        return (
-          <div className="demo-video">
-            <div className="demo-video-player">
-              <video 
-                ref={videoRef}
-                className="demo-video-element"
-                src="/ace-clip.mp4"
-                autoPlay
-                loop
-                muted={isMuted}
-                playsInline
-                onLoadedMetadata={(e) => {
-                  const video = e.currentTarget
-                  video.volume = 0.5
-                }}
-              />
-                <div className="demo-video-game-overlay">VALORANT</div>
-              <button 
-                className="demo-video-mute-btn"
-                onClick={() => setIsMuted(!isMuted)}
-                title={isMuted ? 'Unmute' : 'Mute'}
-              >
-                {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-              </button>
-            </div>
-            <div className="demo-video-caption">
-              {highlightPlayerTag(displayedText)}
-              {isTyping && <span className="demo-cursor">|</span>}
-            </div>
-            <div className="demo-video-actions">
-              <span>🔥 Auto-clipped by Gopnik</span>
-              <button className="demo-video-share"><Share2 size={16} /> Share</button>
-            </div>
-          </div>
-        )
-
-      case 'tiktok':
-        return (
-          <div className="demo-tiktok">
-            <div className="demo-tiktok-post">
-              <div className="demo-tiktok-header">
-                <div className="demo-tiktok-avatar">👵</div>
-                <div className="demo-tiktok-user">
-                  <span className="demo-tiktok-name">Babushka</span>
-                  <span className="demo-tiktok-handle">@babushka.gaming</span>
-                </div>
-              </div>
-              <div className="demo-tiktok-image">
-                <img src="/tiktok_post.png" alt="Elden Ring Platinum Achievement" />
-              </div>
-              <div className="demo-tiktok-text">
-                {highlightPlayerTag(displayedText)}
-                {isTyping && <span className="demo-cursor">|</span>}
-              </div>
-              <div className="demo-tiktok-tags">#gaming #eldenring #platinum #persistence</div>
-              <div className="demo-tiktok-actions">
-                <span><Heart size={18} /> 24.5K</span>
-                <span><MessageCircle size={18} /> 892</span>
-                <span><Bookmark size={18} /></span>
-                <span><Share2 size={18} /></span>
-              </div>
-            </div>
-          </div>
-        )
-
-      case 'voice':
-        return (
-          <div className="demo-voice">
-            <audio ref={audioRef} src="/voice.m4a" preload="auto" />
-            <div className="demo-voice-message">
-              <div className="demo-voice-avatar">🎙️</div>
-              <div className="demo-voice-content">
-                <div className="demo-voice-header">
-                  <span className="demo-voice-name">Boris</span>
-                  <span className="demo-voice-time">Voice Message • 0:12</span>
-                </div>
-                <div className="demo-voice-wave">
-                  {[...Array(32)].map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`demo-voice-bar ${isPlaying ? 'playing' : ''}`}
-                      style={{ 
-                        height: `${20 + Math.random() * 60}%`,
-                        animationDelay: `${i * 0.05}s`
-                      }}
-                    />
-                  ))}
-                </div>
-                <div className="demo-voice-transcript">
-                  "{highlightPlayerTag(displayedText)}"
-                  {isTyping && <span className="demo-cursor">|</span>}
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-    }
-  }
+  const channels = demo.type === 'dm' 
+    ? ['Boris', 'Gopnik', 'Babushka'] 
+    : ['general', demo.channel, 'off-topic', 'clips']
 
   return (
     <section className="demo-section" id="demo">
       <div className="demo-wrapper">
         {stage === 'choice' && (
           <div className="demo-input-card">
-            <div className="demo-choice-question">See personalized re-engagement</div>
+            <div className="demo-choice-question">See how it looks in your community</div>
             <div className="demo-choice-buttons">
               <button className="demo-choice-btn demo-choice-yes" onClick={handleShowMe}>Show me</button>
             </div>
           </div>
         )}
 
-        {stage === 'name' && (
-          <div className="demo-input-card">
-            <div className="demo-name-prompt">What do they call you?</div>
-            <div className="demo-input-row">
-              <input
-                type="text"
-                className="demo-name-input"
-                placeholder="Your gamertag"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && startDemo()}
-                maxLength={20}
-                autoFocus
-              />
-              <button className="demo-start-btn" onClick={startDemo} disabled={!playerName.trim()}>
-                Let&apos;s go
-              </button>
-            </div>
-          </div>
-        )}
-
         {stage === 'demo' && (
           <>
-            <div className="demo-card" style={{ '--demo-color': demo.color } as React.CSSProperties}>
-              <div className="demo-event-bar">
-                <span className="demo-game">{demo.game}</span>
-                <span className="demo-event">{demo.event}</span>
-                <span className="demo-type-badge">{demo.type.toUpperCase()}</span>
+            {/* Discord-like Interface */}
+            <div className="discord-mock">
+              {/* Server Sidebar */}
+              <div className="discord-servers">
+                <div className="discord-server-icon active">
+                  {demo.game ? demo.game.charAt(0) : 'D'}
+                </div>
+                <div className="discord-server-separator" />
+                <div className="discord-server-icon">🎮</div>
+                <div className="discord-server-icon">⚔️</div>
+                <div className="discord-server-icon add">
+                  <Plus size={18} />
+                </div>
               </div>
-              
-              {renderDemoContent()}
 
-              <button className="demo-refresh" onClick={nextDemo} disabled={isTyping}>
-                <RefreshCw size={16} className={isTyping ? 'spinning' : ''} />
-                <span>Try different format</span>
-              </button>
+              {/* Channel Sidebar */}
+              <div className="discord-channels">
+                <div className="discord-server-header">
+                  <span>{demo.game || 'Direct Messages'}</span>
+                  <ChevronDown size={16} />
+                </div>
+                
+                <div className="discord-channel-list">
+                  {demo.type === 'dm' ? (
+                    <>
+                      <div className="discord-channel-category">DIRECT MESSAGES</div>
+                      {channels.map((ch, i) => (
+                        <div key={ch} className={`discord-channel ${ch === demo.channel ? 'active' : ''}`}>
+                          <span className="discord-dm-avatar">{ch === 'Boris' ? '🎙️' : ch === 'Gopnik' ? '🥞' : '👵'}</span>
+                          <span>{ch}</span>
+                          {ch === demo.channel && <span className="discord-unread">1</span>}
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <div className="discord-channel-category">TEXT CHANNELS</div>
+                      {channels.map((ch) => (
+                        <div key={ch} className={`discord-channel ${ch === demo.channel ? 'active' : ''}`}>
+                          <Hash size={18} />
+                          <span>{ch}</span>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
+
+                <div className="discord-user-area">
+                  <div className="discord-user-avatar">😎</div>
+                  <div className="discord-user-info">
+                    <span className="discord-user-name">You</span>
+                    <span className="discord-user-status">Online</span>
+                  </div>
+                  <div className="discord-user-controls">
+                    <Mic size={16} />
+                    <Headphones size={16} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Chat Area */}
+              <div className="discord-chat">
+                <div className="discord-chat-header">
+                  {demo.type === 'dm' ? (
+                    <>
+                      <span className="discord-dm-header-avatar">{demo.botEmoji}</span>
+                      <span>{demo.channel}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Hash size={20} />
+                      <span>{demo.channel}</span>
+                    </>
+                  )}
+                </div>
+
+                <div className="discord-messages">
+                  {/* Previous messages for context */}
+                  <div className="discord-message old">
+                    <div className="discord-msg-avatar">🎮</div>
+                    <div className="discord-msg-content">
+                      <div className="discord-msg-header">
+                        <span className="discord-msg-author">gamer_andy</span>
+                        <span className="discord-msg-time">Today at 4:28 PM</span>
+                      </div>
+                      <div className="discord-msg-text">anyone playing rn?</div>
+                    </div>
+                  </div>
+
+                  <div className="discord-message old">
+                    <div className="discord-msg-avatar">🎯</div>
+                    <div className="discord-msg-content">
+                      <div className="discord-msg-header">
+                        <span className="discord-msg-author">quickscope_queen</span>
+                        <span className="discord-msg-time">Today at 4:30 PM</span>
+                      </div>
+                      <div className="discord-msg-text">maybe later, grinding ranked</div>
+                    </div>
+                  </div>
+
+                  {/* Main bot message */}
+                  <div className="discord-message bot">
+                    <div className="discord-msg-avatar bot-avatar">{demo.botEmoji}</div>
+                    <div className="discord-msg-content">
+                      <div className="discord-msg-header">
+                        <span className="discord-msg-author bot-name">{demo.botName}</span>
+                        <span className="discord-bot-badge">BOT</span>
+                        <span className="discord-msg-time">Today at 4:32 PM</span>
+                      </div>
+                      <div className="discord-msg-text">
+                        {highlightMentions(displayedText)}
+                        {isTyping && <span className="discord-cursor">|</span>}
+                      </div>
+                      
+                      {/* Embedded Media */}
+                      {showMedia && demo.media === 'video' && (
+                        <div className="discord-embed-video">
+                          <video 
+                            ref={videoRef}
+                            src={demo.mediaSrc}
+                            autoPlay
+                            loop
+                            muted={isMuted}
+                            playsInline
+                          />
+                          <button 
+                            className="discord-video-mute"
+                            onClick={() => setIsMuted(!isMuted)}
+                          >
+                            {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                          </button>
+                        </div>
+                      )}
+                      
+                      {showMedia && demo.media === 'image' && (
+                        <div className="discord-embed-image">
+                          <img src={demo.mediaSrc} alt="Achievement" />
+                        </div>
+                      )}
+                      
+                      {showMedia && demo.media === 'voice' && (
+                        <div className="discord-voice-msg">
+                          <audio ref={audioRef} src={demo.mediaSrc} preload="auto" />
+                          <button 
+                            className="discord-voice-play"
+                            onClick={() => {
+                              if (audioRef.current) {
+                                if (isVoicePlaying) {
+                                  audioRef.current.pause()
+                                  setIsVoicePlaying(false)
+                                } else {
+                                  audioRef.current.play()
+                                  setIsVoicePlaying(true)
+                                }
+                              }
+                            }}
+                          >
+                            {isVoicePlaying ? '⏸' : <Play size={14} />}
+                          </button>
+                          <div className="discord-voice-wave">
+                            {[...Array(24)].map((_, i) => (
+                              <div 
+                                key={i} 
+                                className={`discord-voice-bar ${isVoicePlaying ? 'playing' : ''}`}
+                                style={{ 
+                                  height: `${20 + Math.random() * 60}%`,
+                                  animationDelay: `${i * 0.05}s`
+                                }}
+                              />
+                            ))}
+                          </div>
+                          <span className="discord-voice-duration">0:12</span>
+                        </div>
+                      )}
+                      
+                      {showReactions && (
+                        <div className="discord-reactions">
+                          <span className="discord-reaction">🔥 <span>12</span></span>
+                          <span className="discord-reaction">💀 <span>8</span></span>
+                          <span className="discord-reaction">📈 <span>5</span></span>
+                          <span className="discord-reaction add-reaction">
+                            <Smile size={14} />
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Reply from community member */}
+                  {showReactions && (
+                    <div className="discord-message reply">
+                      <div className="discord-msg-avatar">🔥</div>
+                      <div className="discord-msg-content">
+                        <div className="discord-msg-header">
+                          <span className="discord-msg-author">shadow_striker</span>
+                          <span className="discord-msg-time">Today at 4:33 PM</span>
+                        </div>
+                        <div className="discord-msg-text">LETS GOOO 🎉</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Message Input */}
+                <div className="discord-input-area">
+                  <PlusCircle size={20} className="discord-input-icon" />
+                  <input 
+                    type="text" 
+                    placeholder={`Message ${demo.type === 'dm' ? `@${demo.channel}` : `#${demo.channel}`}`}
+                    className="discord-input"
+                    disabled
+                  />
+                  <div className="discord-input-icons">
+                    <Gift size={20} />
+                    <Smile size={20} />
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="demo-scenarios-dots">
+
+            {/* Navigation Dots */}
+            <div className="demo-nav">
               {DEMOS.map((d, i) => (
                 <button
                   key={i}
-                  className={`demo-dot ${i === currentIndex ? 'active' : ''}`}
+                  className={`demo-nav-dot ${i === currentIndex ? 'active' : ''}`}
                   onClick={() => selectScenario(i)}
-                  style={{ background: i === currentIndex ? DEMOS[i].color : undefined }}
-                  title={`${d.type}: ${d.game}`}
-                />
+                  disabled={isTyping}
+                >
+                  {d.type === 'dm' ? '💬' : '#'}
+                </button>
               ))}
+              <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
+                Next →
+              </button>
             </div>
 
+            {/* CTA */}
             <div className="demo-cta-section">
-              <p className="demo-cta-text">This is how you bring players back.</p>
+              <p className="demo-cta-text">This is how companions keep communities alive.</p>
               <button className="demo-cta-btn" data-tally-open="EkK1Or" onClick={handleDemoCTA}>Join Waitlist</button>
-              <button className="demo-change-name" onClick={reset}>Try again</button>
+              <button className="demo-reset-btn" onClick={reset}>Reset demo</button>
             </div>
           </>
         )}

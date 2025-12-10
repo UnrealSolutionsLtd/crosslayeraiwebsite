@@ -15,10 +15,16 @@
 ## Media Punch Lines
 
 ### Primary (Decision-Maker Focused) ⭐
-> **"Stop losing players. Start bringing them back."**
+> **"80% of players quit in 7 days."**
+
+### The 3-Pillar Story
+> **CAPTURE · REMEMBER · RE-ENGAGE**
 
 ### Supporting Tagline
-> **"Through AI companions, not generic campaigns."**
+> **"Turn in-game events into personalized outreach on Discord, TikTok, and everywhere players are."**
+
+### Previous Version (Archived)
+> "Stop losing players. Start bringing them back." / "Through AI companions, not generic campaigns."
 
 ### Alternative Options
 

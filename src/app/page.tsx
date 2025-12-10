@@ -141,12 +141,20 @@ companion.trackEvent({
         <div className="orb orb-magenta" />
         
         <h1>
-          Stop Losing Players.<br />
-          <span className="highlight glow-cyan">Start Bringing Them Back.</span>
+          80% of players quit in 7 days.
         </h1>
         
+        <div className="hero-pillars">
+          <span className="pillar">CAPTURE</span>
+          <span className="pillar-dot">·</span>
+          <span className="pillar">REMEMBER</span>
+          <span className="pillar-dot">·</span>
+          <span className="pillar">RE-ENGAGE</span>
+        </div>
+        
         <p className="hero-subtitle">
-          Powered by AI companions that never forget.
+          Turn in-game events into personalized outreach<br />
+          on Discord, TikTok, and everywhere players are.
         </p>
 
         {/* Live Demo - Right in Hero */}
