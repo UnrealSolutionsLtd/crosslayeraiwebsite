@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play } from 'lucide-react'
+import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
 type DemoType = 'discord' | 'dm'
@@ -455,8 +455,9 @@ export default function LiveDemo() {
                   className={`demo-nav-dot ${i === currentIndex ? 'active' : ''}`}
                   onClick={() => selectScenario(i)}
                   disabled={isTyping}
+                  title={d.type === 'dm' ? 'Direct Message' : `#${d.channel}`}
                 >
-                  {d.type === 'dm' ? '💬' : '#'}
+                  {d.type === 'dm' ? <MessageCircle size={16} /> : <Hash size={16} />}
                 </button>
               ))}
               <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
