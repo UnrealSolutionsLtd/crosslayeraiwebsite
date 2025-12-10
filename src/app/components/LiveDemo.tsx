@@ -53,19 +53,10 @@ actually insane. saving this clip forever 😭`,
   },
 ]
 
-const REJECTION_MESSAGES = [
-  "Okay. Enjoy your generic push notifications 📧",
-  "Understandable. Not everyone's built different.",
-  "That's fine. Your highlights will miss you though 💔",
-  "No worries. The leaderboard awaits... without you.",
-  "Cool. We'll just remember you as 'Player_12847' then.",
-]
-
-type Stage = 'choice' | 'rejected' | 'name' | 'demo'
+type Stage = 'choice' | 'name' | 'demo'
 
 export default function LiveDemo() {
   const [stage, setStage] = useState<Stage>('choice')
-  const [rejectionMsg, setRejectionMsg] = useState('')
   const [playerName, setPlayerName] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
@@ -102,20 +93,9 @@ export default function LiveDemo() {
     return result
   }
 
-  const handleYes = () => {
-    GA_EVENTS.DEMO_CHOICE_YES()
+  const handleShowMe = () => {
+    GA_EVENTS.DEMO_SHOW_ME()
     setStage('name')
-  }
-
-  const handleNo = () => {
-    GA_EVENTS.DEMO_CHOICE_NO()
-    setRejectionMsg(REJECTION_MESSAGES[Math.floor(Math.random() * REJECTION_MESSAGES.length)])
-    setStage('rejected')
-  }
-
-  const handleReconsider = () => {
-    GA_EVENTS.DEMO_RECONSIDER()
-    setStage('choice')
   }
 
   const startDemo = () => {
@@ -327,7 +307,7 @@ export default function LiveDemo() {
           <div className="demo-input-card">
             <div className="demo-choice-question">See personalized re-engagement</div>
             <div className="demo-choice-buttons">
-              <button className="demo-choice-btn demo-choice-yes" onClick={handleYes}>Show me</button>
+              <button className="demo-choice-btn demo-choice-yes" onClick={handleShowMe}>Show me</button>
             </div>
           </div>
         )}
