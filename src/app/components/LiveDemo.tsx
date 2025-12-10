@@ -356,7 +356,12 @@ export default function LiveDemo() {
                           />
                           <button 
                             className="discord-video-mute"
-                            onClick={() => setIsMuted(!isMuted)}
+                            onClick={() => {
+                              if (isMuted) {
+                                GA_EVENTS.DEMO_VIDEO_UNMUTE()
+                              }
+                              setIsMuted(!isMuted)
+                            }}
                           >
                             {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                           </button>
@@ -382,6 +387,7 @@ export default function LiveDemo() {
                                 } else {
                                   audioRef.current.play()
                                   setIsVoicePlaying(true)
+                                  GA_EVENTS.DEMO_VOICE_PLAY()
                                 }
                               }
                             }}

@@ -56,6 +56,7 @@ crosslayer.trackEvent({
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(codeSnippet)
     setCopied(true)
+    GA_EVENTS.CODE_COPY()
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -89,18 +90,15 @@ crosslayer.trackEvent({
 
       // Track section views using Intersection Observer alternative
       const sections = [
+        { id: 'how-it-works', name: 'Hero / How It Works' },
         { id: 'demo', name: 'Live Demo' },
-        { id: 'vs-section', name: 'VS Comparison', selector: '.vs-section' },
-        { id: 'how-it-works', name: 'How It Works' },
         { id: 'features', name: 'Features' },
+        { id: 'why-different', name: 'Why CrossLayerAI' },
         { id: 'integration', name: 'Integration Code' },
-        { id: 'problem', name: 'The Problem' },
       ]
 
       sections.forEach((section) => {
-        const el = section.selector 
-          ? document.querySelector(section.selector) 
-          : document.getElementById(section.id)
+        const el = document.getElementById(section.id)
         if (el && !viewedSections.current.has(section.id)) {
           const rect = el.getBoundingClientRect()
           const isVisible = rect.top < window.innerHeight * 0.75 && rect.bottom > 0
@@ -371,7 +369,11 @@ crosslayer.trackEvent({
         </div>
 
         <div className="position-cta">
-          <a href="/blog/why-crosslayerai-is-different" className="position-link">
+          <a 
+            href="/blog/why-crosslayerai-is-different" 
+            className="position-link"
+            onClick={() => GA_EVENTS.COMPARISON_LINK_CLICK()}
+          >
             Read the full comparison →
           </a>
         </div>

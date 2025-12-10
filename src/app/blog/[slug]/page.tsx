@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, Tag } from 'lucide-react'
 import type { Metadata } from 'next'
 import { getAllSlugs, getPostBySlug } from '../../lib/blog'
 import BlogContent from './BlogContent'
+import { BlogAnalytics, BlogCTAButton, BlogShareButton, BlogBackLink } from '../BlogAnalytics'
 
 // Required for static export - tells Next.js which pages to generate
 export function generateStaticParams() {
@@ -67,12 +68,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   return (
     <main>
+      <BlogAnalytics type="article" slug={slug} title={post.title} />
       <div className="grid-bg" />
       <Header />
 
       <article className="blog-post">
         <header className="post-header">
-          <Link href="/blog" className="back-link"><ArrowLeft size={16} /> Back to Blog</Link>
+          <BlogBackLink slug={slug} />
           <h1>{post.title}</h1>
           <div className="post-meta">
             <span>{formatDate(post.date)}</span>
@@ -93,30 +95,14 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="cta-box">
             <h3>Ready to Transform Player Retention?</h3>
             <p>Join the waitlist to be among the first studios to deploy AI agents that remember, connect, and re-engage.</p>
-            <button className="cta-button" data-tally-open="EkK1Or">
-              Join the Waitlist
-            </button>
+            <BlogCTAButton slug={slug} />
           </div>
           
           <div className="share-section">
             <span>Share this article:</span>
             <div className="share-buttons">
-              <a 
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://crosslayerai.com/blog/${slug}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="share-btn"
-              >
-                Twitter
-              </a>
-              <a 
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://crosslayerai.com/blog/${slug}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="share-btn"
-              >
-                LinkedIn
-              </a>
+              <BlogShareButton platform="twitter" slug={slug} title={post.title} />
+              <BlogShareButton platform="linkedin" slug={slug} title={post.title} />
             </div>
           </div>
         </footer>

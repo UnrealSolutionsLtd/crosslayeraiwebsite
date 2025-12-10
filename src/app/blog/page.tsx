@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Header from '../components/Header'
 import { Clock, ArrowRight, Tag } from 'lucide-react'
 import { getAllPosts } from '../lib/blog'
+import { BlogAnalytics, BlogArticleLink } from './BlogAnalytics'
 
 export default function BlogPage() {
   const allPosts = getAllPosts()
@@ -20,6 +21,7 @@ export default function BlogPage() {
 
   return (
     <main>
+      <BlogAnalytics type="index" />
       <div className="grid-bg" />
       <Header />
 
@@ -36,7 +38,7 @@ export default function BlogPage() {
       {/* Featured Post */}
       {featuredPost && (
         <section className="blog-featured">
-          <Link href={`/blog/${featuredPost.slug}`} className="featured-card">
+          <BlogArticleLink href={`/blog/${featuredPost.slug}`} slug={featuredPost.slug} source="featured" className="featured-card">
             <div className="featured-badge">Featured</div>
             <h2>{featuredPost.title}</h2>
             <p>{featuredPost.description}</p>
@@ -52,7 +54,7 @@ export default function BlogPage() {
             <span className="read-more">
               Read Article <ArrowRight size={16} />
             </span>
-          </Link>
+          </BlogArticleLink>
         </section>
       )}
 
@@ -60,7 +62,7 @@ export default function BlogPage() {
       <section className="blog-grid-section">
         <div className="blog-grid">
           {regularPosts.map(post => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
+            <BlogArticleLink key={post.slug} href={`/blog/${post.slug}`} slug={post.slug} source="grid" className="blog-card">
               <h3>{post.title}</h3>
               <p>{post.description}</p>
               <div className="card-meta">
@@ -72,7 +74,7 @@ export default function BlogPage() {
                   <span key={tag} className="tag-small">{tag}</span>
                 ))}
               </div>
-            </Link>
+            </BlogArticleLink>
           ))}
         </div>
       </section>

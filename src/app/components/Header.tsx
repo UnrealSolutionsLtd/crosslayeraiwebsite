@@ -83,7 +83,7 @@ export default function Header() {
   return (
     <nav style={navStyle}>
       <div style={navContentStyle}>
-        <a href="/" style={logoLinkStyle}>
+        <a href="/" style={logoLinkStyle} onClick={() => GA_EVENTS.HEADER_LOGO_CLICK()}>
           <Image 
             src="/logo-icon.svg" 
             alt="CrossLayerAI Logo" 
@@ -99,6 +99,7 @@ export default function Header() {
           <Link 
             href="/blog" 
             style={navLinkStyle}
+            onClick={() => GA_EVENTS.HEADER_BLOG_CLICK()}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = '#00f5d4'
             }}
