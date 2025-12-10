@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle } from 'lucide-react'
+import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle, Sparkles } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
 type DemoType = 'discord' | 'dm'
@@ -228,7 +228,10 @@ export default function LiveDemo() {
           <div className="demo-input-card">
             <div className="demo-choice-question">See how it looks in your community</div>
             <div className="demo-choice-buttons">
-              <button className="demo-choice-btn demo-choice-yes" onClick={handleShowMe}>Show me</button>
+              <button className="demo-choice-btn demo-choice-yes" onClick={handleShowMe}>
+                <Sparkles size={18} />
+                Show me
+              </button>
             </div>
           </div>
         )}
@@ -448,21 +451,24 @@ export default function LiveDemo() {
 
 
             {/* Navigation Dots */}
-            <div className="demo-nav">
-              {DEMOS.map((d, i) => (
-                <button
-                  key={i}
-                  className={`demo-nav-dot ${i === currentIndex ? 'active' : ''}`}
-                  onClick={() => selectScenario(i)}
-                  disabled={isTyping}
-                  title={d.type === 'dm' ? 'Direct Message' : `#${d.channel}`}
-                >
-                  {d.type === 'dm' ? <MessageCircle size={16} /> : <Hash size={16} />}
+            <div className="demo-nav-wrapper">
+              <span className="demo-nav-label">Try different scenarios:</span>
+              <div className="demo-nav">
+                {DEMOS.map((d, i) => (
+                  <button
+                    key={i}
+                    className={`demo-nav-dot ${i === currentIndex ? 'active' : ''}`}
+                    onClick={() => selectScenario(i)}
+                    disabled={isTyping}
+                    title={d.type === 'dm' ? 'Direct Message' : `#${d.channel}`}
+                  >
+                    {d.type === 'dm' ? <MessageCircle size={18} /> : <Hash size={18} />}
+                  </button>
+                ))}
+                <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
+                  Next →
                 </button>
-              ))}
-              <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
-                Next →
-              </button>
+              </div>
             </div>
 
             {/* CTA */}
