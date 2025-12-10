@@ -452,19 +452,40 @@ export default function LiveDemo() {
 
             {/* Navigation Dots */}
             <div className="demo-nav-wrapper">
-              <span className="demo-nav-label">Try different scenarios:</span>
+              <span className="demo-nav-label">Try different scenarios</span>
               <div className="demo-nav">
-                {DEMOS.map((d, i) => (
-                  <button
-                    key={i}
-                    className={`demo-nav-dot ${i === currentIndex ? 'active' : ''}`}
-                    onClick={() => selectScenario(i)}
-                    disabled={isTyping}
-                    title={d.type === 'dm' ? 'Direct Message' : `#${d.channel}`}
-                  >
-                    {d.type === 'dm' ? <MessageCircle size={18} /> : <Hash size={18} />}
-                  </button>
-                ))}
+                <button
+                  className={`demo-nav-dot ${currentIndex === 0 ? 'active' : ''}`}
+                  onClick={() => selectScenario(0)}
+                  disabled={isTyping}
+                  title="Valorant clips"
+                >
+                  🎯
+                </button>
+                <button
+                  className={`demo-nav-dot ${currentIndex === 1 ? 'active' : ''}`}
+                  onClick={() => selectScenario(1)}
+                  disabled={isTyping}
+                  title="Fortnite victory"
+                >
+                  🏆
+                </button>
+                <button
+                  className={`demo-nav-dot ${currentIndex === 2 ? 'active' : ''}`}
+                  onClick={() => selectScenario(2)}
+                  disabled={isTyping}
+                  title="DM re-engagement"
+                >
+                  💬
+                </button>
+                <button
+                  className={`demo-nav-dot ${currentIndex === 3 ? 'active' : ''}`}
+                  onClick={() => selectScenario(3)}
+                  disabled={isTyping}
+                  title="Elden Ring platinum"
+                >
+                  ⚔️
+                </button>
                 <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
                   Next →
                 </button>

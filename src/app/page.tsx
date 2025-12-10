@@ -144,90 +144,31 @@ companion.trackEvent({
           80% of players quit in 7 days.
         </h1>
         
-        <div className="hero-pillars">
-          <span className="pillar">CAPTURE</span>
-          <span className="pillar-dot">·</span>
-          <span className="pillar">REMEMBER</span>
-          <span className="pillar-dot">·</span>
-          <span className="pillar">RE-ENGAGE</span>
-        </div>
-        
-        <p className="hero-subtitle">
-          Turn in-game events into personalized outreach<br />
+        <p className="hero-subheadline">
+          Turn in-game moments into personalized outreach<br />
           on Discord, TikTok, and everywhere players are.
         </p>
 
+        {/* How It Works - Simple 3 Steps */}
+        <div className="hero-steps">
+          <div className="hero-step">
+            <span className="step-number">1</span>
+            <span className="step-text">Capture moments</span>
+          </div>
+          <div className="hero-step-arrow">→</div>
+          <div className="hero-step">
+            <span className="step-number">2</span>
+            <span className="step-text">Build memory</span>
+          </div>
+          <div className="hero-step-arrow">→</div>
+          <div className="hero-step">
+            <span className="step-number">3</span>
+            <span className="step-text">Re-engage everywhere</span>
+          </div>
+        </div>
+
         {/* Live Demo - Right in Hero */}
         <LiveDemo />
-      </section>
-
-      {/* VS Comparison - Own Section */}
-      <section className="section vs-section">
-        <div className="section-header">
-          <span className="section-tag">The Difference</span>
-          <h2>Old Way vs New Way</h2>
-        </div>
-        <div className="diff-container">
-          <div className="diff-panel diff-old">
-            <div className="diff-header">
-              <span className="diff-label">Traditional Retention</span>
-            </div>
-            <div className="diff-items">
-              <div className="diff-item faded">
-                <span className="diff-icon"><Mail size={18} /></span>
-                <span>Generic email blasts</span>
-              </div>
-              <div className="diff-item faded">
-                <span className="diff-icon"><Bell size={18} /></span>
-                <span>Annoying push notifications</span>
-              </div>
-              <div className="diff-item faded">
-                <span className="diff-icon"><Gift size={18} /></span>
-                <span>Same rewards for everyone</span>
-              </div>
-              <div className="diff-item faded">
-                <span className="diff-icon"><BarChart2 size={18} /></span>
-                <span>Players are just numbers</span>
-              </div>
-            </div>
-            <div className="diff-result negative">
-              <X size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-              <span>Most players never return</span>
-            </div>
-          </div>
-
-          <div className="diff-divider">
-            <div className="diff-vs">VS</div>
-          </div>
-
-          <div className="diff-panel diff-new">
-            <div className="diff-header">
-              <span className="diff-label highlight">CrossLayerAI</span>
-            </div>
-            <div className="diff-items">
-              <div className="diff-item glow">
-                <span className="diff-icon"><Brain size={18} /></span>
-                <span>Remembers every player&apos;s journey</span>
-              </div>
-              <div className="diff-item glow">
-                <span className="diff-icon"><MessageCircle size={18} /></span>
-                <span>Personal conversations that matter</span>
-              </div>
-              <div className="diff-item glow">
-                <span className="diff-icon"><Globe size={18} /></span>
-                <span>Present everywhere they are</span>
-              </div>
-              <div className="diff-item glow">
-                <span className="diff-icon"><Heart size={18} /></span>
-                <span>Real emotional connection</span>
-              </div>
-            </div>
-            <div className="diff-result positive">
-              <Check size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-              <span>Players who want to stay</span>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* How It Works Visual */}
@@ -349,6 +290,75 @@ companion.trackEvent({
                   <span className="icon-label">Web</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VS Comparison - Old Way vs New Way */}
+      <section className="section vs-section">
+        <div className="section-header">
+          <span className="section-tag">The Difference</span>
+          <h2>Old Way vs New Way</h2>
+        </div>
+        <div className="diff-container">
+          <div className="diff-panel diff-old">
+            <div className="diff-header">
+              <span className="diff-label">Traditional Retention</span>
+            </div>
+            <div className="diff-items">
+              <div className="diff-item faded">
+                <span className="diff-icon"><Mail size={18} /></span>
+                <span>Generic email blasts</span>
+              </div>
+              <div className="diff-item faded">
+                <span className="diff-icon"><Bell size={18} /></span>
+                <span>Annoying push notifications</span>
+              </div>
+              <div className="diff-item faded">
+                <span className="diff-icon"><Gift size={18} /></span>
+                <span>Same rewards for everyone</span>
+              </div>
+              <div className="diff-item faded">
+                <span className="diff-icon"><BarChart2 size={18} /></span>
+                <span>Players are just numbers</span>
+              </div>
+            </div>
+            <div className="diff-result negative">
+              <X size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+              <span>Most players never return</span>
+            </div>
+          </div>
+
+          <div className="diff-divider">
+            <div className="diff-vs">VS</div>
+          </div>
+
+          <div className="diff-panel diff-new">
+            <div className="diff-header">
+              <span className="diff-label highlight">CrossLayerAI</span>
+            </div>
+            <div className="diff-items">
+              <div className="diff-item glow">
+                <span className="diff-icon"><Brain size={18} /></span>
+                <span>Remembers every player&apos;s journey</span>
+              </div>
+              <div className="diff-item glow">
+                <span className="diff-icon"><MessageCircle size={18} /></span>
+                <span>Personal conversations that matter</span>
+              </div>
+              <div className="diff-item glow">
+                <span className="diff-icon"><Globe size={18} /></span>
+                <span>Present everywhere they are</span>
+              </div>
+              <div className="diff-item glow">
+                <span className="diff-icon"><Heart size={18} /></span>
+                <span>Real emotional connection</span>
+              </div>
+            </div>
+            <div className="diff-result positive">
+              <Check size={16} strokeWidth={3} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+              <span>Players who want to stay</span>
             </div>
           </div>
         </div>
