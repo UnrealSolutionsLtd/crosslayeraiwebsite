@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'CrossLayerAI | Turn Game Moments into Personalized Outreach',
   description: 'Capture wins, clips, and clutch plays. Reach players on Discord, TikTok, and everywhere they are with AI-powered personalized engagement.',
-  keywords: 'player retention, player re-engagement, gaming AI, AI companion, game development, AI SDK, Discord bot, TikTok gaming, player engagement, LiveOps, personalized outreach, game clips, Inworld AI alternative, Convai alternative',
+  keywords: 'player retention, player re-engagement, gaming AI, AI agents, game development, AI SDK, Discord bot, TikTok gaming, player engagement, LiveOps, personalized outreach, game clips, Inworld AI alternative, Convai alternative',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

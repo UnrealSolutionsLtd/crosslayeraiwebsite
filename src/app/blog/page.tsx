@@ -28,7 +28,7 @@ export default function BlogPage() {
           <span className="section-tag">Insights</span>
           <h1>CrossLayerAI Blog</h1>
           <p>
-            Deep dives into AI companions, player retention, and the future of gaming engagement.
+            Deep dives into AI-powered player engagement, retention strategies, and the future of gaming.
           </p>
         </div>
       </section>
@@ -87,14 +87,14 @@ export default function BlogPage() {
             like GameAnalytics and Amplitude, game developers have more options than ever.
           </p>
           <p>
-            <strong>CrossLayerAI</strong> represents a new category: the <em>AI companion platform</em> that combines 
-            in-game intelligence with cross-platform engagement. Unlike traditional solutions that stay confined to the game, 
-            CrossLayerAI companions follow players to Discord, social media, and beyond-maintaining persistent memory 
+            <strong>CrossLayerAI</strong> represents a new category: the <em>AI-powered player engagement platform</em> that combines 
+            in-game intelligence with cross-platform outreach. Unlike traditional solutions that stay confined to the game, 
+            CrossLayerAI agents follow players to Discord, social media, and beyond - maintaining persistent memory 
             and building real relationships over time.
           </p>
           <h3>Key Topics We Cover</h3>
           <ul>
-            <li><strong>AI Game Companions</strong> - How intelligent companions transform player engagement</li>
+            <li><strong>AI Player Engagement</strong> - How intelligent agents transform player retention</li>
             <li><strong>Player Retention Strategies</strong> - Moving beyond push notifications to emotional connections</li>
             <li><strong>Discord Bot Development</strong> - Building community with AI that knows your players</li>
             <li><strong>Game Analytics vs AI</strong> - Why data alone isn&apos;t enough for modern retention</li>
@@ -110,7 +110,7 @@ export default function BlogPage() {
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
-            Building the first persistent AI companion identity layer.<br />
+            The player engagement layer for games.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
           </p>
         </div>

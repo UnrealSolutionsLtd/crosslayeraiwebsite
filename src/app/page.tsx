@@ -35,13 +35,13 @@ export default function Home() {
   const codeSnippet = `// Initialize CrossLayerAI
 import { CrossLayerAI } from '@crosslayerai/sdk';
 
-const companion = new CrossLayerAI({
+const crosslayer = new CrossLayerAI({
   gameId: 'your-game-id',
   apiKey: process.env.CROSSLAYER_API_KEY
 });
 
 // Track player events
-companion.trackEvent({
+crosslayer.trackEvent({
   playerId: player.id,
   event: 'boss_defeated',
   metadata: {
@@ -51,7 +51,7 @@ companion.trackEvent({
   }
 });
 
-// Your companion now remembers this forever ✨`
+// CrossLayerAI now remembers this forever ✨`
 
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(codeSnippet)
@@ -244,66 +244,70 @@ companion.trackEvent({
       <section className="section" id="features">
         <div className="section-header">
           <span className="section-tag">Capabilities</span>
-          <h2>Built for Studios Who Demand More</h2>
+          <h2>What Powers Personalized Outreach</h2>
           <p>
-            Everything you need to create unforgettable AI companions.
+            From capturing moments to re-engaging players everywhere.
           </p>
         </div>
 
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon"><BarChart3 size={28} /></div>
-            <h3>Intelligent Event Analysis</h3>
+            <div className="feature-icon"><Camera size={28} /></div>
+            <h3>Capture Any Content</h3>
             <p>
-              Not just data collection - <em>understanding</em>. We analyze in-game events to surface 
-              what matters: the clutch plays, emotional moments, and stories worth telling. 
-              Turn raw events into actionable player intelligence.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Database size={28} /></div>
-            <h3>Persistent Memory</h3>
-            <p>
-              Schemaless event storage that accepts any data. Cross-session, cross-platform 
-              memory that builds a true relationship with each player forever.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Link2 size={28} /></div>
-            <h3>The Everywhere Layer</h3>
-            <p>
-              Discord bots, web widgets, TikTok, Reddit. Your companion reaches players 
-              wherever they are, sharing stories and creating viral social moments.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Heart size={28} /></div>
-            <h3>Personalized Re-engagement</h3>
-            <p>
-              No more generic &quot;come back&quot; messages. Your companion reaches out with 
-              player-specific memories: &quot;Remember that Dragon Lord fight? You got him to 2%!&quot;
-              Nostalgia that actually converts.
+              Our SDK accepts screenshots, video clips, voice chat, text messages, achievements, 
+              and custom in-game events. Send any data format - we normalize and store it 
+              against each player automatically.
             </p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon"><Sparkles size={28} /></div>
-            <h3>Emotional Modeling</h3>
+            <h3>Analyze What Happened</h3>
             <p>
-              Proprietary emotional architecture that creates genuine personality. 
-              Your companion feels happy, concerned, excited - never robotic.
+              AI processes the stream of player events to identify moments worth talking about. 
+              It detects clutch plays, first-time achievements, frustration patterns, and 
+              comeback wins - turning raw data into stories.
             </p>
           </div>
 
           <div className="feature-card">
-            <div className="feature-icon"><Zap size={28} /></div>
-            <h3>Real-Time + Batch Intelligence</h3>
+            <div className="feature-icon"><Database size={28} /></div>
+            <h3>Build Persistent Memory</h3>
             <p>
-              Instant responses in-game, intelligent re-engagement campaigns over time.
-              Player-level insights that power both real-time interaction and long-term retention.
+              Every event is stored per player forever. Unlike session-based AI, our memory 
+              spans sessions, platforms, and time. Your AI knows what each player did 
+              last week, last month, or last year.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon"><Link2 size={28} /></div>
+            <h3>Deploy AI Agents Everywhere</h3>
+            <p>
+              Launch AI agents on Discord, TikTok, Reddit, and web widgets. Each agent 
+              has full access to player memory, so it can reference past achievements, 
+              inside jokes, and personal history in every interaction.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon"><Heart size={28} /></div>
+            <h3>Re-engage With Real Memories</h3>
+            <p>
+              No more generic &quot;come back&quot; messages. Your AI reaches out with 
+              player-specific memories: &quot;Remember that Dragon Lord fight? You got him to 2%!&quot; 
+              Nostalgia-driven outreach that actually converts.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon"><BarChart3 size={28} /></div>
+            <h3>Understand Your Players</h3>
+            <p>
+              See which moments resonate, which players are at risk, and what stories 
+              drive engagement. Player-level intelligence that helps you make better 
+              games and smarter marketing decisions.
             </p>
           </div>
         </div>
@@ -379,7 +383,7 @@ companion.trackEvent({
           <span className="section-tag">Integration</span>
           <h2>Get Started in Minutes</h2>
           <p>
-            Simple SDK setup. Powerful companion intelligence.
+            Simple SDK setup. Reengagement on autopilot.
           </p>
         </div>
 
@@ -418,7 +422,7 @@ companion.trackEvent({
                 <span className="dot yellow"></span>
                 <span className="dot green"></span>
               </div>
-              <span className="code-filename">companion.ts</span>
+              <span className="code-filename">crosslayer.ts</span>
               <button className="code-copy-btn" onClick={handleCopyCode}>
                 {copied ? (
                   <>
@@ -472,7 +476,7 @@ companion.trackEvent({
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
-            Building the first persistent AI companion identity layer.<br />
+            The player engagement layer for games.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
           </p>
         </div>

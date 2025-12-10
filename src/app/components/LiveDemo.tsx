@@ -494,7 +494,7 @@ export default function LiveDemo() {
 
             {/* CTA */}
             <div className="demo-cta-section">
-              <p className="demo-cta-text">This is how companions keep communities alive.</p>
+              <p className="demo-cta-text">This is how AI agents keep communities alive.</p>
               <button className="demo-cta-btn" data-tally-open="EkK1Or" onClick={handleDemoCTA}>Join Waitlist</button>
               <button className="demo-reset-btn" onClick={reset}>Reset demo</button>
             </div>

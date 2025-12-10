@@ -92,7 +92,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <footer className="post-footer">
           <div className="cta-box">
             <h3>Ready to Transform Player Retention?</h3>
-            <p>Join the waitlist to be among the first studios to deploy AI companions that remember, connect, and re-engage.</p>
+            <p>Join the waitlist to be among the first studios to deploy AI agents that remember, connect, and re-engage.</p>
             <button className="cta-button" data-tally-open="EkK1Or">
               Join the Waitlist
             </button>
@@ -129,7 +129,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
-            Building the first persistent AI companion identity layer.<br />
+            The player engagement layer for games.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
           </p>
         </div>
