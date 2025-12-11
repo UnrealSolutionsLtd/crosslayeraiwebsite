@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="layerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="100%" stop-color="#00d4aa"/>
+    </linearGradient>
+    <linearGradient id="crossGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="50%" stop-color="#8338ec"/>
+      <stop offset="100%" stop-color="#ff6b9d"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- SOLID BACKGROUND - No transparency -->
+  <rect x="0" y="0" width="120" height="120" fill="#0a0a0f"/>
+  
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="56" fill="#0a0a0f" stroke="url(#layerGradient)" stroke-width="2"/>
+  
+  <!-- Stacked Layers representing "Cross Layer" -->
+  <!-- Bottom Layer -->
+  <rect x="28" y="70" width="64" height="12" rx="2" fill="#1a1a25" stroke="#2a2a3a" stroke-width="1"/>
+  
+  <!-- Middle Layer -->
+  <rect x="28" y="54" width="64" height="12" rx="2" fill="#1a1a25" stroke="#8338ec" stroke-width="1.5" opacity="0.8"/>
+  
+  <!-- Top Layer with glow -->
+  <rect x="28" y="38" width="64" height="12" rx="2" fill="#1a1a25" stroke="url(#layerGradient)" stroke-width="2" filter="url(#glow)"/>
+  
+  <!-- Cross element going through layers -->
+  <path d="M60 28 L60 92" stroke="url(#crossGlow)" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/>
+  <path d="M40 60 L80 60" stroke="url(#crossGlow)" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/>
+  
+  <!-- AI Core dot -->
+  <circle cx="60" cy="60" r="8" fill="#00f5d4" filter="url(#glow)"/>
+  <circle cx="60" cy="60" r="4" fill="#fff"/>
+</svg>
+

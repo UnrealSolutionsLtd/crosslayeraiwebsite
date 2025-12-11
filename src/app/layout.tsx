@@ -34,10 +34,10 @@ export const metadata: Metadata = {
     siteName: 'CrossLayerAI',
     images: [
       {
-        url: 'https://crosslayerai.com/og-image.png',
+        url: 'https://crosslayerai.com/og-image-v2.png',
         width: 1200,
         height: 630,
-        alt: 'CrossLayerAI - Turn Players Into Lifelong Fans',
+        alt: 'CrossLayerAI - Turn Game Moments into Personalized Outreach',
       },
     ],
   },
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CrossLayerAI | Turn Game Moments into Personalized Outreach',
     description: 'Capture wins, clips, and clutch plays. Reach players on Discord, TikTok, and everywhere they are.',
-    images: ['https://crosslayerai.com/og-image.png'],
+    images: ['https://crosslayerai.com/og-image-v2.png'],
   },
   metadataBase: new URL('https://crosslayerai.com'),
 }
