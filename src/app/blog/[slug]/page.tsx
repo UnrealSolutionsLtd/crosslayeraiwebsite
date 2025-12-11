@@ -95,7 +95,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="cta-box">
             <h3>Ready to Transform Player Retention?</h3>
             <p>Join the waitlist to be among the first studios to deploy AI agents that remember, connect, and re-engage.</p>
-            <BlogCTAButton slug={slug} />
           </div>
           
           <div className="share-section">
