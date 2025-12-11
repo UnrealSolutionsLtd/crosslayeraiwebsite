@@ -33,7 +33,7 @@ const DEMOS: Demo[] = [
     game: 'Valorant Community',
     botName: 'Blin',
     botEmoji: '🎬',
-    getMessage: () => `clean ace from @Ninja_42 🎯 chat said he was washed btw`,
+    getMessage: () => `clean ace from @Ninja_42 🎯 they said there were washed yesterday`,
     media: 'video',
     mediaSrc: '/ace-clip.mp4',
     contextMessages: [
@@ -117,7 +117,7 @@ export default function LiveDemo() {
   const [displayedText, setDisplayedText] = useState('')
   const [showReactions, setShowReactions] = useState(false)
   const [showMedia, setShowMedia] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
+  const [isMuted, setIsMuted] = useState(false)
   const [isVoicePlaying, setIsVoicePlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -158,13 +158,12 @@ export default function LiveDemo() {
       } else {
         clearInterval(interval)
         setIsTyping(false)
-        // Show media first, then reactions
+        // Show media after typing completes (for video/image only, voice shows immediately)
         setTimeout(() => {
           setShowMedia(true)
-          if (demo.media === 'voice' && audioRef.current) {
-            audioRef.current.currentTime = 0
-            audioRef.current.play().catch(() => {})
-            setIsVoicePlaying(true)
+          // Set video volume to 0.5 when it appears
+          if (demo.media === 'video' && videoRef.current) {
+            videoRef.current.volume = 0.5
           }
         }, 200)
         setTimeout(() => setShowReactions(true), 500)
@@ -179,15 +178,32 @@ export default function LiveDemo() {
     }
   }, [currentIndex])
 
-  // Handle audio end
+  // Handle audio play/end events
   useEffect(() => {
     const audio = audioRef.current
     if (audio) {
+      const handlePlay = () => setIsVoicePlaying(true)
       const handleEnded = () => setIsVoicePlaying(false)
+      const handlePause = () => setIsVoicePlaying(false)
+      
+      audio.addEventListener('play', handlePlay)
       audio.addEventListener('ended', handleEnded)
-      return () => audio.removeEventListener('ended', handleEnded)
+      audio.addEventListener('pause', handlePause)
+      
+      return () => {
+        audio.removeEventListener('play', handlePlay)
+        audio.removeEventListener('ended', handleEnded)
+        audio.removeEventListener('pause', handlePause)
+      }
     }
-  }, [])
+  }, [demo.media, stage])
+
+  // Set video volume to 0.5 when video becomes visible
+  useEffect(() => {
+    if (showMedia && demo.media === 'video' && videoRef.current) {
+      videoRef.current.volume = 0.5
+    }
+  }, [showMedia, demo.media])
 
   const nextDemo = () => {
     const nextIndex = (currentIndex + 1) % DEMOS.length
@@ -219,7 +235,7 @@ export default function LiveDemo() {
 
   const channels = demo.type === 'dm' 
     ? ['Boris', 'Gopnik', 'Babushka'] 
-    : ['general', demo.channel, 'off-topic', 'clips']
+    : ['general', demo.channel, 'off-topic', ...(demo.channel !== 'clips' ? ['clips'] : [])]
 
   return (
     <section className="demo-section" id="demo">
@@ -368,15 +384,15 @@ export default function LiveDemo() {
                         </div>
                       )}
                       
-                      {showMedia && demo.media === 'image' && (
+                      {demo.media === 'image' && (
                         <div className="discord-embed-image">
                           <img src={demo.mediaSrc} alt="Achievement" />
                         </div>
                       )}
                       
-                      {showMedia && demo.media === 'voice' && (
+                      {demo.media === 'voice' && (
                         <div className="discord-voice-msg">
-                          <audio ref={audioRef} src={demo.mediaSrc} preload="auto" />
+                          <audio ref={audioRef} src={demo.mediaSrc} preload="auto" autoPlay />
                           <button 
                             className="discord-voice-play"
                             onClick={() => {
