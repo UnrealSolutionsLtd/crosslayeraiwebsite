@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Rajdhani, JetBrains_Mono } from 'next/font/google'
+import { Rajdhani, JetBrains_Mono, Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
@@ -14,6 +14,12 @@ const rajdhani = Rajdhani({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
@@ -71,7 +77,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${rajdhani.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${rajdhani.variable} ${jetbrainsMono.variable} ${inter.variable}`}>
         {children}
       </body>
     </html>
