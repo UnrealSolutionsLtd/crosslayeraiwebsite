@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle, Sparkles } from 'lucide-react'
+import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle, Sparkles, TrendingUp, Info } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
 type DemoType = 'discord' | 'dm'
@@ -11,6 +11,13 @@ interface ChatMessage {
   username: string
   avatar: string
   message: string
+}
+
+interface ImpactStat {
+  label: string
+  traditional: string
+  personalized: string
+  source?: string
 }
 
 interface Demo {
@@ -24,6 +31,7 @@ interface Demo {
   mediaSrc?: string
   contextMessages?: ChatMessage[]
   communityReply?: ChatMessage
+  impactStats: ImpactStat[]
 }
 
 const DEMOS: Demo[] = [
@@ -44,7 +52,11 @@ const DEMOS: Demo[] = [
       username: 'shadow_striker',
       avatar: '🔥',
       message: 'bro went INSANE 😭'
-    }
+    },
+    impactStats: [
+      { label: 'Daily reach', traditional: '5-15%', personalized: '80%+', source: 'Discord data: 80% of engaged players are on Discord daily' },
+      { label: 'Engagement lift', traditional: 'Baseline', personalized: '+48%', source: 'Players with Discord Social SDK play 48% longer' },
+    ]
   },
   {
     type: 'dm',
@@ -59,7 +71,10 @@ I still remember that 2800 damage game. You were ONE shot away from that 3k badg
 Just saying. 👀`,
     media: 'voice',
     mediaSrc: '/voice.m4a',
-    // No context messages or reply for DMs
+    impactStats: [
+      { label: 'Open rate', traditional: '5-15%', personalized: '80%+', source: 'Push: 5-15% vs Discord: 80%+ daily presence' },
+      { label: 'Return rate', traditional: '2%', personalized: '+36%', source: 'Account-linked players see 36% more game days' },
+    ]
   },
   {
     type: 'discord',
@@ -82,7 +97,11 @@ the server witnessed the whole journey`,
       username: 'git_gud_or_die',
       avatar: '⚔️',
       message: 'the dedication 🙏 respect'
-    }
+    },
+    impactStats: [
+      { label: 'Conversion lift', traditional: 'Baseline', personalized: '+12-25%', source: 'Firebase case studies: personalized content drives 12-25% more conversions' },
+      { label: 'Member lifetime', traditional: '1x', personalized: '5x', source: 'Well-managed Discord communities see 5x longer member lifetime' },
+    ]
   },
 ]
 
@@ -97,6 +116,8 @@ export default function LiveDemo() {
   const [showMedia, setShowMedia] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [isVoicePlaying, setIsVoicePlaying] = useState(false)
+  const [showImpactStats, setShowImpactStats] = useState(false)
+  const [hoveredStat, setHoveredStat] = useState<number | null>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   
@@ -125,6 +146,8 @@ export default function LiveDemo() {
     setShowReactions(false)
     setShowMedia(false)
     setIsVoicePlaying(false)
+    setShowImpactStats(false)
+    setHoveredStat(null)
     
     // Show video immediately while text types
     if (demo.media === 'video') {
@@ -151,6 +174,8 @@ export default function LiveDemo() {
           }, 200)
         }
         setTimeout(() => setShowReactions(true), 500)
+        // Show impact stats after reactions
+        setTimeout(() => setShowImpactStats(true), 1200)
       }
     }, speed)
     return () => clearInterval(interval)
@@ -209,6 +234,8 @@ export default function LiveDemo() {
     setShowReactions(false)
     setShowMedia(false)
     setIsVoicePlaying(false)
+    setShowImpactStats(false)
+    setHoveredStat(null)
     if (audioRef.current) audioRef.current.pause()
   }
 
@@ -238,6 +265,40 @@ export default function LiveDemo() {
 
         {stage === 'demo' && (
           <>
+            {/* Scenario Navigation - Above the demo for visibility */}
+            <div className="demo-nav-wrapper demo-nav-top">
+              <span className="demo-nav-label">Try different scenarios</span>
+              <div className="demo-nav">
+                <button
+                  className={`demo-nav-dot ${currentIndex === 0 ? 'active' : ''}`}
+                  onClick={() => selectScenario(0)}
+                  disabled={isTyping}
+                  title="Valorant clips"
+                >
+                  🎯
+                </button>
+                <button
+                  className={`demo-nav-dot ${currentIndex === 1 ? 'active' : ''}`}
+                  onClick={() => selectScenario(1)}
+                  disabled={isTyping}
+                  title="DM re-engagement"
+                >
+                  💬
+                </button>
+                <button
+                  className={`demo-nav-dot ${currentIndex === 2 ? 'active' : ''}`}
+                  onClick={() => selectScenario(2)}
+                  disabled={isTyping}
+                  title="Elden Ring platinum"
+                >
+                  ⚔️
+                </button>
+                <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
+                  Next →
+                </button>
+              </div>
+            </div>
+
             {/* Discord-like Interface */}
             <div className="discord-mock">
               {/* Server Sidebar */}
@@ -350,9 +411,11 @@ export default function LiveDemo() {
                             ref={videoRef}
                             src={demo.mediaSrc}
                             autoPlay
-                            loop
                             muted={isMuted}
                             playsInline
+                            onLoadedMetadata={(e) => {
+                              e.currentTarget.playbackRate = 0.8
+                            }}
                           />
                           <button 
                             className="discord-video-mute"
@@ -455,40 +518,50 @@ export default function LiveDemo() {
               </div>
             </div>
 
-
-            {/* Navigation Dots */}
-            <div className="demo-nav-wrapper">
-              <span className="demo-nav-label">Try different scenarios</span>
-              <div className="demo-nav">
-                <button
-                  className={`demo-nav-dot ${currentIndex === 0 ? 'active' : ''}`}
-                  onClick={() => selectScenario(0)}
-                  disabled={isTyping}
-                  title="Valorant clips"
-                >
-                  🎯
-                </button>
-                <button
-                  className={`demo-nav-dot ${currentIndex === 1 ? 'active' : ''}`}
-                  onClick={() => selectScenario(1)}
-                  disabled={isTyping}
-                  title="DM re-engagement"
-                >
-                  💬
-                </button>
-                <button
-                  className={`demo-nav-dot ${currentIndex === 2 ? 'active' : ''}`}
-                  onClick={() => selectScenario(2)}
-                  disabled={isTyping}
-                  title="Elden Ring platinum"
-                >
-                  ⚔️
-                </button>
-                <button className="demo-nav-next" onClick={nextDemo} disabled={isTyping}>
-                  Next →
-                </button>
+            {/* Impact Stats */}
+            {showImpactStats && (
+              <div className="impact-stats-container">
+                <div className="impact-stats-header">
+                  <TrendingUp size={16} />
+                  <span>Why personalized outreach works</span>
+                </div>
+                <div className="impact-stats-grid">
+                  {demo.impactStats.map((stat, idx) => (
+                    <div 
+                      key={idx} 
+                      className="impact-stat-card"
+                      onMouseEnter={() => setHoveredStat(idx)}
+                      onMouseLeave={() => setHoveredStat(null)}
+                    >
+                      <div className="impact-stat-label">
+                        {stat.label}
+                        {stat.source && (
+                          <span className="impact-stat-info">
+                            <Info size={12} />
+                          </span>
+                        )}
+                      </div>
+                      <div className="impact-stat-comparison">
+                        <div className="impact-stat-traditional">
+                          <span className="stat-type">Generic</span>
+                          <span className="stat-value traditional">{stat.traditional}</span>
+                        </div>
+                        <div className="impact-stat-arrow">→</div>
+                        <div className="impact-stat-personalized">
+                          <span className="stat-type">Memory-based</span>
+                          <span className="stat-value personalized">{stat.personalized}</span>
+                        </div>
+                      </div>
+                      {hoveredStat === idx && stat.source && (
+                        <div className="impact-stat-tooltip">
+                          {stat.source}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* CTA */}
             <div className="demo-cta-section">
