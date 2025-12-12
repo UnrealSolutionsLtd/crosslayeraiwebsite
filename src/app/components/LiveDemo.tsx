@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle, Sparkles, TrendingUp, Info } from 'lucide-react'
+import { Hash, ChevronDown, Plus, Mic, Headphones, Gift, Smile, PlusCircle, Volume2, VolumeX, Play, MessageCircle, Sparkles, TrendingUp, Info, RotateCcw } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
 type DemoType = 'discord' | 'dm'
@@ -118,6 +118,7 @@ export default function LiveDemo() {
   const [isVoicePlaying, setIsVoicePlaying] = useState(false)
   const [showImpactStats, setShowImpactStats] = useState(false)
   const [hoveredStat, setHoveredStat] = useState<number | null>(null)
+  const [videoEnded, setVideoEnded] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   
@@ -148,6 +149,7 @@ export default function LiveDemo() {
     setIsVoicePlaying(false)
     setShowImpactStats(false)
     setHoveredStat(null)
+    setVideoEnded(false)
     
     // Show video immediately while text types
     if (demo.media === 'video') {
@@ -414,8 +416,9 @@ export default function LiveDemo() {
                             muted={isMuted}
                             playsInline
                             onLoadedMetadata={(e) => {
-                              e.currentTarget.playbackRate = 0.8
+                              e.currentTarget.playbackRate = 0.9
                             }}
+                            onEnded={() => setVideoEnded(true)}
                           />
                           <button 
                             className="discord-video-mute"
@@ -428,6 +431,20 @@ export default function LiveDemo() {
                           >
                             {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                           </button>
+                          {videoEnded && (
+                            <button 
+                              className="discord-video-replay"
+                              onClick={() => {
+                                if (videoRef.current) {
+                                  videoRef.current.currentTime = 0
+                                  videoRef.current.play()
+                                  setVideoEnded(false)
+                                }
+                              }}
+                            >
+                              <RotateCcw size={16} />
+                            </button>
+                          )}
                         </div>
                       )}
                       
@@ -565,7 +582,7 @@ export default function LiveDemo() {
 
             {/* CTA */}
             <div className="demo-cta-section">
-              <p className="demo-cta-text">This is how AI agents keep communities alive.</p>
+              <p className="demo-cta-text">CrossLayerAI preview demo.</p>
               <a href="mailto:business@crosslayerai.com" className="demo-cta-btn" onClick={handleDemoCTA}>Get in Touch</a>
               <button className="demo-reset-btn" onClick={reset}>Reset demo</button>
             </div>

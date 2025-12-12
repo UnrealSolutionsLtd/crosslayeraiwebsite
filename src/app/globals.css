@@ -2917,6 +2917,29 @@ body {
   transform: scale(1.1);
 }
 
+.discord-video-replay {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  animation: mediaFadeIn 0.3s ease;
+}
+
+.discord-video-replay:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
 /* Embedded Image */
 .discord-embed-image {
   margin-top: 8px;
