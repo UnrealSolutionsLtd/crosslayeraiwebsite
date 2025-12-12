@@ -92,7 +92,7 @@
 
 ### F2P Economics (For Studio Conversations)
 - **3% of players (whales/dolphins) drive 50%+ of revenue**
-- Churned player LTV is **"at 100% potential"** — any re-engagement is pure upside (John Wright, Kwalee)
+- Churned player LTV is **"at 100% potential"**  -  any re-engagement is pure upside (John Wright, Kwalee)
 - Push notifications are **"underutilized"** for re-engagement (industry admission)
 
 ---
