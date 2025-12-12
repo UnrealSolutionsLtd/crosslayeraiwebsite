@@ -96,6 +96,26 @@ export default function Header() {
           </span>
         </a>
         <div style={navLinksStyle}>
+          <a 
+            href="https://unrealsolutions.com" 
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              ...navLinkStyle,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#00f5d4'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#c5c5d0'
+            }}
+          >
+            <span style={{ opacity: 0.7, fontSize: '0.75em' }}>powered by</span>
+            RVR Engine
+          </a>
           <Link 
             href="/blog" 
             style={navLinkStyle}

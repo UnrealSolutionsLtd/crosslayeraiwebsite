@@ -739,6 +739,33 @@ body {
   font-size: 0.9rem;
 }
 
+.footer-also-by {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.footer-cross-link {
+  color: var(--color-accent-cyan);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-cross-link:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+}
+
+.footer-cross-link svg {
+  opacity: 0.7;
+}
+
+.footer-cross-link:hover svg {
+  opacity: 1;
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {
