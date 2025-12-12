@@ -2951,8 +2951,8 @@ body {
 
 .discord-embed-image img {
   width: 100%;
-  max-height: 150px;
-  object-fit: cover;
+  max-height: 200px;
+  object-fit: contain;
   display: block;
   border-radius: 8px;
 }
@@ -3334,7 +3334,7 @@ body {
   }
   
   .discord-embed-image img {
-    max-height: 120px;
+    max-height: 160px;
   }
   
   .discord-voice-msg {
