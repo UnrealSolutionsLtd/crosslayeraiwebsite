@@ -72,6 +72,44 @@
 
 ---
 
+## Data-Backed Proof Points
+
+### Discord Platform Stats (Official)
+- **80%+ of engaged players** on Discord daily (Marvel Rivals case study)
+- **48% longer playtimes** with Discord Social SDK integration
+- **36% more game days** for account-linked players
+- **20-30% of purchases gifted** (social behavior native to platform)
+
+### In-Game Personalization Stats (Firebase/Industry)
+- **12-25% conversion lift** from personalized offers (Ahoy Games, Pomelo Games)
+- **16% ARPDAU increase** from ML-personalized timing (Halfbrick)
+- **50-80% of revenue** from personalized whale offers (Crazy Panda)
+
+### The Gap We Fill
+- Push notifications: **5-15% open rate** (industry benchmark)
+- Email re-engagement: **15-20% open, 2% CTR** (industry benchmark)
+- Well-managed Discord: **80%+ MAU retention, 5x member lifetime** (Tanvi Garg data)
+
+### F2P Economics (For Studio Conversations)
+- **3% of players (whales/dolphins) drive 50%+ of revenue**
+- Churned player LTV is **"at 100% potential"** — any re-engagement is pure upside (John Wright, Kwalee)
+- Push notifications are **"underutilized"** for re-engagement (industry admission)
+
+---
+
+## Whale-Focused Messaging (For F2P Studios)
+
+**Primary:**
+> "Recover LTV from churned whales through memory-based re-engagement on Discord."
+
+**The Math:**
+> "When a dolphin churns, their LTV is sitting at 100% potential. Push doesn't work. Discord has 80%+ daily presence. We reach them with messages that reference their actual gameplay."
+
+**For Monetization Consultants:**
+> "You optimize LTV for active players. We recover LTV from churned whales. Same goal, different segment."
+
+---
+
 ## For Press Releases
 
 **Boilerplate:**
