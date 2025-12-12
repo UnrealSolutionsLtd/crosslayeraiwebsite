@@ -112,7 +112,6 @@ export default function BlogPage() {
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
-            The player engagement layer for games.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
           </p>
         </div>

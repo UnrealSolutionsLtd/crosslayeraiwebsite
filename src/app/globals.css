@@ -739,6 +739,23 @@ body {
   font-size: 0.9rem;
 }
 
+.footer-contact {
+  margin-top: 1rem;
+}
+
+.footer-email {
+  color: var(--color-accent-cyan);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.footer-email:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+}
+
 .footer-also-by {
   margin-top: 1rem;
   font-size: 0.85rem;
@@ -1826,6 +1843,38 @@ body {
 
 .sdk-icon:hover span {
   color: var(--color-text-primary);
+}
+
+/* Discord Featured SDK Icon */
+.sdk-icon.discord-featured {
+  position: relative;
+  background: rgba(88, 101, 242, 0.1);
+  border-color: rgba(88, 101, 242, 0.3);
+}
+
+.sdk-icon.discord-featured:hover {
+  background: rgba(88, 101, 242, 0.2);
+  border-color: rgba(88, 101, 242, 0.5);
+}
+
+.sdk-icon.discord-featured img {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(88, 101, 242, 0.5));
+}
+
+.sdk-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 3px 6px;
+  background: #5865F2;
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(88, 101, 242, 0.4);
 }
 
 /* Code Carousel */

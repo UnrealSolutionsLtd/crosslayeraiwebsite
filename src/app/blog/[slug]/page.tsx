@@ -114,7 +114,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
-            The player engagement layer for games.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
           </p>
         </div>

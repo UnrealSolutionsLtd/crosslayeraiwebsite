@@ -47,28 +47,6 @@ const DEMOS: Demo[] = [
     }
   },
   {
-    type: 'discord',
-    channel: 'victory-royale',
-    game: 'Fortnite Legends',
-    botName: 'Gopnik',
-    botEmoji: '🥞',
-    getMessage: () => `yo @xKira_TTV just dropped 12 KILLS in solos 💀
-
-bro your PR was 8 like a month ago
-
-certified growth arc 📈`,
-    media: null,
-    contextMessages: [
-      { username: 'bush_camper', avatar: '🌳', message: 'solo queue is brutal rn' },
-      { username: 'buildmaster_x', avatar: '🏗️', message: 'just got 6 kills i thought that was good...' },
-    ],
-    communityReply: {
-      username: 'dropmaster_99',
-      avatar: '🎮',
-      message: 'what loadout tho?? 👀'
-    }
-  },
-  {
     type: 'dm',
     channel: 'Boris',
     game: '',
@@ -148,6 +126,14 @@ export default function LiveDemo() {
     setShowMedia(false)
     setIsVoicePlaying(false)
     
+    // Show video immediately while text types
+    if (demo.media === 'video') {
+      setShowMedia(true)
+      if (videoRef.current) {
+        videoRef.current.volume = 0.5
+      }
+    }
+    
     let i = 0
     const text = demo.getMessage()
     const speed = 20
@@ -158,14 +144,12 @@ export default function LiveDemo() {
       } else {
         clearInterval(interval)
         setIsTyping(false)
-        // Show media after typing completes (for video/image only, voice shows immediately)
-        setTimeout(() => {
-          setShowMedia(true)
-          // Set video volume to 0.5 when it appears
-          if (demo.media === 'video' && videoRef.current) {
-            videoRef.current.volume = 0.5
-          }
-        }, 200)
+        // Show media after typing completes (for image only, video already shown, voice shows immediately)
+        if (demo.media !== 'video') {
+          setTimeout(() => {
+            setShowMedia(true)
+          }, 200)
+        }
         setTimeout(() => setShowReactions(true), 500)
       }
     }, speed)
@@ -488,21 +472,13 @@ export default function LiveDemo() {
                   className={`demo-nav-dot ${currentIndex === 1 ? 'active' : ''}`}
                   onClick={() => selectScenario(1)}
                   disabled={isTyping}
-                  title="Fortnite victory"
-                >
-                  🏆
-                </button>
-                <button
-                  className={`demo-nav-dot ${currentIndex === 2 ? 'active' : ''}`}
-                  onClick={() => selectScenario(2)}
-                  disabled={isTyping}
                   title="DM re-engagement"
                 >
                   💬
                 </button>
                 <button
-                  className={`demo-nav-dot ${currentIndex === 3 ? 'active' : ''}`}
-                  onClick={() => selectScenario(3)}
+                  className={`demo-nav-dot ${currentIndex === 2 ? 'active' : ''}`}
+                  onClick={() => selectScenario(2)}
                   disabled={isTyping}
                   title="Elden Ring platinum"
                 >
@@ -517,7 +493,7 @@ export default function LiveDemo() {
             {/* CTA */}
             <div className="demo-cta-section">
               <p className="demo-cta-text">This is how AI agents keep communities alive.</p>
-              <button className="demo-cta-btn" data-tally-open="EkK1Or" onClick={handleDemoCTA}>Join Waitlist</button>
+              <a href="mailto:business@crosslayerai.com" className="demo-cta-btn" onClick={handleDemoCTA}>Get in Touch</a>
               <button className="demo-reset-btn" onClick={reset}>Reset demo</button>
             </div>
           </>

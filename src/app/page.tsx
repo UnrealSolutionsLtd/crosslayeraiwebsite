@@ -157,17 +157,6 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [isAutoPlaying])
 
-  useEffect(() => {
-    // Load Tally embed script
-    const script = document.createElement('script')
-    script.src = 'https://tally.so/widgets/embed.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [])
 
   // Scroll depth and section view tracking
   useEffect(() => {
@@ -380,9 +369,9 @@ export default function Home() {
             <div className="feature-icon"><Link2 size={28} /></div>
             <h3>Deploy AI Agents Everywhere</h3>
             <p>
-              Launch AI agents on Discord, TikTok, Reddit, and web widgets. Each agent 
-              has full access to player memory, so it can reference past achievements, 
-              inside jokes, and personal history in every interaction.
+              Launch AI agents on Discord (with full Social SDK support), TikTok, Reddit, 
+              and web widgets. Leverage account linking, wishlists, and in-game commerce 
+              while your AI references past achievements in every interaction.
             </p>
           </div>
 
@@ -503,7 +492,8 @@ export default function Home() {
             <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
             <span>HTML5</span>
           </div>
-          <div className="sdk-icon" title="Discord">
+          <div className="sdk-icon discord-featured" title="Discord Social SDK">
+            <span className="sdk-badge">Social SDK</span>
             <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
             <span>Discord</span>
           </div>
@@ -629,8 +619,12 @@ export default function Home() {
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
-            The player engagement layer for games.<br />
             © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
+          </p>
+          <p className="footer-contact">
+            <a href="mailto:business@crosslayerai.com" className="footer-email">
+              business@crosslayerai.com
+            </a>
           </p>
           <p className="footer-also-by">
             Powered by{' '}
@@ -645,7 +639,7 @@ export default function Home() {
                 <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
               </svg>
             </a>
-            {' '}- Runtime Video Recorder for Unreal Engine
+            {' '}by Unreal Solutions
           </p>
         </div>
       </footer>

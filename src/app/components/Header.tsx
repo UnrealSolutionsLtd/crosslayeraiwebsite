@@ -129,12 +129,11 @@ export default function Header() {
           >
             Blog
           </Link>
-          <button
-            style={navCtaStyle}
-            data-tally-open="EkK1Or"
+          <a
+            href="mailto:business@crosslayerai.com"
+            style={{ ...navCtaStyle, textDecoration: 'none' }}
             onClick={() => {
               GA_EVENTS.HEADER_CTA_CLICK()
-              GA_EVENTS.WAITLIST_FORM_OPEN('header')
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#00f5d4'
@@ -147,8 +146,8 @@ export default function Header() {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            Join Waitlist
-          </button>
+            Contact
+          </a>
         </div>
       </div>
     </nav>

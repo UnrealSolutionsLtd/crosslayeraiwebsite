@@ -53,16 +53,15 @@ interface BlogCTAButtonProps {
 
 export function BlogCTAButton({ slug }: BlogCTAButtonProps) {
   return (
-    <button
+    <a
+      href="mailto:business@crosslayerai.com"
       className="cta-button"
-      data-tally-open="EkK1Or"
       onClick={() => {
         GA_EVENTS.BLOG_CTA_CLICK(slug)
-        GA_EVENTS.WAITLIST_FORM_OPEN('blog_article')
       }}
     >
-      Join the Waitlist
-    </button>
+      Get in Touch
+    </a>
   )
 }
 
