@@ -249,20 +249,21 @@ await crosslayer.sendClip({
   },
   {
     id: 'memory',
-    title: 'Get Memory',
+    title: 'Query Memory',
     icon: Brain,
     filename: 'memory.ts',
-    code: `// Retrieve player's full history
-const memory = await crosslayer.getMemory({
-  playerId: player.id
-});
+    code: `// Ask anything about a player in plain English
+const answer = await crosslayer.query(
+  "What was Alex's closest moment to getting the 3K badge?"
+);
 
-// Returns everything about this player:
-// - Past achievements
-// - Play patterns
-// - Favorite weapons/characters
-// - Social connections
-// - Memorable moments`,
+// → "Alex hit 2912 damage on March 15th, just 88 
+//    damage away. Used Reyna on Ascent, 4 kills 
+//    in the final round."
+
+await crosslayer.query("Who does Alex play with most?");
+// → "@shadow_striker - 47 games together, usually 
+//    Friday nights"`,
   },
   {
     id: 'outreach',
@@ -828,62 +829,147 @@ export default function Home() {
             <div className="pitch-features">
               <div className="pitch-feature">
                 <div className="pitch-icon"><Camera size={24} /></div>
-                <h3>Any Source</h3>
-                <p>Connect your game's existing clip capture, use RVR Engine, or manually upload content. We integrate with your workflow, not the other way around.</p>
+                <h3>Zero Dev Lift</h3>
+                <p>Plug into your existing clip capture and watch content flow straight into community feeds. No SDK, no dev time - your moments go live in Discord channels automatically.</p>
               </div>
               <div className="pitch-feature">
                 <div className="pitch-icon"><Brain size={24} /></div>
-                <h3>Player Memory</h3>
-                <p>Our AI remembers every player's journey - their clutch plays, near-misses, and personal bests. When we reach out, it feels like talking to a friend who watched them play.</p>
+                <h3>Persistent Player Memory</h3>
+                <p>Every clutch play, near-miss, and milestone stored per player. AI references their history when posting to feeds - content that feels personal, shared publicly.</p>
               </div>
               <div className="pitch-feature">
                 <div className="pitch-icon"><Share2 size={24} /></div>
-                <h3>Smart Outreach</h3>
-                <p>No more generic notifications. Reference that 1v5 clutch from last week or remind them they were one shot away from a badge. Messages that make players feel seen.</p>
+                <h3>Community-First Content</h3>
+                <p>Clips and achievements flow into social feeds where players hype each other. Cross-promote across game communities - your content in front of similar audiences.</p>
               </div>
               <div className="pitch-feature">
                 <div className="pitch-icon"><TrendingUp size={24} /></div>
-                <h3>Real Results</h3>
-                <p>Discord DMs get 80%+ open rates vs 5% for push notifications. Account-linked players show 36% more game days. Turn your community into your growth engine.</p>
+                <h3>Viral, Not Paid</h3>
+                <p>80%+ daily reach through community feeds (vs 5% push). Reward players for sharing clips and milestones. Zero ad spend - your community becomes your growth engine.</p>
               </div>
             </div>
           </section>
 
-          {/* Live Activity Feed */}
-          <section className="activity-feed" id="live-activity">
-            <div className="feed-header">
-              <h3><Flame size={20} /> Live Activity</h3>
-              <span className="live-dot" />
-            </div>
+          {/* Insights Dashboard */}
+          <section className="dashboard-section" id="live-activity">
+            <h2>Insights Dashboard</h2>
+            <p className="dashboard-subtitle">Real-time metrics from your CrossLayerAI deployment</p>
             
-            <div className="activity-list">
-              <div className="activity-item">
-                <span className="activity-avatar">🎬</span>
-                <div className="activity-content">
-                  <strong>Blin</strong> shared <span className="highlight">Ninja_42's ace</span> to #clips
+            <div className="dashboard-container">
+              {/* Left: Metrics */}
+              <div className="dashboard-metrics">
+                <div className="metrics-row-top">
+                  <div className="metric-card">
+                    <div className="metric-title">Clips Watched</div>
+                    <div className="metric-value">24.8K</div>
+                    <div className="metric-trend up">↑ 1.2K today</div>
+                  </div>
+                  <div className="metric-card">
+                    <div className="metric-title">Clips Posted</div>
+                    <div className="metric-value">847</div>
+                    <div className="metric-trend up">↑ 23 today</div>
+                  </div>
+                  <div className="metric-card">
+                    <div className="metric-title">Community Reach</div>
+                    <div className="metric-value">18.4K</div>
+                    <div className="metric-trend">Players this week</div>
+                  </div>
                 </div>
-                <span className="activity-time">2m ago</span>
+
+                <div className="metrics-row">
+                  <div className="metric-card">
+                    <div className="metric-title">Shares & Reactions</div>
+                    <div className="metric-value">3,847</div>
+                    <div className="metric-trend up">↑ 12% this week</div>
+                  </div>
+                  <div className="metric-card">
+                    <div className="metric-title">Win-Back DMs Sent</div>
+                    <div className="metric-value">312</div>
+                    <div className="metric-trend">This week</div>
+                  </div>
+                </div>
+
+                <div className="metric-card wide">
+                  <div className="metric-header">
+                    <span className="metric-title">Content Engagement This Week</span>
+                  </div>
+                  <div className="engagement-bars">
+                    <div className="engagement-day">
+                      <div className="bar-container"><div className="bar" style={{ height: '45%' }}></div></div>
+                      <span>Mon</span>
+                    </div>
+                    <div className="engagement-day">
+                      <div className="bar-container"><div className="bar" style={{ height: '62%' }}></div></div>
+                      <span>Tue</span>
+                    </div>
+                    <div className="engagement-day">
+                      <div className="bar-container"><div className="bar" style={{ height: '78%' }}></div></div>
+                      <span>Wed</span>
+                    </div>
+                    <div className="engagement-day">
+                      <div className="bar-container"><div className="bar" style={{ height: '55%' }}></div></div>
+                      <span>Thu</span>
+                    </div>
+                    <div className="engagement-day">
+                      <div className="bar-container"><div className="bar" style={{ height: '91%' }}></div></div>
+                      <span>Fri</span>
+                    </div>
+                    <div className="engagement-day">
+                      <div className="bar-container"><div className="bar" style={{ height: '84%' }}></div></div>
+                      <span>Sat</span>
+                    </div>
+                    <div className="engagement-day today">
+                      <div className="bar-container"><div className="bar" style={{ height: '68%' }}></div></div>
+                      <span>Sun</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="activity-item">
-                <span className="activity-avatar">🎙️</span>
-                <div className="activity-content">
-                  <strong>Boris</strong> re-engaged <span className="highlight">23 lapsed players</span> via DM
+
+              {/* Right: Live Activity */}
+              <div className="dashboard-activity">
+                <div className="activity-header">
+                  <h3><Flame size={18} /> Live Activity</h3>
+                  <span className="live-dot" />
                 </div>
-                <span className="activity-time">5m ago</span>
-              </div>
-              <div className="activity-item">
-                <span className="activity-avatar">⚔️</span>
-                <div className="activity-content">
-                  <strong>SoulsBorne_Dan</strong>'s achievement post hit <span className="highlight">100K views</span>
+                
+                <div className="activity-list">
+                  <div className="activity-item">
+                    <span className="activity-avatar">🎬</span>
+                    <div className="activity-content">
+                      <strong>Blin</strong> shared <span className="highlight">Ninja_42's ace</span> to #clips
+                    </div>
+                    <span className="activity-time">2m</span>
+                  </div>
+                  <div className="activity-item">
+                    <span className="activity-avatar">🎙️</span>
+                    <div className="activity-content">
+                      <strong>Boris</strong> re-engaged <span className="highlight">23 lapsed players</span>
+                    </div>
+                    <span className="activity-time">5m</span>
+                  </div>
+                  <div className="activity-item">
+                    <span className="activity-avatar">⚔️</span>
+                    <div className="activity-content">
+                      <strong>SoulsBorne_Dan</strong>'s post hit <span className="highlight">100K views</span>
+                    </div>
+                    <span className="activity-time">12m</span>
+                  </div>
+                  <div className="activity-item">
+                    <span className="activity-avatar">👵</span>
+                    <div className="activity-content">
+                      <strong>Babushka</strong> sent <span className="highlight">147 messages</span>
+                    </div>
+                    <span className="activity-time">18m</span>
+                  </div>
+                  <div className="activity-item">
+                    <span className="activity-avatar">🎬</span>
+                    <div className="activity-content">
+                      <strong>Blin</strong> celebrated <span className="highlight">3 achievements</span>
+                    </div>
+                    <span className="activity-time">24m</span>
+                  </div>
                 </div>
-                <span className="activity-time">12m ago</span>
-              </div>
-              <div className="activity-item">
-                <span className="activity-avatar">👵</span>
-                <div className="activity-content">
-                  <strong>Babushka</strong> sent <span className="highlight">147 personalized messages</span>
-                </div>
-                <span className="activity-time">18m ago</span>
               </div>
             </div>
           </section>
@@ -924,33 +1010,53 @@ export default function Home() {
           {/* Integration Section */}
           <section className="code-section" id="integration">
             <h2>Get Started in Minutes</h2>
-            <p className="section-subtitle">Simple SDK setup. Reengagement on autopilot.</p>
+            
+            {/* Zero Dev Lift */}
+            <div className="integration-tier">
+              <h3 className="tier-title">Zero Dev Lift</h3>
+              <p className="tier-subtitle">Add our bot to your Discord and go. No code required.</p>
+              <div className="sdk-icons">
+                <div className="sdk-icon discord-featured" title="Discord Bot">
+                  <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
+                  <span>Discord Bot</span>
+                  <span className="sdk-badge">Start Here</span>
+                </div>
+                <div className="sdk-icon" title="RVR Integration">
+                  <Camera size={32} />
+                  <span>RVR Capture</span>
+                </div>
+                <div className="sdk-icon" title="Medal.tv">
+                  <Film size={32} />
+                  <span>Medal.tv</span>
+                </div>
+              </div>
+            </div>
 
-            <div className="sdk-icons">
-              <div className="sdk-icon" title="Unity">
-                <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
-                <span>Unity</span>
-              </div>
-              <div className="sdk-icon" title="Unreal Engine">
-                <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
-                <span>Unreal</span>
-              </div>
-              <div className="sdk-icon" title="Godot">
-                <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
-                <span>Godot</span>
-              </div>
-              <div className="sdk-icon" title="HTML5 / Web Games">
-                <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
-                <span>HTML5</span>
-              </div>
-              <div className="sdk-icon discord-featured" title="Discord">
-                <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
-                <span>Discord</span>
-                <span className="sdk-badge">Featured</span>
-              </div>
-              <div className="sdk-icon" title="REST API">
-                <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
-                <span>REST API</span>
+            {/* Developer Options */}
+            <div className="integration-tier">
+              <h3 className="tier-title">Developer Options</h3>
+              <p className="tier-subtitle">Full control with SDK and API integration.</p>
+              <div className="sdk-icons">
+                <div className="sdk-icon" title="REST API">
+                  <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
+                  <span>REST API</span>
+                </div>
+                <div className="sdk-icon" title="Unity">
+                  <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
+                  <span>Unity</span>
+                </div>
+                <div className="sdk-icon" title="Unreal Engine">
+                  <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
+                  <span>Unreal</span>
+                </div>
+                <div className="sdk-icon" title="Godot">
+                  <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
+                  <span>Godot</span>
+                </div>
+                <div className="sdk-icon" title="HTML5 / Web Games">
+                  <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
+                  <span>HTML5</span>
+                </div>
               </div>
             </div>
 
@@ -1111,21 +1217,6 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="stats-panel">
-            <h4>Demo Stats</h4>
-            <div className="stat-row">
-              <span className="stat-label">Scenarios</span>
-              <span className="stat-value">3</span>
-            </div>
-            <div className="stat-row">
-              <span className="stat-label">AI Bots</span>
-              <span className="stat-value">3</span>
-            </div>
-            <div className="stat-row">
-              <span className="stat-label">Platforms</span>
-              <span className="stat-value">Discord+</span>
-            </div>
-          </div>
         </aside>
       </div>
 
