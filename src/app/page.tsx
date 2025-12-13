@@ -39,6 +39,14 @@ import {
   PlusCircle,
   Info,
   Plug,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  CheckCircle2,
+  Send,
+  Zap,
+  Database,
+  Globe,
 } from 'lucide-react'
 import Header from './components/Header'
 import { GA_EVENTS } from './lib/analytics'
@@ -183,6 +191,97 @@ const playerStories = [
   { id: 6, username: 'parry_king', avatar: '🛡️', hasNew: true, isLive: false, game: 'Elden Ring' },
 ]
 
+// Code snippet examples for the integration section
+const codeExamples = [
+  {
+    id: 'init',
+    title: 'Initialize',
+    icon: Play,
+    filename: 'setup.ts',
+    code: `// Initialize CrossLayerAI in 3 lines
+import { CrossLayerAI } from '@crosslayerai/sdk';
+
+const crosslayer = new CrossLayerAI({
+  gameId: 'your-game-id',
+  apiKey: process.env.CROSSLAYER_API_KEY
+});
+
+// That's it! You're ready to capture moments.`,
+  },
+  {
+    id: 'events',
+    title: 'Track Events',
+    icon: Gamepad2,
+    filename: 'events.ts',
+    code: `// Track any in-game event
+crosslayer.trackEvent({
+  playerId: player.id,
+  event: 'boss_defeated',
+  metadata: {
+    bossName: 'Dragon Lord',
+    playerLevel: 42,
+    attempts: 7,
+    timeTaken: '8:32'
+  }
+});
+
+// CrossLayerAI remembers this forever ✨`,
+  },
+  {
+    id: 'media',
+    title: 'Send Media',
+    icon: Camera,
+    filename: 'media.ts',
+    code: `// Capture screenshots and clips
+await crosslayer.sendScreenshot({
+  playerId: player.id,
+  image: screenshotBuffer,
+  context: 'Clutch 1v5 ace!'
+});
+
+// Send video clips
+await crosslayer.sendClip({
+  playerId: player.id,
+  video: clipBuffer,
+  duration: 15,
+  tags: ['ace', 'clutch', 'ranked']
+});`,
+  },
+  {
+    id: 'memory',
+    title: 'Get Memory',
+    icon: Brain,
+    filename: 'memory.ts',
+    code: `// Retrieve player's full history
+const memory = await crosslayer.getMemory({
+  playerId: player.id
+});
+
+// Returns everything about this player:
+// - Past achievements
+// - Play patterns
+// - Favorite weapons/characters
+// - Social connections
+// - Memorable moments`,
+  },
+  {
+    id: 'outreach',
+    title: 'AI Outreach',
+    icon: Send,
+    filename: 'outreach.ts',
+    code: `// AI crafts personalized messages
+const message = await crosslayer.generateOutreach({
+  playerId: player.id,
+  channel: 'discord',
+  trigger: 'win_streak_ended'
+});
+
+// Result: "Hey Alex! That 12-game win streak
+// was legendary 🔥 Ready to start a new one?"
+
+// Works on Discord, TikTok, email, push...`,
+  },
+]
 
 export default function Home() {
   const [activeShort, setActiveShort] = useState(0)
@@ -197,10 +296,40 @@ export default function Home() {
   const [hoveredStat, setHoveredStat] = useState<number | null>(null)
   const [isVoicePlaying, setIsVoicePlaying] = useState(false)
   const [videoEnded, setVideoEnded] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [activeExample, setActiveExample] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const currentShort = demoShorts[activeShort]
+
+  // Code carousel functions
+  const handleCopyCode = async () => {
+    await navigator.clipboard.writeText(codeExamples[activeExample].code)
+    setCopied(true)
+    GA_EVENTS.CODE_COPY()
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const nextExample = () => {
+    setActiveExample((prev) => (prev + 1) % codeExamples.length)
+    setIsAutoPlaying(false)
+  }
+
+  const prevExample = () => {
+    setActiveExample((prev) => (prev - 1 + codeExamples.length) % codeExamples.length)
+    setIsAutoPlaying(false)
+  }
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return
+    const interval = setInterval(() => {
+      setActiveExample((prev) => (prev + 1) % codeExamples.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [isAutoPlaying])
 
   // Highlight @mentions in text
   const highlightMentions = (text: string) => {
@@ -365,20 +494,12 @@ export default function Home() {
               <span>Insights</span>
             </a>
             <a
-              href="mailto:business@crosslayerai.com?subject=Interested%20in%20Integrations"
+              href="#integration"
               className="sidebar-nav-item"
-              onClick={() => GA_EVENTS.WAITLIST_FORM_OPEN('integrations')}
+              onClick={() => GA_EVENTS.SECTION_VIEW('Integration Code')}
             >
               <Plug size={24} />
               <span>Integrations</span>
-            </a>
-            <a
-              href="mailto:business@crosslayerai.com?subject=Interested%20in%20Player%20Memory%20Feature"
-              className="sidebar-nav-item"
-              onClick={() => GA_EVENTS.WAITLIST_FORM_OPEN('memory')}
-            >
-              <Brain size={24} />
-              <span>Memory</span>
             </a>
           </nav>
           
@@ -701,27 +822,29 @@ export default function Home() {
 
           {/* Platform Pitch */}
           <section className="platform-pitch">
-            <h2 className="pitch-title">Built for gaming communities</h2>
+            <div className="pitch-header">
+              <h2>From game events to personalized outreach</h2>
+            </div>
             <div className="pitch-features">
               <div className="pitch-feature">
                 <div className="pitch-icon"><Camera size={24} /></div>
                 <h3>Any Source</h3>
-                <p>RVR Engine, manual uploads, or your existing pipeline</p>
+                <p>Connect your game's existing clip capture, use RVR Engine, or manually upload content. We integrate with your workflow, not the other way around.</p>
               </div>
               <div className="pitch-feature">
                 <div className="pitch-icon"><Brain size={24} /></div>
                 <h3>Player Memory</h3>
-                <p>Every achievement and milestone, remembered forever</p>
+                <p>Our AI remembers every player's journey - their clutch plays, near-misses, and personal bests. When we reach out, it feels like talking to a friend who watched them play.</p>
               </div>
               <div className="pitch-feature">
                 <div className="pitch-icon"><Share2 size={24} /></div>
                 <h3>Smart Outreach</h3>
-                <p>Personalized messages that reference real moments</p>
+                <p>No more generic notifications. Reference that 1v5 clutch from last week or remind them they were one shot away from a badge. Messages that make players feel seen.</p>
               </div>
               <div className="pitch-feature">
                 <div className="pitch-icon"><TrendingUp size={24} /></div>
                 <h3>Real Results</h3>
-                <p>80%+ reach, 36% return lift, no ad spend</p>
+                <p>Discord DMs get 80%+ open rates vs 5% for push notifications. Account-linked players show 36% more game days. Turn your community into your growth engine.</p>
               </div>
             </div>
           </section>
@@ -794,6 +917,147 @@ export default function Home() {
                   <li>No ads - organic, personal outreach</li>
                   <li>80%+ reach on Discord, 36% return lift</li>
                 </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Integration Section */}
+          <section className="code-section" id="integration">
+            <h2>Get Started in Minutes</h2>
+            <p className="section-subtitle">Simple SDK setup. Reengagement on autopilot.</p>
+
+            <div className="sdk-icons">
+              <div className="sdk-icon" title="Unity">
+                <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
+                <span>Unity</span>
+              </div>
+              <div className="sdk-icon" title="Unreal Engine">
+                <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
+                <span>Unreal</span>
+              </div>
+              <div className="sdk-icon" title="Godot">
+                <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
+                <span>Godot</span>
+              </div>
+              <div className="sdk-icon" title="HTML5 / Web Games">
+                <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
+                <span>HTML5</span>
+              </div>
+              <div className="sdk-icon discord-featured" title="Discord">
+                <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
+                <span>Discord</span>
+                <span className="sdk-badge">Featured</span>
+              </div>
+              <div className="sdk-icon" title="REST API">
+                <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
+                <span>REST API</span>
+              </div>
+            </div>
+
+            {/* Code Carousel */}
+            <div className="code-carousel">
+              {/* Tab Navigation */}
+              <div className="code-tabs">
+                {codeExamples.map((example, index) => {
+                  const IconComponent = example.icon
+                  return (
+                    <button
+                      key={example.id}
+                      className={`code-tab ${activeExample === index ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveExample(index)
+                        setIsAutoPlaying(false)
+                      }}
+                    >
+                      <IconComponent size={18} />
+                      <span>{example.title}</span>
+                    </button>
+                  )
+                })}
+              </div>
+
+              <div className="code-carousel-container">
+                {/* Prev Button */}
+                <button className="carousel-nav prev" onClick={prevExample} aria-label="Previous example">
+                  <ChevronLeft size={24} />
+                </button>
+
+                {/* Code Window */}
+                <div className="code-window">
+                  <div className="code-header">
+                    <div className="code-dots">
+                      <span className="dot red"></span>
+                      <span className="dot yellow"></span>
+                      <span className="dot green"></span>
+                    </div>
+                    <span className="code-filename">{codeExamples[activeExample].filename}</span>
+                    <button className="code-copy-btn" onClick={handleCopyCode}>
+                      {copied ? (
+                        <>
+                          <CheckCircle2 size={14} />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={14} />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <div className="code-content-wrapper">
+                    <pre className="code-content" key={activeExample}>
+                      <code>{codeExamples[activeExample].code}</code>
+                    </pre>
+                  </div>
+                </div>
+
+                {/* Next Button */}
+                <button className="carousel-nav next" onClick={nextExample} aria-label="Next example">
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+
+              {/* Progress Dots */}
+              <div className="carousel-progress">
+                {codeExamples.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`progress-dot ${activeExample === index ? 'active' : ''}`}
+                    onClick={() => {
+                      setActiveExample(index)
+                      setIsAutoPlaying(false)
+                    }}
+                    aria-label={`Go to example ${index + 1}`}
+                  >
+                    <span className="progress-fill" style={{ animationDuration: isAutoPlaying && activeExample === index ? '4s' : '0s' }} />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Features below carousel */}
+            <div className="code-features-row">
+              <div className="code-feature">
+                <div className="code-feature-icon"><Zap size={20} /></div>
+                <div>
+                  <h4>One-Line Init</h4>
+                  <p>Drop in the SDK and start tracking in seconds</p>
+                </div>
+              </div>
+              <div className="code-feature">
+                <div className="code-feature-icon"><Database size={20} /></div>
+                <div>
+                  <h4>Auto Memory</h4>
+                  <p>Every event builds persistent player memory</p>
+                </div>
+              </div>
+              <div className="code-feature">
+                <div className="code-feature-icon"><Globe size={20} /></div>
+                <div>
+                  <h4>Cross-Platform</h4>
+                  <p>Works with Unity, Unreal, and web games</p>
+                </div>
               </div>
             </div>
           </section>

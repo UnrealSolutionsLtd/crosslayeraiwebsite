@@ -1014,12 +1014,24 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.pitch-title {
+.pitch-header {
   text-align: center;
-  font-size: 1.5rem;
+  margin-bottom: 40px;
+}
+
+.pitch-header h2 {
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
   color: var(--color-text-primary);
+}
+
+.pitch-header p {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .pitch-header {
@@ -1068,17 +1080,20 @@
 
 .pitch-features {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
 .pitch-feature {
   text-align: center;
-  padding: 24px 16px;
-  background: rgba(255, 255, 255, 0.02);
+  padding: 28px 20px;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--color-border);
   border-radius: 16px;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pitch-feature:hover {
@@ -1106,10 +1121,12 @@
 }
 
 .pitch-feature p {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
+  text-align: left;
+  opacity: 0.85;
 }
 
 /* Activity Feed */
@@ -1671,17 +1688,17 @@
   }
   
   .pitch-features {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
-  
+
   .steps-row {
     flex-direction: column;
   }
-  
+
   .step-arrow {
     transform: rotate(90deg);
   }
-  
+
   .step-card {
     max-width: 100%;
     width: 100%;
@@ -3501,6 +3518,22 @@ body {
 
 .code-section {
   background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  margin-bottom: 48px;
+  padding: 48px 0;
+}
+
+.code-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+}
+
+.code-section .section-subtitle {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin-bottom: 32px;
 }
 
 /* SDK Icons */
