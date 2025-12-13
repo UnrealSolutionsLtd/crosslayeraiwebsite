@@ -3734,115 +3734,259 @@ body {
   margin-bottom: 32px;
 }
 
-/* Integration Tiers */
-.integration-tier {
-  margin-bottom: 40px;
-}
-
-.tier-title {
-  font-size: 1.2rem;
-  color: var(--color-text-primary);
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-.tier-subtitle {
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* SDK Icons */
-.sdk-icons {
+/* Integration Tabs */
+.integration-tabs {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 2.5rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto 32px;
+  padding: 0 20px;
 }
 
-.sdk-icon {
+.integration-tab {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 1.25rem;
+  gap: 12px;
+  padding: 16px 24px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 80px;
+  flex: 1;
+  max-width: 260px;
 }
 
-.sdk-icon:hover {
-  background: rgba(0, 245, 212, 0.08);
-  border-color: rgba(0, 245, 212, 0.3);
-  transform: translateY(-4px);
+.integration-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-.sdk-icon svg,
-.sdk-icon img {
-  width: 32px;
-  height: 32px;
-  opacity: 0.7;
-  transition: all 0.3s ease;
+.integration-tab.active {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.12) 0%, rgba(0, 245, 212, 0.04) 100%);
+  border-color: rgba(0, 245, 212, 0.4);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.1);
 }
 
-.sdk-icon:hover svg,
-.sdk-icon:hover img {
-  opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(0, 245, 212, 0.5));
-}
-
-.sdk-icon span {
-  font-size: 0.75rem;
-  font-weight: 600;
+.tab-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.integration-tab.active .tab-icon {
+  background: rgba(0, 245, 212, 0.15);
+  color: var(--color-primary);
+}
+
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.tab-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
   transition: color 0.3s ease;
 }
 
-.sdk-icon:hover span {
+.integration-tab.active .tab-title {
   color: var(--color-text-primary);
 }
 
-/* Discord Featured SDK Icon */
-.sdk-icon.discord-featured {
-  position: relative;
-  background: rgba(88, 101, 242, 0.1);
+.tab-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #0a0a0a;
+  background: linear-gradient(135deg, #00f5d4 0%, #00e5c7 100%);
+  padding: 4px 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 245, 212, 0.6), 0 0 24px rgba(0, 245, 212, 0.3);
+  text-shadow: none;
+}
+
+/* Integration Panel */
+.integration-panel {
+  max-width: 800px;
+  margin: 0 auto 32px;
+  padding: 0 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.panel-integrations {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.panel-integrations.developer-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+/* Integration Steps */
+.integration-steps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.step-number {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #00c9a7 100%);
+  color: var(--color-bg-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+
+.integration-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  flex: 1;
+  min-width: 70px;
+}
+
+.integration-item:hover {
+  background: rgba(0, 245, 212, 0.08);
+  border-color: rgba(0, 245, 212, 0.3);
+  transform: translateY(-2px);
+}
+
+.integration-item.discord-highlight {
+  background: rgba(88, 101, 242, 0.15);
   border-color: rgba(88, 101, 242, 0.3);
 }
 
-.sdk-icon.discord-featured:hover {
-  background: rgba(88, 101, 242, 0.2);
+.integration-item.discord-highlight:hover {
+  background: rgba(88, 101, 242, 0.25);
   border-color: rgba(88, 101, 242, 0.5);
 }
 
-.sdk-icon.discord-featured img {
+.integration-item svg,
+.integration-item img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.integration-item:hover svg,
+.integration-item:hover img {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(0, 245, 212, 0.4));
+}
+
+.integration-item.discord-highlight img {
   opacity: 1;
   filter: drop-shadow(0 0 6px rgba(88, 101, 242, 0.5));
 }
 
-.sdk-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  padding: 3px 6px;
-  background: #5865F2;
-  color: #fff;
-  font-size: 0.55rem;
-  font-weight: 700;
+.integration-item span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-radius: 4px;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(88, 101, 242, 0.4);
 }
+
+.integration-item:hover span {
+  color: var(--color-text-primary);
+}
+
+/* Responsive Integration Tabs */
+@media (max-width: 768px) {
+  .integration-tabs {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .integration-tab {
+    max-width: none;
+    padding: 14px 20px;
+  }
+
+  .panel-integrations.developer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .integration-steps {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .step {
+    justify-content: center;
+  }
+}
+
 
 /* Code Carousel */
 .code-carousel {
@@ -4169,22 +4313,6 @@ body {
 
 /* Responsive code section */
 @media (max-width: 900px) {
-  .sdk-icons {
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .sdk-icon {
-    padding: 0.75rem 1rem;
-    min-width: 70px;
-  }
-  
-  .sdk-icon svg,
-  .sdk-icon img {
-    width: 28px;
-    height: 28px;
-  }
-  
   .code-container {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -4238,26 +4366,75 @@ body {
 }
 
 @media (max-width: 600px) {
-  .sdk-icons {
-    gap: 0.5rem;
+  .integration-tabs {
+    gap: 10px;
   }
-  
-  .sdk-icon {
-    padding: 0.6rem 0.75rem;
-    min-width: 60px;
-    border-radius: 8px;
+
+  .integration-tab {
+    padding: 12px 16px;
+    gap: 10px;
   }
-  
-  .sdk-icon svg,
-  .sdk-icon img {
+
+  .tab-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .tab-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tab-title {
+    font-size: 0.9rem;
+  }
+
+  .tab-badge {
+    font-size: 0.55rem;
+    padding: 2px 6px;
+  }
+
+  .panel-description {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .integration-steps {
+    gap: 8px;
+  }
+
+  .step {
+    padding: 10px 14px;
+  }
+
+  .step-number {
     width: 24px;
     height: 24px;
+    font-size: 0.75rem;
   }
-  
-  .sdk-icon span {
+
+  .step-text {
+    font-size: 0.8rem;
+  }
+
+  .panel-integrations.developer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .integration-item {
+    padding: 10px 12px;
+  }
+
+  .integration-item svg,
+  .integration-item img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .integration-item span {
     font-size: 0.65rem;
   }
-  
+
   .code-features {
     flex-direction: column;
   }

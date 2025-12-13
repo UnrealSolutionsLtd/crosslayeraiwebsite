@@ -47,6 +47,7 @@ import {
   Zap,
   Database,
   Globe,
+  Code,
 } from 'lucide-react'
 import Header from './components/Header'
 import { GA_EVENTS } from './lib/analytics'
@@ -300,6 +301,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false)
   const [activeExample, setActiveExample] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [integrationPath, setIntegrationPath] = useState<'nocode' | 'developer'>('nocode')
   const videoRef = useRef<HTMLVideoElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -1011,57 +1013,89 @@ export default function Home() {
           <section className="code-section" id="integration">
             <h2>Get Started in Minutes</h2>
             
-            {/* Zero Dev Lift */}
-            <div className="integration-tier">
-              <h3 className="tier-title">Zero Dev Lift</h3>
-              <p className="tier-subtitle">Add our bot to your Discord and go. No code required.</p>
-              <div className="sdk-icons">
-                <div className="sdk-icon discord-featured" title="Discord Bot">
-                  <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
-                  <span>Discord Bot</span>
-                  <span className="sdk-badge">Start Here</span>
+            {/* Integration Path Tabs */}
+            <div className="integration-tabs">
+              <button 
+                className={`integration-tab ${integrationPath === 'nocode' ? 'active' : ''}`}
+                onClick={() => setIntegrationPath('nocode')}
+              >
+                <div className="tab-icon">
+                  <Zap size={24} />
                 </div>
-                <div className="sdk-icon" title="RVR Integration">
-                  <Camera size={32} />
-                  <span>RVR Capture</span>
+                <div className="tab-content">
+                  <span className="tab-title">No Code</span>
+                  <span className="tab-badge">Recommended</span>
                 </div>
-                <div className="sdk-icon" title="Medal.tv">
-                  <Film size={32} />
-                  <span>Medal.tv</span>
+              </button>
+              <button 
+                className={`integration-tab ${integrationPath === 'developer' ? 'active' : ''}`}
+                onClick={() => setIntegrationPath('developer')}
+              >
+                <div className="tab-icon">
+                  <Code size={24} />
                 </div>
-              </div>
+                <div className="tab-content">
+                  <span className="tab-title">Developer SDK</span>
+                </div>
+              </button>
             </div>
 
-            {/* Developer Options */}
-            <div className="integration-tier">
-              <h3 className="tier-title">Developer Options</h3>
-              <p className="tier-subtitle">Full control with SDK and API integration.</p>
-              <div className="sdk-icons">
-                <div className="sdk-icon" title="REST API">
-                  <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
-                  <span>REST API</span>
-                </div>
-                <div className="sdk-icon" title="Unity">
-                  <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
-                  <span>Unity</span>
-                </div>
-                <div className="sdk-icon" title="Unreal Engine">
-                  <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
-                  <span>Unreal</span>
-                </div>
-                <div className="sdk-icon" title="Godot">
-                  <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
-                  <span>Godot</span>
-                </div>
-                <div className="sdk-icon" title="HTML5 / Web Games">
-                  <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
-                  <span>HTML5</span>
+            {/* No Code Panel */}
+            {integrationPath === 'nocode' && (
+              <div className="integration-panel">
+                <p className="panel-description">Add our bot to your Discord and go. No code required.</p>
+
+                <div className="panel-integrations">
+                  <div className="integration-item discord-highlight" title="Discord Bot">
+                    <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
+                    <span>Discord bot</span>
+                  </div>
+                  <a href="https://unrealsolutions.com" target="_blank" rel="noopener noreferrer" className="integration-item" title="RVR Integration">
+                    <Camera size={24} />
+                    <span>RVR Engine</span>
+                  </a>
+                  <div className="integration-item" title="Medal.tv">
+                    <Film size={24} />
+                    <span>Medal.tv</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Code Carousel */}
-            <div className="code-carousel">
+            {/* Developer SDK Panel */}
+            {integrationPath === 'developer' && (
+              <div className="integration-panel">
+                <p className="panel-description">Full control with SDK and API integration for custom implementations.</p>
+                
+                <div className="panel-integrations developer-grid">
+                  <div className="integration-item" title="REST API">
+                    <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
+                    <span>REST API</span>
+                  </div>
+                  <div className="integration-item" title="Unity">
+                    <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
+                    <span>Unity</span>
+                  </div>
+                  <div className="integration-item" title="Unreal Engine">
+                    <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
+                    <span>Unreal</span>
+                  </div>
+                  <div className="integration-item" title="Godot">
+                    <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
+                    <span>Godot</span>
+                  </div>
+                  <div className="integration-item" title="HTML5 / Web Games">
+                    <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
+                    <span>HTML5</span>
+                  </div>
+                  <div className="integration-item" title="Roblox">
+                    <img src="https://cdn.simpleicons.org/roblox/white" alt="Roblox" />
+                    <span>Roblox</span>
+                  </div>
+                </div>
+
+                {/* Code Carousel - Only shown for Developer path */}
+                <div className="code-carousel">
               {/* Tab Navigation */}
               <div className="code-tabs">
                 {codeExamples.map((example, index) => {
@@ -1142,30 +1176,32 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Features below carousel */}
-            <div className="code-features-row">
-              <div className="code-feature">
-                <div className="code-feature-icon"><Zap size={20} /></div>
-                <div>
-                  <h4>One-Line Init</h4>
-                  <p>Drop in the SDK and start tracking in seconds</p>
+                {/* Features below carousel */}
+                <div className="code-features-row">
+                  <div className="code-feature">
+                    <div className="code-feature-icon"><Zap size={20} /></div>
+                    <div>
+                      <h4>One-Line Init</h4>
+                      <p>Drop in the SDK and start tracking in seconds</p>
+                    </div>
+                  </div>
+                  <div className="code-feature">
+                    <div className="code-feature-icon"><Database size={20} /></div>
+                    <div>
+                      <h4>Auto Memory</h4>
+                      <p>Every event builds persistent player memory</p>
+                    </div>
+                  </div>
+                  <div className="code-feature">
+                    <div className="code-feature-icon"><Globe size={20} /></div>
+                    <div>
+                      <h4>Cross-Platform</h4>
+                      <p>Works with Unity, Unreal, and web games</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="code-feature">
-                <div className="code-feature-icon"><Database size={20} /></div>
-                <div>
-                  <h4>Auto Memory</h4>
-                  <p>Every event builds persistent player memory</p>
-                </div>
-              </div>
-              <div className="code-feature">
-                <div className="code-feature-icon"><Globe size={20} /></div>
-                <div>
-                  <h4>Cross-Platform</h4>
-                  <p>Works with Unity, Unreal, and web games</p>
-                </div>
-              </div>
-            </div>
+            )}
           </section>
 
         </div>
