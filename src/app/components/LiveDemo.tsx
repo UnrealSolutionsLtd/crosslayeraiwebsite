@@ -108,7 +108,7 @@ the server witnessed the whole journey`,
 type Stage = 'choice' | 'demo'
 
 export default function LiveDemo() {
-  const [stage, setStage] = useState<Stage>('choice')
+  const [stage, setStage] = useState<Stage>('demo') // Start directly in demo mode
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
   const [displayedText, setDisplayedText] = useState('')

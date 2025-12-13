@@ -1,11 +1,14 @@
 'use client'
 
-import { CSSProperties } from 'react'
+import { CSSProperties, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Search, Bell, Plus } from 'lucide-react'
 import { GA_EVENTS } from '../lib/analytics'
 
 export default function Header() {
+  const [searchFocused, setSearchFocused] = useState(false)
+
   const navStyle: CSSProperties = {
     position: 'fixed',
     top: 0,
@@ -13,7 +16,7 @@ export default function Header() {
     width: '100vw',
     maxWidth: '100%',
     zIndex: 100,
-    background: 'rgba(10, 10, 15, 0.8)',
+    background: 'rgba(10, 10, 15, 0.95)',
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
     borderBottom: '1px solid #2a2a3a',
@@ -26,10 +29,11 @@ export default function Header() {
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    maxWidth: '1400px',
+    maxWidth: '1600px',
     margin: '0 auto',
-    padding: '12px 16px',
+    padding: '10px 24px',
     boxSizing: 'border-box',
+    gap: '16px',
   }
 
   const logoLinkStyle: CSSProperties = {
@@ -37,10 +41,11 @@ export default function Header() {
     alignItems: 'center',
     gap: '10px',
     textDecoration: 'none',
+    flexShrink: 0,
   }
 
   const logoTextStyle: CSSProperties = {
-    fontSize: 'clamp(0.875rem, 3vw, 1.5rem)',
+    fontSize: 'clamp(0.9rem, 2.5vw, 1.3rem)',
     fontWeight: 700,
     letterSpacing: '1px',
     color: '#00f5d4',
@@ -51,38 +56,26 @@ export default function Header() {
     color: '#ffffff',
   }
 
-  const navLinksStyle: CSSProperties = {
+  const navActionsStyle: CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    gap: 'clamp(12px, 3vw, 24px)',
+    gap: '8px',
   }
 
   const navLinkStyle: CSSProperties = {
     color: '#c5c5d0',
     textDecoration: 'none',
-    fontSize: 'clamp(0.7rem, 1.8vw, 0.9rem)',
+    fontSize: '0.9rem',
     fontWeight: 500,
-    letterSpacing: '0.5px',
-    transition: 'color 0.2s ease',
-  }
-
-  const navCtaStyle: CSSProperties = {
-    padding: 'clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 24px)',
-    background: 'transparent',
-    border: '1px solid #00f5d4',
-    color: '#00f5d4',
-    fontSize: 'clamp(0.65rem, 1.8vw, 0.9rem)',
-    fontWeight: 600,
-    letterSpacing: '0.5px',
-    cursor: 'pointer',
-    textTransform: 'uppercase' as const,
-    whiteSpace: 'nowrap',
-    transition: 'all 0.3s ease',
+    padding: '8px 12px',
+    borderRadius: '8px',
+    transition: 'all 0.2s ease',
   }
 
   return (
     <nav style={navStyle}>
       <div style={navContentStyle}>
+        {/* Logo */}
         <a href="/" style={logoLinkStyle} onClick={() => GA_EVENTS.HEADER_LOGO_CLICK()}>
           <Image 
             src="/logo-icon.svg" 
@@ -95,55 +88,45 @@ export default function Header() {
             CROSSLAYER<span style={logoSpanStyle}>AI</span>
           </span>
         </a>
-        <div style={navLinksStyle}>
-          <a 
-            href="https://unrealsolutions.com" 
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              ...navLinkStyle,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#00f5d4'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#c5c5d0'
-            }}
-          >
-            <span style={{ opacity: 0.7, fontSize: '0.75em' }}>powered by</span>
-            RVR Engine
-          </a>
+
+        {/* Actions */}
+        <div style={navActionsStyle}>
+          {/* Blog Link */}
           <Link 
             href="/blog" 
             style={navLinkStyle}
             onClick={() => GA_EVENTS.HEADER_BLOG_CLICK()}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#00f5d4'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'
+              e.currentTarget.style.color = '#fff'
             }}
             onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
               e.currentTarget.style.color = '#c5c5d0'
             }}
           >
             Blog
           </Link>
+
+          {/* Contact */}
           <a
             href="mailto:business@crosslayerai.com"
-            style={{ ...navCtaStyle, textDecoration: 'none' }}
+            style={{
+              ...navLinkStyle,
+              border: '1px solid #00f5d4',
+              color: '#00f5d4',
+              fontWeight: 600,
+            }}
             onClick={() => {
               GA_EVENTS.HEADER_CTA_CLICK()
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#00f5d4'
               e.currentTarget.style.color = '#0a0a0f'
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 245, 212, 0.4)'
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'transparent'
               e.currentTarget.style.color = '#00f5d4'
-              e.currentTarget.style.boxShadow = 'none'
             }}
           >
             Contact
@@ -153,4 +136,3 @@ export default function Header() {
     </nav>
   )
 }
-

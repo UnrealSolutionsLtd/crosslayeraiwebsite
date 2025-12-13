@@ -2,614 +2,891 @@
 
 import { useEffect, useRef, useState } from 'react'
 import {
-  X,
-  MessageCircle,
-  Globe,
   Heart,
-  Check,
-  Gamepad2,
-  Swords,
-  Wand2,
-  Zap,
-  Sparkles,
-  Database,
-  Mic,
-  Link2,
-  BarChart3,
-  Copy,
-  CheckCircle2,
-  Camera,
-  Video,
-  Trophy,
-  FileText,
+  MessageCircle,
+  Share2,
   Play,
-  ChevronLeft,
-  ChevronRight,
+  Pause,
+  Volume2,
+  VolumeX,
+  Flame,
+  Trophy,
+  Sparkles,
+  Users,
+  TrendingUp,
+  Plus,
+  Search,
+  Bell,
+  Home as HomeIcon,
+  Compass,
+  Film,
+  User,
+  Bookmark,
+  Music,
+  Gamepad2,
+  Check,
+  X,
+  Camera,
   Brain,
-  Send,
+  ArrowRight,
+  RotateCcw,
+  Hash,
+  ChevronDown,
+  Mic,
+  Headphones,
+  Gift,
+  Smile,
+  PlusCircle,
+  Info,
+  Plug,
 } from 'lucide-react'
-import LiveDemo from './components/LiveDemo'
 import Header from './components/Header'
 import { GA_EVENTS } from './lib/analytics'
 
-// Code snippet examples for the carousel
-const codeExamples = [
+// Demo content - the actual CrossLayerAI showcase
+interface DemoShort {
+  id: number
+  type: 'discord' | 'dm'
+  channel: string
+  game: string
+  botName: string
+  botEmoji: string
+  message: string
+  media: 'video' | 'image' | 'voice'
+  mediaSrc: string
+  username: string
+  avatar: string
+  title: string
+  views: string
+  likes: string
+  comments: string
+  shares: string
+  thumbnail: string
+  duration: string
+  isVerified: boolean
+  contextMessages?: { username: string; avatar: string; message: string }[]
+  communityReply?: { username: string; avatar: string; message: string }
+  impactStats: { label: string; traditional: string; personalized: string; source?: string }[]
+}
+
+const demoShorts: DemoShort[] = [
   {
-    id: 'init',
-    title: 'Initialize',
-    icon: Play,
-    filename: 'setup.ts',
-    code: `// Initialize CrossLayerAI in 3 lines
-import { CrossLayerAI } from '@crosslayerai/sdk';
-
-const crosslayer = new CrossLayerAI({
-  gameId: 'your-game-id',
-  apiKey: process.env.CROSSLAYER_API_KEY
-});
-
-// That's it! You're ready to capture moments.`,
+    id: 1,
+    type: 'discord',
+    channel: 'clips',
+    game: 'Valorant',
+    botName: 'Blin',
+    botEmoji: '🎬',
+    message: `clean ace from @Ninja_42 🎯 they said there were washed yesterday`,
+    media: 'video',
+    mediaSrc: '/ace-clip.mp4',
+    username: 'Ninja_42',
+    avatar: '🎯',
+    title: 'INSANE 1v5 CLUTCH 🔥',
+    views: '2.4M',
+    likes: '324K',
+    comments: '12.4K',
+    shares: '45K',
+    thumbnail: 'linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%)',
+    duration: '0:32',
+    isVerified: true,
+    contextMessages: [
+      { username: 'aim_demon', avatar: '🎯', message: 'anyone got clips from last night?' },
+      { username: 'headshot_hero', avatar: '💀', message: 'check this one out ⬇️' },
+    ],
+    communityReply: {
+      username: 'shadow_striker',
+      avatar: '🔥',
+      message: 'bro went INSANE 😭'
+    },
+    impactStats: [
+      { label: 'Daily reach', traditional: '5-15%', personalized: '80%+', source: 'Discord data: 80% of engaged players are on Discord daily' },
+      { label: 'Engagement lift', traditional: 'Baseline', personalized: '+48%', source: 'Players with Discord Social SDK play 48% longer' },
+    ]
   },
   {
-    id: 'events',
-    title: 'Track Events',
-    icon: Gamepad2,
-    filename: 'events.ts',
-    code: `// Track any in-game event
-crosslayer.trackEvent({
-  playerId: player.id,
-  event: 'boss_defeated',
-  metadata: {
-    bossName: 'Dragon Lord',
-    playerLevel: 42,
-    attempts: 7,
-    timeTaken: '8:32'
-  }
-});
+    id: 2,
+    type: 'dm',
+    channel: 'Boris',
+    game: 'Apex Legends',
+    botName: 'Boris',
+    botEmoji: '🎙️',
+    message: `Hey, it's been like 2 weeks since you played...
 
-// CrossLayerAI remembers this forever ✨`,
+I still remember that 2800 damage game. You were ONE shot away from that 3k badge.
+
+Just saying. 👀`,
+    media: 'voice',
+    mediaSrc: '/voice.m4a',
+    username: 'LapsedPlayer',
+    avatar: '😴',
+    title: 'Player Re-engagement',
+    views: '156K',
+    likes: '89K',
+    comments: '5.2K',
+    shares: '12K',
+    thumbnail: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    duration: '0:12',
+    isVerified: true,
+    impactStats: [
+      { label: 'Open rate', traditional: '5-15%', personalized: '80%+', source: 'Push: 5-15% vs Discord: 80%+ daily presence' },
+      { label: 'Return rate', traditional: '2%', personalized: '+36%', source: 'Account-linked players see 36% more game days' },
+    ]
   },
   {
-    id: 'media',
-    title: 'Send Media',
-    icon: Camera,
-    filename: 'media.ts',
-    code: `// Capture screenshots and clips
-await crosslayer.sendScreenshot({
-  playerId: player.id,
-  image: screenshotBuffer,
-  context: 'Clutch 1v5 ace!'
-});
+    id: 3,
+    type: 'discord',
+    channel: 'achievements',
+    game: 'Elden Ring',
+    botName: 'Babushka',
+    botEmoji: '👵',
+    message: `147 hours. 34 deaths to Margit. Almost quit twice.
 
-// Send video clips
-await crosslayer.sendClip({
-  playerId: player.id,
-  video: clipBuffer,
-  duration: 15,
-  tags: ['ace', 'clutch', 'ranked']
-});`,
-  },
-  {
-    id: 'memory',
-    title: 'Get Memory',
-    icon: Brain,
-    filename: 'memory.ts',
-    code: `// Retrieve player's full history
-const memory = await crosslayer.getMemory({
-  playerId: player.id
-});
+@SoulsBorne_Dan finally got the Platinum 👑
 
-// Returns everything about this player:
-// - Past achievements
-// - Play patterns  
-// - Favorite weapons/characters
-// - Social connections
-// - Memorable moments`,
-  },
-  {
-    id: 'outreach',
-    title: 'AI Outreach',
-    icon: Send,
-    filename: 'outreach.ts',
-    code: `// AI crafts personalized messages
-const message = await crosslayer.generateOutreach({
-  playerId: player.id,
-  channel: 'discord',
-  trigger: 'win_streak_ended'
-});
-
-// Result: "Hey Alex! That 12-game win streak
-// was legendary 🔥 Ready to start a new one?"
-
-// Works on Discord, TikTok, email, push...`,
+the server witnessed the whole journey`,
+    media: 'image',
+    mediaSrc: '/tiktok_post.png',
+    username: 'SoulsBorne_Dan',
+    avatar: '⚔️',
+    title: 'PLATINUM ACHIEVED 👑',
+    views: '892K',
+    likes: '145K',
+    comments: '8.2K',
+    shares: '32K',
+    thumbnail: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    duration: '0:45',
+    isVerified: true,
+    contextMessages: [
+      { username: 'maidenless_420', avatar: '💀', message: 'anyone else stuck on malenia?' },
+      { username: 'parry_king', avatar: '🛡️', message: 'took me 200 tries no shame' },
+    ],
+    communityReply: {
+      username: 'git_gud_or_die',
+      avatar: '⚔️',
+      message: 'the dedication 🙏 respect'
+    },
+    impactStats: [
+      { label: 'Conversion lift', traditional: 'Baseline', personalized: '+12-25%', source: 'Firebase case studies: personalized content drives 12-25% more conversions' },
+      { label: 'Member lifetime', traditional: '1x', personalized: '5x', source: 'Well-managed Discord communities see 5x longer member lifetime' },
+    ]
   },
 ]
 
+// Player stories data
+const playerStories = [
+  { id: 1, username: 'Ninja_42', avatar: '🎯', hasNew: true, isLive: true, game: 'Valorant' },
+  { id: 2, username: 'Boris', avatar: '🎙️', hasNew: true, isLive: false, game: 'AI Bot' },
+  { id: 3, username: 'SoulsBorne_Dan', avatar: '⚔️', hasNew: true, isLive: false, game: 'Elden Ring' },
+  { id: 4, username: 'Babushka', avatar: '👵', hasNew: true, isLive: false, game: 'AI Bot' },
+  { id: 5, username: 'shadow_striker', avatar: '🔥', hasNew: false, isLive: false, game: 'Valorant' },
+  { id: 6, username: 'parry_king', avatar: '🛡️', hasNew: true, isLive: false, game: 'Elden Ring' },
+]
+
+
 export default function Home() {
-  const viewedSections = useRef<Set<string>>(new Set())
-  const scrollMilestones = useRef<Set<number>>(new Set())
-  const [copied, setCopied] = useState(false)
-  const [activeExample, setActiveExample] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [activeShort, setActiveShort] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set())
+  const [displayedText, setDisplayedText] = useState('')
+  const [isTyping, setIsTyping] = useState(true)
+  const [showReactions, setShowReactions] = useState(false)
+  const [showCommunityReply, setShowCommunityReply] = useState(false)
+  const [showImpactStats, setShowImpactStats] = useState(false)
+  const [hoveredStat, setHoveredStat] = useState<number | null>(null)
+  const [isVoicePlaying, setIsVoicePlaying] = useState(false)
+  const [videoEnded, setVideoEnded] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
-  const handleCopyCode = async () => {
-    await navigator.clipboard.writeText(codeExamples[activeExample].code)
-    setCopied(true)
-    GA_EVENTS.CODE_COPY()
-    setTimeout(() => setCopied(false), 2000)
+  const currentShort = demoShorts[activeShort]
+
+  // Highlight @mentions in text
+  const highlightMentions = (text: string) => {
+    const parts = text.split(/(@[\w_]+)/g)
+    return parts.map((part, idx) => 
+      part.startsWith('@') 
+        ? <span key={idx} className="discord-mention">{part}</span>
+        : part
+    )
   }
 
-  const nextExample = () => {
-    setActiveExample((prev) => (prev + 1) % codeExamples.length)
-    setIsAutoPlaying(false)
-  }
-
-  const prevExample = () => {
-    setActiveExample((prev) => (prev - 1 + codeExamples.length) % codeExamples.length)
-    setIsAutoPlaying(false)
-  }
-
-  // Auto-play carousel
+  // Play message when short changes
   useEffect(() => {
-    if (!isAutoPlaying) return
-    const interval = setInterval(() => {
-      setActiveExample((prev) => (prev + 1) % codeExamples.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [isAutoPlaying])
-
-
-  // Scroll depth and section view tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      // Track scroll depth milestones (25%, 50%, 75%, 100%)
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const scrollPercent = Math.round((scrollTop / docHeight) * 100)
-
-      const milestones = [25, 50, 75, 100]
-      milestones.forEach((milestone) => {
-        if (scrollPercent >= milestone && !scrollMilestones.current.has(milestone)) {
-          scrollMilestones.current.add(milestone)
-          GA_EVENTS.SCROLL_DEPTH('page', milestone)
-        }
-      })
-
-      // Track section views using Intersection Observer alternative
-      const sections = [
-        { id: 'how-it-works', name: 'Hero / How It Works' },
-        { id: 'demo', name: 'Live Demo' },
-        { id: 'features', name: 'Features' },
-        { id: 'why-different', name: 'Why CrossLayerAI' },
-        { id: 'integration', name: 'Integration Code' },
-      ]
-
-      sections.forEach((section) => {
-        const el = document.getElementById(section.id)
-        if (el && !viewedSections.current.has(section.id)) {
-          const rect = el.getBoundingClientRect()
-          const isVisible = rect.top < window.innerHeight * 0.75 && rect.bottom > 0
-          if (isVisible) {
-            viewedSections.current.add(section.id)
-            GA_EVENTS.SECTION_VIEW(section.name)
-          }
-        }
-      })
+    setDisplayedText('')
+    setIsTyping(true)
+    setShowReactions(false)
+    setShowCommunityReply(false)
+    setShowImpactStats(false)
+    setVideoEnded(false)
+    setIsVoicePlaying(false)
+    setIsPlaying(false)
+    
+    // Reset video/audio
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0
+      videoRef.current.pause()
     }
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0
+    }
+    
+    // Type out the message
+    let i = 0
+    const text = demoShorts[activeShort].message
+    const speed = 20
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        setDisplayedText(text.slice(0, i + 1))
+        i++
+      } else {
+        clearInterval(interval)
+        setIsTyping(false)
+        setTimeout(() => setShowReactions(true), 400)
+        setTimeout(() => setShowCommunityReply(true), 800)
+        setTimeout(() => setShowImpactStats(true), 1200)
+      }
+    }, speed)
+    
+    // Cleanup: clear interval when activeShort changes or component unmounts
+    return () => clearInterval(interval)
+  }, [activeShort])
 
-    // Track initial page view
+  // Auto-advance to next demo
+  const advanceToNext = () => {
+    const nextIndex = (activeShort + 1) % demoShorts.length
+    setActiveShort(nextIndex)
+    GA_EVENTS.DEMO_SCENARIO_SELECT(nextIndex, demoShorts[nextIndex].type, demoShorts[nextIndex].game)
+  }
+
+  // Handle audio events - play immediately when voice demo is active
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio && currentShort.media === 'voice') {
+      const handleEnded = () => {
+        setIsVoicePlaying(false)
+        // Auto-advance after a short delay when audio ends
+        setTimeout(advanceToNext, 1000)
+      }
+      audio.addEventListener('ended', handleEnded)
+      // Auto-play voice immediately
+      audio.currentTime = 0
+      audio.play().then(() => {
+        setIsVoicePlaying(true)
+      }).catch(() => {})
+      return () => audio.removeEventListener('ended', handleEnded)
+    }
+  }, [activeShort, currentShort.media])
+
+  // Auto-advance for image demos after impact stats are shown
+  useEffect(() => {
+    if (currentShort.media === 'image' && showImpactStats) {
+      const timer = setTimeout(advanceToNext, 3000) // 3 seconds to view image + stats
+      return () => clearTimeout(timer)
+    }
+  }, [showImpactStats, currentShort.media, activeShort])
+
+  const handleLike = (id: number) => {
+    setLikedPosts(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(id)) {
+        newSet.delete(id)
+      } else {
+        newSet.add(id)
+      }
+      return newSet
+    })
+  }
+
+  const selectShort = (index: number) => {
+    // If same demo is selected, replay media directly
+    if (index === activeShort) {
+      // Replay audio immediately - use setTimeout to ensure ref is available
+      if (demoShorts[index].media === 'voice') {
+        setTimeout(() => {
+          if (audioRef.current) {
+            audioRef.current.currentTime = 0
+            audioRef.current.play().then(() => {
+              setIsVoicePlaying(true)
+            }).catch((e) => console.log('Audio play failed:', e))
+          }
+        }, 0)
+      }
+      // Replay video immediately
+      if (demoShorts[index].media === 'video') {
+        setTimeout(() => {
+          if (videoRef.current) {
+            videoRef.current.currentTime = 0
+            videoRef.current.play().then(() => {
+              setIsPlaying(true)
+            }).catch((e) => console.log('Video play failed:', e))
+          }
+        }, 0)
+      }
+      return
+    }
+    setActiveShort(index)
+    GA_EVENTS.DEMO_SCENARIO_SELECT(index, demoShorts[index].type, demoShorts[index].game)
+  }
+
+  const nextShort = () => {
+    if (isTyping) return
+    const nextIndex = (activeShort + 1) % demoShorts.length
+    setActiveShort(nextIndex)
+  }
+
+  // Scroll tracking
+  useEffect(() => {
     GA_EVENTS.PAGE_VIEW('Home')
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    // Run once on mount to catch above-fold content
-    handleScroll()
-
-    return () => window.removeEventListener('scroll', handleScroll)
+    GA_EVENTS.DEMO_STARTED()
   }, [])
 
   return (
-    <main>
-      {/* Grid Background */}
-      <div className="grid-bg" />
-
-      {/* Navigation */}
+    <main className="community-app">
       <Header />
 
-      {/* Hero Section */}
-      <section className="hero" id="how-it-works">
-        <div className="orb orb-cyan" />
-        <div className="orb orb-magenta" />
+      <div className="community-container">
         
-        <h1>
-          Turn wins, clips, and clutch plays<br />
-          into personalized outreach.
-        </h1>
-        
-        <p className="hero-subheadline">
-          On Discord, TikTok, and everywhere players are.
-        </p>
+        {/* Left Sidebar */}
+        <aside className="community-sidebar">
+          <nav className="sidebar-nav">
+            <a href="#" className="sidebar-nav-item active">
+              <HomeIcon size={24} />
+              <span>Home</span>
+            </a>
+            <a href="#demo" className="sidebar-nav-item highlight">
+              <Film size={24} />
+              <span>Shorts</span>
+              <span className="nav-badge">Live</span>
+            </a>
+            <a href="#live-activity" className="sidebar-nav-item">
+              <TrendingUp size={24} />
+              <span>Insights</span>
+            </a>
+            <a
+              href="mailto:business@crosslayerai.com?subject=Interested%20in%20Integrations"
+              className="sidebar-nav-item"
+              onClick={() => GA_EVENTS.WAITLIST_FORM_OPEN('integrations')}
+            >
+              <Plug size={24} />
+              <span>Integrations</span>
+            </a>
+            <a
+              href="mailto:business@crosslayerai.com?subject=Interested%20in%20Player%20Memory%20Feature"
+              className="sidebar-nav-item"
+              onClick={() => GA_EVENTS.WAITLIST_FORM_OPEN('memory')}
+            >
+              <Brain size={24} />
+              <span>Memory</span>
+            </a>
+          </nav>
+          
+        </aside>
 
-        {/* How It Works - Full Visual */}
-        <div className="hero-how-it-works">
-          {/* Robot Diagram */}
-          <div className="usp-visual">
-            <div className="usp-diagram">
-              {/* Game World Panel - with media types */}
-              <div className="usp-panel game-world">
-                <h3>CAPTURE any game media</h3>
-                <div className="panel-media-types">
-                  <div className="panel-media-item"><Camera size={18} className="icon-camera" /><span>Screenshots</span></div>
-                  <div className="panel-media-item"><Video size={18} className="icon-video" /><span>Video</span></div>
-                  <div className="panel-media-item"><Mic size={18} className="icon-mic" /><span>Voice</span></div>
-                  <div className="panel-media-item"><MessageCircle size={18} className="icon-chat" /><span>Chat</span></div>
-                  <div className="panel-media-item"><Trophy size={18} className="icon-trophy" /><span>Achievements</span></div>
-                  <div className="panel-media-item"><Gamepad2 size={18} className="icon-events" /><span>In-Game Events</span></div>
+        {/* Main Content */}
+        <div className="community-main">
+          
+          {/* Stories Bar */}
+          {/* <section className="stories-bar">
+            <div className="story-item create-story">
+              <div className="story-avatar-wrapper">
+                <div className="story-avatar create">
+                  <Plus size={14} />
                 </div>
               </div>
-
-              {/* Center Robot */}
-              <div className="usp-robot">
-                <div className="robot-glow"></div>
-                <div className="robot-body">
-                  <div className="robot-head">
-                    <div className="robot-antenna"></div>
-                    <div className="robot-face">
-                      <div className="robot-eye left"></div>
-                      <div className="robot-eye right"></div>
-                      <div className="robot-smile"></div>
-                    </div>
+              <span className="story-username">Your Story</span>
+            </div>
+            {playerStories.map((player) => (
+              <div key={player.id} className={`story-item ${player.hasNew ? 'has-new' : ''}`}>
+                <div className={`story-avatar-wrapper ${player.isLive ? 'is-live' : ''}`}>
+                  <div className="story-avatar">
+                    <span>{player.avatar}</span>
                   </div>
-                  <div className="robot-torso">
-                    <div className="robot-light"></div>
-                  </div>
-                  <div className="robot-arms">
-                    <div className="robot-arm left"></div>
-                    <div className="robot-arm right"></div>
-                  </div>
+                  {player.isLive && <span className="live-badge">LIVE</span>}
                 </div>
+                <span className="story-username">{player.username}</span>
+                <span className="story-game">{player.game}</span>
               </div>
+            ))}
+          </section> */}
 
-              {/* Everywhere Layer Panel */}
-              <div className="usp-panel everywhere-layer">
-                <h3>THE EVERYWHERE LAYER</h3>
-                <p className="panel-desc">Shares stories and keeps players engaged</p>
-                <div className="panel-icons">
-                  <div className="panel-icon-labeled">
-                    <span className="icon-svg tiktok">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                      </svg>
-                    </span>
-                    <span className="icon-label">TikTok</span>
-                  </div>
-                  <div className="panel-icon-labeled">
-                    <span className="icon-svg discord">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                      </svg>
-                    </span>
-                    <span className="icon-label">Discord</span>
-                  </div>
-                  <div className="panel-icon-labeled">
-                    <span className="icon-svg reddit">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
-                      </svg>
-                    </span>
-                    <span className="icon-label">Reddit</span>
-                  </div>
-                  <div className="panel-icon-labeled">
-                    <span className="icon-svg llm">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm4 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-8 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                      </svg>
-                    </span>
-                    <span className="icon-label">LLM Apps</span>
-                  </div>
-                  <div className="panel-icon-labeled">
-                    <span className="icon-svg web">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                      </svg>
-                    </span>
-                    <span className="icon-label">Web</span>
-                  </div>
-                </div>
-              </div>
+          {/* Hero - Live Demo Shorts */}
+          <section className="hero-shorts" id="demo">
+            <div className="hero-shorts-header">
+              <h1>Turn player moments into <span className="gradient-text">personalized outreach</span></h1>
+              <p>
+                On Discord, TikTok, your website, or wherever your community lives.
+              </p>
             </div>
-          </div>
-        </div>
 
-        {/* Live Demo - Right in Hero */}
-        <LiveDemo />
-      </section>
-
-
-      {/* Features */}
-      <section className="section" id="features">
-        <div className="section-header">
-          <span className="section-tag">Capabilities</span>
-          <h2>What Powers Personalized Outreach</h2>
-          <p>
-            From capturing moments to re-engaging players everywhere.
-          </p>
-        </div>
-
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon"><Camera size={28} /></div>
-            <h3>Capture Any Content</h3>
-            <p>
-              Our SDK accepts screenshots, video clips, voice chat, text messages, achievements, 
-              and custom in-game events. Send any data format - we normalize and store it 
-              against each player automatically.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Sparkles size={28} /></div>
-            <h3>Analyze What Happened</h3>
-            <p>
-              AI processes the stream of player events to identify moments worth talking about. 
-              It detects clutch plays, first-time achievements, frustration patterns, and 
-              comeback wins - turning raw data into stories.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Database size={28} /></div>
-            <h3>Build Persistent Memory</h3>
-            <p>
-              Every event is stored per player forever. Unlike session-based AI, our memory 
-              spans sessions, platforms, and time. Your AI knows what each player did 
-              last week, last month, or last year.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Link2 size={28} /></div>
-            <h3>Deploy AI Agents Everywhere</h3>
-            <p>
-              Launch AI agents on Discord (with full Social SDK support), TikTok, Reddit, 
-              and web widgets. Leverage account linking, wishlists, and in-game commerce 
-              while your AI references past achievements in every interaction.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><Heart size={28} /></div>
-            <h3>Re-engage With Real Memories</h3>
-            <p>
-              No more generic &quot;come back&quot; messages. Your AI reaches out with 
-              player-specific memories: &quot;Remember that Dragon Lord fight? You got him to 2%!&quot; 
-              Nostalgia-driven outreach that actually converts.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><BarChart3 size={28} /></div>
-            <h3>Understand Your Players</h3>
-            <p>
-              See which moments resonate, which players are at risk, and what stories 
-              drive engagement. Player-level intelligence that helps you make better 
-              games and smarter marketing decisions.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Different - Competitor Positioning */}
-      <section className="section why-different-section" id="why-different">
-        <div className="section-header">
-          <span className="section-tag">Why CrossLayerAI</span>
-          <h2>From In-Game Moments to Everywhere</h2>
-          <p>
-            Others stop at data or AI. We connect the entire player journey.
-          </p>
-        </div>
-
-        <div className="positioning-visual">
-          <div className="position-column">
-            <div className="position-category">
-              <span className="category-label">AI NPC Platforms</span>
-              <span className="category-example">Inworld, Convai</span>
-            </div>
-            <div className="position-does">
-              <Check size={16} /> AI personalities in-game
-            </div>
-            <div className="position-doesnt">
-              <X size={16} /> Memory resets each session
-            </div>
-            <div className="position-doesnt">
-              <X size={16} /> Stuck inside the game
-            </div>
-          </div>
-
-          <div className="position-column center-column">
-            <div className="position-bridge">
-              <span className="bridge-label">CrossLayerAI</span>
-              <span className="bridge-tagline">The Complete Loop</span>
-            </div>
-            <div className="bridge-features">
-              <div className="bridge-feature"><Check size={14} /> Capture any content</div>
-              <div className="bridge-feature"><Check size={14} /> Persistent player memory</div>
-              <div className="bridge-feature"><Check size={14} /> Reach players everywhere</div>
-              <div className="bridge-feature"><Check size={14} /> Personalized re-engagement</div>
-            </div>
-          </div>
-
-          <div className="position-column">
-            <div className="position-category">
-              <span className="category-label">Analytics Platforms</span>
-              <span className="category-example">GameAnalytics, Amplitude</span>
-            </div>
-            <div className="position-does">
-              <Check size={16} /> Track player behavior
-            </div>
-            <div className="position-doesnt">
-              <X size={16} /> Data without action
-            </div>
-            <div className="position-doesnt">
-              <X size={16} /> No personalized outreach
-            </div>
-          </div>
-        </div>
-
-        <div className="position-cta">
-          <a 
-            href="/blog/why-crosslayerai-is-different" 
-            className="position-link"
-            onClick={() => GA_EVENTS.COMPARISON_LINK_CLICK()}
-          >
-            Read the full comparison →
-          </a>
-        </div>
-      </section>
-
-      {/* Code Snippet Carousel Section */}
-      <section className="section code-section" id="integration">
-        <div className="section-header">
-          <span className="section-tag">Integration</span>
-          <h2>Get Started in Minutes</h2>
-          <p>
-            Simple SDK setup. Reengagement on autopilot.
-          </p>
-        </div>
-
-        <div className="sdk-icons">
-          <div className="sdk-icon" title="Unity">
-            <img src="https://cdn.simpleicons.org/unity/white" alt="Unity" />
-            <span>Unity</span>
-          </div>
-          <div className="sdk-icon" title="Unreal Engine">
-            <img src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
-            <span>Unreal</span>
-          </div>
-          <div className="sdk-icon" title="Godot">
-            <img src="https://cdn.simpleicons.org/godotengine/white" alt="Godot" />
-            <span>Godot</span>
-          </div>
-          <div className="sdk-icon" title="HTML5 / Web Games">
-            <img src="https://cdn.simpleicons.org/html5/white" alt="HTML5" />
-            <span>HTML5</span>
-          </div>
-          <div className="sdk-icon discord-featured" title="Discord Social SDK">
-            <span className="sdk-badge">Social SDK</span>
-            <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
-            <span>Discord</span>
-          </div>
-          <div className="sdk-icon" title="REST API">
-            <img src="https://cdn.simpleicons.org/fastapi/white" alt="REST API" />
-            <span>REST API</span>
-          </div>
-        </div>
-
-        {/* Code Carousel */}
-        <div className="code-carousel">
-          {/* Tab Navigation */}
-          <div className="code-tabs">
-            {codeExamples.map((example, index) => {
-              const IconComponent = example.icon
-              return (
+            {/* Scenario Selector */}
+            <div className="scenario-selector">
+              <div className="scenario-buttons">
                 <button
-                  key={example.id}
-                  className={`code-tab ${activeExample === index ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveExample(index)
-                    setIsAutoPlaying(false)
-                  }}
+                  className={`scenario-btn ${activeShort === 0 ? 'active' : ''}`}
+                  onClick={() => selectShort(0)}
                 >
-                  <IconComponent size={18} />
-                  <span>{example.title}</span>
+                  💥 Clutch Clip
                 </button>
-              )
-            })}
-          </div>
+                <button
+                  className={`scenario-btn ${activeShort === 1 ? 'active' : ''}`}
+                  onClick={() => selectShort(1)}
+                >
+                  👻 Win Back
+                </button>
+                <button
+                  className={`scenario-btn ${activeShort === 2 ? 'active' : ''}`}
+                  onClick={() => selectShort(2)}
+                >
+                  👑 Platinum
+                </button>
+              </div>
+            </div>
 
-          <div className="code-carousel-container">
-            {/* Prev Button */}
-            <button className="carousel-nav prev" onClick={prevExample} aria-label="Previous example">
-              <ChevronLeft size={24} />
-            </button>
-
-            {/* Code Window */}
-            <div className="code-window">
-              <div className="code-header">
-                <div className="code-dots">
-                  <span className="dot red"></span>
-                  <span className="dot yellow"></span>
-                  <span className="dot green"></span>
-                </div>
-                <span className="code-filename">{codeExamples[activeExample].filename}</span>
-                <button className="code-copy-btn" onClick={handleCopyCode}>
-                  {copied ? (
+            <div className="demo-feed-layout">
+              {/* Shorts Player */}
+              <div className="short-player-main">
+                <div 
+                  className="short-video"
+                  style={{ background: currentShort.thumbnail }}
+                >
+                  {/* Video Media */}
+                  {currentShort.media === 'video' && (
                     <>
-                      <CheckCircle2 size={14} />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={14} />
-                      <span>Copy</span>
+                      <video
+                        ref={videoRef}
+                        src={currentShort.mediaSrc}
+                        muted={isMuted}
+                        playsInline
+                        className="short-video-player"
+                        onEnded={() => {
+                          setVideoEnded(true)
+                          setIsPlaying(false)
+                          // Auto-advance after video ends
+                          setTimeout(advanceToNext, 800)
+                        }}
+                        onClick={() => {
+                          if (videoRef.current) {
+                            if (isPlaying) {
+                              videoRef.current.pause()
+                              setIsPlaying(false)
+                            } else {
+                              videoRef.current.play()
+                              setIsPlaying(true)
+                            }
+                          }
+                        }}
+                      />
+                      {!isPlaying && (
+                        <div 
+                          className="video-play-overlay"
+                          onClick={() => {
+                            if (videoRef.current) {
+                              videoRef.current.play()
+                              setIsPlaying(true)
+                            }
+                          }}
+                        >
+                          <div className="play-button-large">
+                            <Play size={48} fill="white" />
+                          </div>
+                        </div>
+                      )}
                     </>
                   )}
-                </button>
+
+                  {/* Image Media */}
+                  {currentShort.media === 'image' && (
+                    <img 
+                      src={currentShort.mediaSrc} 
+                      alt={currentShort.title}
+                      className="short-image-player"
+                    />
+                  )}
+
+                  {/* Voice Message Visual */}
+                  {currentShort.media === 'voice' && (
+                    <div className="short-voice-visual">
+                      <div className="voice-avatar">{currentShort.botEmoji}</div>
+                      <div className="voice-wave-container">
+                        {[...Array(32)].map((_, i) => (
+                          <div 
+                            key={i} 
+                            className={`voice-bar ${isVoicePlaying ? 'playing' : ''}`}
+                            style={{ 
+                              height: `${20 + Math.random() * 60}%`,
+                              animationDelay: `${i * 0.05}s`
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <audio 
+                        ref={audioRef} 
+                        src={currentShort.mediaSrc} 
+                        preload="auto"
+                      />
+                    </div>
+                  )}
+
+                  {/* Overlay Info */}
+                  <div className="short-video-overlay">
+                    <div className="game-badge">
+                      <Gamepad2 size={14} />
+                      {currentShort.game}
+                    </div>
+                    
+                    {currentShort.media === 'video' && (
+                      <div className="ai-badge">
+                        RVR Capture
+                      </div>
+                    )}
+                    
+                    <div className="short-duration">{currentShort.duration}</div>
+                  </div>
+                  
+                  {/* Bottom Info */}
+                  <div className="short-info">
+                    <div className="short-user">
+                      <div className="short-avatar">{currentShort.botEmoji}</div>
+                      <div className="short-user-info">
+                        <span className="short-username">
+                          @{currentShort.botName}
+                          <Check size={14} className="verified" />
+                          <span className="bot-tag">BOT</span>
+                        </span>
+                        <span className="short-title">{currentShort.title}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="short-music">
+                      <Music size={14} />
+                      <span className="music-scroll">CrossLayerAI · {currentShort.game}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Right Side Actions */}
+                <div className="short-actions">
+                  <button 
+                    className={`action-btn ${likedPosts.has(currentShort.id) ? 'liked' : ''}`}
+                    onClick={() => handleLike(currentShort.id)}
+                  >
+                    <Heart size={28} fill={likedPosts.has(currentShort.id) ? '#ff2d55' : 'none'} />
+                    <span>{currentShort.likes}</span>
+                  </button>
+                  <button className="action-btn">
+                    <MessageCircle size={28} />
+                    <span>{currentShort.comments}</span>
+                  </button>
+                  <button className="action-btn">
+                    <Bookmark size={28} />
+                    <span>Save</span>
+                  </button>
+                  <button className="action-btn">
+                    <Share2 size={28} />
+                    <span>{currentShort.shares}</span>
+                  </button>
+                  <button 
+                    className="action-btn mute-btn"
+                    onClick={() => {
+                      setIsMuted(!isMuted)
+                      if (isMuted) GA_EVENTS.DEMO_VIDEO_UNMUTE()
+                    }}
+                  >
+                    {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+                  </button>
+                </div>
               </div>
-              <div className="code-content-wrapper">
-                <pre className="code-content" key={activeExample}>
-                  <code>{codeExamples[activeExample].code}</code>
-                </pre>
+
+              {/* Discord Preview - Shows what AI posted */}
+              <div className="discord-preview">
+                <div className="discord-preview-header">
+                  <Hash size={18} />
+                  <span>#{currentShort.channel}</span>
+                  <span className="discord-server-name">{currentShort.type === 'dm' ? 'Direct Message' : currentShort.game + ' Community'}</span>
+                </div>
+
+                <div className="discord-preview-messages">
+                  {/* Context Messages */}
+                  {currentShort.contextMessages?.map((msg, i) => (
+                    <div key={i} className="discord-preview-msg context">
+                      <span className="msg-avatar">{msg.avatar}</span>
+                      <div className="msg-content">
+                        <span className="msg-author">{msg.username}</span>{' '}
+                        <span className="msg-text">{msg.message}</span>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Bot Message */}
+                  <div className="discord-preview-msg bot">
+                    <span className="msg-avatar bot-avatar">{currentShort.botEmoji}</span>
+                    <div className="msg-content">
+                      <div className="msg-header">
+                        <span className="msg-author bot-name">{currentShort.botName}</span>
+                        <span className="bot-badge">BOT</span>
+                      </div>
+                      <div className="msg-text">
+                        {highlightMentions(displayedText)}
+                        {isTyping && <span className="typing-cursor">|</span>}
+                      </div>
+                      
+                      {/* Reactions - only for channel posts, not DMs */}
+                      {showReactions && currentShort.type === 'discord' && (
+                        <div className="msg-reactions">
+                          <span className="reaction">🔥 12</span>
+                          <span className="reaction">💀 8</span>
+                          <span className="reaction">📈 5</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Community Reply */}
+                  {showCommunityReply && currentShort.communityReply && (
+                    <div className="discord-preview-msg reply">
+                      <span className="msg-avatar">{currentShort.communityReply.avatar}</span>
+                      <div className="msg-content">
+                        <span className="msg-author">{currentShort.communityReply.username}</span>{' '}
+                        <span className="msg-text">{currentShort.communityReply.message}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Impact Stats */}
+                {showImpactStats && (
+                  <div className="impact-stats-inline">
+                    <div className="stats-header">
+                      <TrendingUp size={14} />
+                      <span>Why this works</span>
+                    </div>
+                    {currentShort.impactStats.map((stat, idx) => (
+                      <div 
+                        key={idx} 
+                        className="stat-item"
+                        onMouseEnter={() => setHoveredStat(idx)}
+                        onMouseLeave={() => setHoveredStat(null)}
+                      >
+                        <span className="stat-label">{stat.label}</span>
+                        <div className="stat-comparison">
+                          <span className="stat-old">{stat.traditional}</span>
+                          <span className="stat-arrow">→</span>
+                          <span className="stat-new">{stat.personalized}</span>
+                        </div>
+                        {hoveredStat === idx && stat.source && (
+                          <div className="stat-tooltip">{stat.source}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Next Button */}
-            <button className="carousel-nav next" onClick={nextExample} aria-label="Next example">
-              <ChevronRight size={24} />
-            </button>
+            {/* CTA */}
+            <div className="shorts-cta">
+              <a 
+                href="mailto:business@crosslayerai.com"
+                className="btn-shorts"
+                onClick={() => GA_EVENTS.DEMO_CTA_CLICK()}
+              >
+                Get CrossLayerAI
+                <ArrowRight size={18} />
+              </a>
+              <span className="cta-hint">Increase your community's engagement and retention</span>
+            </div>
+          </section>
+
+          {/* Platform Pitch */}
+          <section className="platform-pitch">
+            <h2 className="pitch-title">Built for gaming communities</h2>
+            <div className="pitch-features">
+              <div className="pitch-feature">
+                <div className="pitch-icon"><Camera size={24} /></div>
+                <h3>Any Source</h3>
+                <p>RVR Engine, manual uploads, or your existing pipeline</p>
+              </div>
+              <div className="pitch-feature">
+                <div className="pitch-icon"><Brain size={24} /></div>
+                <h3>Player Memory</h3>
+                <p>Every achievement and milestone, remembered forever</p>
+              </div>
+              <div className="pitch-feature">
+                <div className="pitch-icon"><Share2 size={24} /></div>
+                <h3>Smart Outreach</h3>
+                <p>Personalized messages that reference real moments</p>
+              </div>
+              <div className="pitch-feature">
+                <div className="pitch-icon"><TrendingUp size={24} /></div>
+                <h3>Real Results</h3>
+                <p>80%+ reach, 36% return lift, no ad spend</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Live Activity Feed */}
+          <section className="activity-feed" id="live-activity">
+            <div className="feed-header">
+              <h3><Flame size={20} /> Live Activity</h3>
+              <span className="live-dot" />
+            </div>
+            
+            <div className="activity-list">
+              <div className="activity-item">
+                <span className="activity-avatar">🎬</span>
+                <div className="activity-content">
+                  <strong>Blin</strong> shared <span className="highlight">Ninja_42's ace</span> to #clips
+                </div>
+                <span className="activity-time">2m ago</span>
+              </div>
+              <div className="activity-item">
+                <span className="activity-avatar">🎙️</span>
+                <div className="activity-content">
+                  <strong>Boris</strong> re-engaged <span className="highlight">23 lapsed players</span> via DM
+                </div>
+                <span className="activity-time">5m ago</span>
+              </div>
+              <div className="activity-item">
+                <span className="activity-avatar">⚔️</span>
+                <div className="activity-content">
+                  <strong>SoulsBorne_Dan</strong>'s achievement post hit <span className="highlight">100K views</span>
+                </div>
+                <span className="activity-time">12m ago</span>
+              </div>
+              <div className="activity-item">
+                <span className="activity-avatar">👵</span>
+                <div className="activity-content">
+                  <strong>Babushka</strong> sent <span className="highlight">147 personalized messages</span>
+                </div>
+                <span className="activity-time">18m ago</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Comparison */}
+          <section className="comparison-section">
+            <h2>Why CrossLayerAI is Different</h2>
+            <div className="comparison-cards">
+              <div className="comparison-card old">
+                <div className="comparison-header">
+                  <X size={24} />
+                  <h4>Without CrossLayerAI</h4>
+                </div>
+                <ul>
+                  <li>Clips sit unused in storage</li>
+                  <li>Generic "come back" push notifications</li>
+                  <li>No player context or memory</li>
+                  <li>Paying for ads to re-engage players</li>
+                  <li>Re-engagement rates under 5%</li>
+                </ul>
+              </div>
+              <div className="comparison-card new">
+                <div className="comparison-header">
+                  <Check size={24} />
+                  <h4>With CrossLayerAI</h4>
+                </div>
+                <ul>
+                  <li>Every clip becomes personalized content</li>
+                  <li>Reference player's actual memories</li>
+                  <li>Deep player context across sessions</li>
+                  <li>No ads - organic, personal outreach</li>
+                  <li>80%+ reach on Discord, 36% return lift</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        {/* Right Sidebar */}
+        <aside className="community-sidebar-right">
+          <div className="notification-panel">
+            <div className="notification-header">
+              <Bell size={16} />
+              <span>Pings</span>
+              <span className="notif-count">2</span>
+            </div>
+            <div className="notification-item new">
+              <span className="notif-avatar">🔥</span>
+              <div className="notif-content">
+                <strong>Your clip is trending!</strong>
+                <p>2.4K views in the last hour</p>
+              </div>
+              <span className="notif-time">Just now</span>
+            </div>
+            <div className="notification-item">
+              <span className="notif-avatar">🎯</span>
+              <div className="notif-content">
+                <strong>Ninja_42</strong> shared your clip
+              </div>
+              <span className="notif-time">2h ago</span>
+            </div>
           </div>
 
-          {/* Progress Dots */}
-          <div className="carousel-progress">
-            {codeExamples.map((_, index) => (
-              <button
-                key={index}
-                className={`progress-dot ${activeExample === index ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveExample(index)
-                  setIsAutoPlaying(false)
-                }}
-                aria-label={`Go to example ${index + 1}`}
+          <div className="suggested-panel">
+            <h4>Bots Cooked This 🔥</h4>
+            {[
+              { name: 'Blin', emoji: '🎬', status: 'Sharing clips to Discord', demoIndex: 0 },
+              { name: 'Boris', emoji: '🎙️', status: 'DM re-engagement', demoIndex: 1 },
+              { name: 'Babushka', emoji: '👵', status: 'Posting achievements', demoIndex: 2 },
+            ].map((bot, idx) => (
+              <div 
+                key={idx} 
+                className={`suggested-player clickable ${activeShort === bot.demoIndex ? 'active' : ''}`}
+                onClick={() => selectShort(bot.demoIndex)}
               >
-                <span className="progress-fill" style={{ animationDuration: isAutoPlaying && activeExample === index ? '4s' : '0s' }} />
-              </button>
+                <div className="suggested-avatar">{bot.emoji}</div>
+                <div className="suggested-info">
+                  <span className="suggested-name">{bot.name}</span>
+                  <span className="suggested-game">{bot.status}</span>
+                </div>
+                <span className="bot-status-dot" />
+              </div>
             ))}
           </div>
-        </div>
 
-        {/* Features below carousel */}
-        <div className="code-features-row">
-          <div className="code-feature">
-            <div className="code-feature-icon"><Zap size={20} /></div>
-            <div>
-              <h4>One-Line Init</h4>
-              <p>Drop in the SDK and start tracking in seconds</p>
+          <div className="stats-panel">
+            <h4>Demo Stats</h4>
+            <div className="stat-row">
+              <span className="stat-label">Scenarios</span>
+              <span className="stat-value">3</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">AI Bots</span>
+              <span className="stat-value">3</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Platforms</span>
+              <span className="stat-value">Discord+</span>
             </div>
           </div>
-          <div className="code-feature">
-            <div className="code-feature-icon"><Database size={20} /></div>
-            <div>
-              <h4>Auto Memory</h4>
-              <p>Every event builds persistent player memory</p>
-            </div>
-          </div>
-          <div className="code-feature">
-            <div className="code-feature-icon"><Globe size={20} /></div>
-            <div>
-              <h4>Cross-Platform</h4>
-              <p>Works with Unity, Unreal, and web games</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </aside>
+      </div>
+
+      {/* Mobile Bottom Nav */}
+      <nav className="mobile-bottom-nav">
+        <a href="#" className="mobile-nav-item active">
+          <HomeIcon size={24} />
+          <span>Home</span>
+        </a>
+        <a href="#" className="mobile-nav-item">
+          <Search size={24} />
+          <span>Search</span>
+        </a>
+        <a href="#demo" className="mobile-nav-item shorts-btn">
+          <Film size={28} />
+        </a>
+        <a href="#" className="mobile-nav-item">
+          <Bell size={24} />
+          <span>Alerts</span>
+        </a>
+        <a href="#" className="mobile-nav-item">
+          <User size={24} />
+          <span>Profile</span>
+        </a>
+      </nav>
 
       {/* Footer */}
       <footer className="footer">
@@ -618,28 +895,11 @@ export default function Home() {
             <img src="/logo-icon.svg" alt="CrossLayerAI" width={40} height={40} />
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
-          <p>
-            © {new Date().getFullYear()} CrossLayerAI. All rights reserved.
-          </p>
+          <p>© {new Date().getFullYear()} CrossLayerAI. All rights reserved.</p>
           <p className="footer-contact">
             <a href="mailto:business@crosslayerai.com" className="footer-email">
               business@crosslayerai.com
             </a>
-          </p>
-          <p className="footer-also-by">
-            Powered by{' '}
-            <a 
-              href="https://unrealsolutions.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="footer-cross-link"
-            >
-              RVR Engine
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-              </svg>
-            </a>
-            {' '}by Unreal Solutions
           </p>
         </div>
       </footer>
