@@ -855,7 +855,7 @@ export default function Home() {
           {/* Insights Dashboard */}
           <section className="dashboard-section" id="live-activity">
             <h2>Insights Dashboard</h2>
-            <p className="dashboard-subtitle">Real-time metrics from your CrossLayerAI deployment</p>
+            <p className="dashboard-subtitle">Real-time metrics from your community</p>
             
             <div className="dashboard-container">
               {/* Left: Metrics */}
@@ -1043,20 +1043,43 @@ export default function Home() {
             {/* No Code Panel */}
             {integrationPath === 'nocode' && (
               <div className="integration-panel">
-                <p className="panel-description">Add our bot to your Discord and go. No code required.</p>
-
-                <div className="panel-integrations">
-                  <div className="integration-item discord-highlight" title="Discord Bot">
-                    <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
-                    <span>Discord bot</span>
+                {/* Simple Flow Steps */}
+                <div className="simple-flow">
+                  <div className="simple-step">
+                    <span className="simple-number">1</span>
+                    <div className="simple-content">
+                      <span className="simple-title">Player captures clip</span>
+                      <span className="simple-sub">via RVR, Medal.tv, or manual upload</span>
+                    </div>
                   </div>
-                  <a href="https://unrealsolutions.com" target="_blank" rel="noopener noreferrer" className="integration-item" title="RVR Integration">
+                  <div className="simple-step">
+                    <span className="simple-number">2</span>
+                    <div className="simple-content">
+                      <span className="simple-title">CrossLayerAI adds context</span>
+                      <span className="simple-sub">Player memory + bot personality</span>
+                    </div>
+                  </div>
+                  <div className="simple-step">
+                    <span className="simple-number">3</span>
+                    <div className="simple-content">
+                      <span className="simple-title">Bot shares to your community</span>
+                      <span className="simple-sub">Discord, Twitter, feeds & more</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="nocode-integrations">
+                  <a href="https://tally.so/r/mZDq7v" target="_blank" rel="noopener noreferrer" className="integration-item" title="RVR Integration">
                     <Camera size={24} />
                     <span>RVR Engine</span>
                   </a>
                   <div className="integration-item" title="Medal.tv">
                     <Film size={24} />
                     <span>Medal.tv</span>
+                  </div>
+                  <div className="integration-item discord-highlight" title="Discord">
+                    <img src="https://cdn.simpleicons.org/discord/white" alt="Discord" />
+                    <span>Discord Bot</span>
                   </div>
                 </div>
               </div>
@@ -1202,6 +1225,19 @@ export default function Home() {
                 </div>
               </div>
             )}
+
+            {/* CTA after integration */}
+            <div className="integration-cta">
+              <a 
+                href="mailto:business@crosslayerai.com"
+                className="btn-integration"
+                onClick={() => GA_EVENTS.DEMO_CTA_CLICK()}
+              >
+                Get Started
+                <ArrowRight size={18} />
+              </a>
+              <span className="integration-cta-hint">Questions? We're here to help</span>
+            </div>
           </section>
 
         </div>

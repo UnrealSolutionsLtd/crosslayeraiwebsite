@@ -1016,6 +1016,48 @@
   font-size: 0.85rem;
 }
 
+/* Integration CTA */
+.integration-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.btn-integration {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(90deg, #00d4aa 0%, #00f5d4 50%, #00d4aa 100%);
+  background-size: 200% 100%;
+  border: none;
+  border-radius: 30px;
+  color: #0a0a0f;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  animation: gradientSling 3s ease infinite;
+}
+
+.btn-integration:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 245, 212, 0.4);
+  animation-play-state: paused;
+}
+
+.integration-cta-hint {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+
 /* Platform Pitch Section */
 .platform-pitch {
   padding: 48px 0;
@@ -3853,6 +3895,90 @@ body {
   gap: 12px;
   max-width: 600px;
   margin: 0 auto 32px;
+}
+
+/* Simple Flow Steps */
+.simple-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.simple-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.simple-number {
+  width: 32px;
+  height: 32px;
+  background: #00f5d4;
+  color: #000;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(0, 245, 212, 0.6), 0 0 32px rgba(0, 245, 212, 0.3);
+}
+
+.simple-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.simple-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.simple-sub {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* No Code Integrations */
+.nocode-integrations {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Responsive Simple Flow */
+@media (max-width: 600px) {
+  .simple-flow {
+    gap: 14px;
+    padding: 0 8px;
+  }
+
+  .simple-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .simple-title {
+    font-size: 1rem;
+  }
+
+  .simple-sub {
+    font-size: 0.85rem;
+  }
+
+  .nocode-integrations {
+    gap: 10px;
+  }
 }
 
 /* Integration Steps */
