@@ -29,7 +29,7 @@ export const GA_EVENTS = {
   // ====== HEADER EVENTS ======
   HEADER_CTA_CLICK: () => trackEvent('header_cta_click', {
     category: 'Header',
-    label: 'Join Waitlist Button',
+    label: 'Contact Button',
   }),
 
   HEADER_BLOG_CLICK: () => trackEvent('header_blog_click', {
@@ -43,32 +43,14 @@ export const GA_EVENTS = {
   }),
 
   // ====== DEMO FUNNEL EVENTS ======
-  // Step 1: User clicks "Show me"
-  DEMO_SHOW_ME: () => trackEvent('demo_show_me', {
-    category: 'Demo',
-    label: 'Clicked Show Me',
-    demo_stage: 'choice',
-  }),
-
-  // Step 2: Demo content is shown
   DEMO_STARTED: () => trackEvent('demo_started', {
     category: 'Demo',
     label: 'Demo Started',
-    demo_stage: 'demo',
-  }),
-
-  DEMO_FORMAT_CHANGE: (format: string, game: string) => trackEvent('demo_format_change', {
-    category: 'Demo',
-    label: `Format Changed - ${format}`,
-    demo_stage: 'demo',
-    demo_format: format,
-    demo_game: game,
   }),
 
   DEMO_SCENARIO_SELECT: (index: number, format: string, game: string) => trackEvent('demo_scenario_select', {
     category: 'Demo',
     label: `Scenario Selected - ${index}`,
-    demo_stage: 'demo',
     scenario_index: index,
     demo_format: format,
     demo_game: game,
@@ -76,27 +58,17 @@ export const GA_EVENTS = {
 
   DEMO_CTA_CLICK: () => trackEvent('demo_cta_click', {
     category: 'Demo',
-    label: 'Join Waitlist CTA',
-    demo_stage: 'demo',
+    label: 'Get Started CTA',
   }),
 
-  DEMO_RESET: () => trackEvent('demo_reset', {
+  DEMO_VIDEO_PLAY: () => trackEvent('demo_video_play', {
     category: 'Demo',
-    label: 'Try Again / Reset',
-    demo_stage: 'demo',
+    label: 'Video Played',
   }),
 
-  // Demo media interactions
   DEMO_VIDEO_UNMUTE: () => trackEvent('demo_video_unmute', {
     category: 'Demo',
     label: 'Video Unmuted',
-    demo_stage: 'demo',
-  }),
-
-  DEMO_VOICE_PLAY: () => trackEvent('demo_voice_play', {
-    category: 'Demo',
-    label: 'Voice Message Played',
-    demo_stage: 'demo',
   }),
 
   // ====== PAGE & NAVIGATION EVENTS ======
@@ -105,28 +77,32 @@ export const GA_EVENTS = {
     label: page,
   }),
 
-  SCROLL_DEPTH: (section: string, percentage: number) => trackEvent('scroll', {
-    category: 'Engagement',
-    label: section,
-    value: percentage,
-    scroll_depth: percentage,
-  }),
-
   SECTION_VIEW: (section: string) => trackEvent('section_view', {
     category: 'Section',
     label: section,
   }),
 
-  // ====== CODE SECTION EVENTS ======
+  // ====== INTEGRATION SECTION EVENTS ======
+  INTEGRATION_TAB_CLICK: (tab: 'nocode' | 'developer') => trackEvent('integration_tab_click', {
+    category: 'Integration',
+    label: tab === 'nocode' ? 'No Code' : 'Developer SDK',
+    tab: tab,
+  }),
+
+  RVR_LINK_CLICK: () => trackEvent('rvr_link_click', {
+    category: 'Integration',
+    label: 'RVR Engine Link',
+  }),
+
   CODE_COPY: () => trackEvent('code_copy', {
     category: 'Engagement',
     label: 'SDK Code Snippet',
   }),
 
-  // ====== WAITLIST / FORM EVENTS ======
-  WAITLIST_FORM_OPEN: (source: string) => trackEvent('form_open', {
-    category: 'Waitlist',
-    label: source,
+  // ====== FOOTER EVENTS ======
+  FOOTER_CTA_CLICK: () => trackEvent('footer_cta_click', {
+    category: 'Footer',
+    label: 'Contact Email',
   }),
 
   // ====== BLOG EVENTS ======
@@ -149,7 +125,7 @@ export const GA_EVENTS = {
 
   BLOG_CTA_CLICK: (slug: string) => trackEvent('blog_cta_click', {
     category: 'Blog',
-    label: 'Join Waitlist CTA',
+    label: 'Get in Touch CTA',
     article_slug: slug,
   }),
 
@@ -166,16 +142,8 @@ export const GA_EVENTS = {
     from_article: slug,
   }),
 
-  // ====== OUTBOUND / EXTERNAL LINKS ======
-  EXTERNAL_LINK: (url: string, context: string) => trackEvent('external_link_click', {
-    category: 'Outbound',
+  BLOG_EXTERNAL_LINK: (url: string) => trackEvent('blog_external_link', {
+    category: 'Blog',
     label: url,
-    context: context,
-  }),
-
-  // ====== COMPARISON SECTION ======
-  COMPARISON_LINK_CLICK: () => trackEvent('comparison_link_click', {
-    category: 'Engagement',
-    label: 'Read Full Comparison',
   }),
 }

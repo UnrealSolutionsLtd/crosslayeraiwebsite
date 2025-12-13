@@ -2,6 +2,7 @@
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { GA_EVENTS } from '../../lib/analytics'
 
 interface BlogContentProps {
   content: string
@@ -52,7 +53,17 @@ export default function BlogContent({ content }: BlogContentProps) {
         
         // Custom links
         a: ({ href, children }) => (
-          <a href={href} className="md-link" target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}>
+          <a 
+            href={href} 
+            className="md-link" 
+            target={href?.startsWith('http') ? '_blank' : undefined} 
+            rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+            onClick={() => {
+              if (href?.startsWith('http')) {
+                GA_EVENTS.BLOG_EXTERNAL_LINK(href)
+              }
+            }}
+          >
             {children}
           </a>
         ),

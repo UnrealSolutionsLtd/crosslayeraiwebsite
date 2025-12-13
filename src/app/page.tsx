@@ -708,6 +708,7 @@ export default function Home() {
                             if (videoRef.current) {
                               videoRef.current.play()
                               setIsPlaying(true)
+                              GA_EVENTS.DEMO_VIDEO_PLAY()
                             }
                           }}
                         >
@@ -1116,7 +1117,10 @@ export default function Home() {
             <div className="integration-tabs">
               <button 
                 className={`integration-tab ${integrationPath === 'nocode' ? 'active' : ''}`}
-                onClick={() => setIntegrationPath('nocode')}
+                onClick={() => {
+                  setIntegrationPath('nocode')
+                  GA_EVENTS.INTEGRATION_TAB_CLICK('nocode')
+                }}
               >
                 <div className="tab-icon">
                   <Zap size={24} />
@@ -1128,7 +1132,10 @@ export default function Home() {
               </button>
               <button 
                 className={`integration-tab ${integrationPath === 'developer' ? 'active' : ''}`}
-                onClick={() => setIntegrationPath('developer')}
+                onClick={() => {
+                  setIntegrationPath('developer')
+                  GA_EVENTS.INTEGRATION_TAB_CLICK('developer')
+                }}
               >
                 <div className="tab-icon">
                   <Code size={24} />
@@ -1168,7 +1175,7 @@ export default function Home() {
                 </div>
 
                 <div className="nocode-integrations">
-                  <a href="https://tally.so/r/mZDq7v" target="_blank" rel="noopener noreferrer" className="integration-item" title="RVR Integration">
+                  <a href="https://tally.so/r/mZDq7v" target="_blank" rel="noopener noreferrer" className="integration-item" title="RVR Integration" onClick={() => GA_EVENTS.RVR_LINK_CLICK()}>
                     <Camera size={24} />
                     <span>RVR Engine</span>
                   </a>
@@ -1425,7 +1432,7 @@ export default function Home() {
           </div>
           <p>© {new Date().getFullYear()} CrossLayerAI. All rights reserved.</p>
           <p className="footer-contact">
-            <a href="mailto:business@crosslayerai.com" className="footer-email">
+            <a href="mailto:business@crosslayerai.com" className="footer-email" onClick={() => GA_EVENTS.FOOTER_CTA_CLICK()}>
               business@crosslayerai.com
             </a>
           </p>
