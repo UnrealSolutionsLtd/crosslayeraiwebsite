@@ -76,6 +76,7 @@ interface DemoShort {
   contextMessages?: { username: string; avatar: string; message: string }[]
   communityReply?: { username: string; avatar: string; message: string }
   impactStats: { label: string; traditional: string; personalized: string; source?: string }[]
+  reactions?: { emoji: string; count: number }[]
 }
 
 const demoShorts: DemoShort[] = [
@@ -88,7 +89,7 @@ const demoShorts: DemoShort[] = [
     botEmoji: '🎬',
     message: `clean ace from @Ninja_42 🎯 they said there were washed yesterday`,
     media: 'video',
-    mediaSrc: '/ace-clip.mp4',
+    mediaSrc: '/videos/ace-clip.mp4',
     username: 'Ninja_42',
     avatar: '🎯',
     title: 'INSANE 1v5 CLUTCH 🔥',
@@ -111,6 +112,11 @@ const demoShorts: DemoShort[] = [
     impactStats: [
       { label: 'Daily reach', traditional: '5-15%', personalized: '80%+', source: 'Discord data: 80% of engaged players are on Discord daily' },
       { label: 'Engagement lift', traditional: 'Baseline', personalized: '+48%', source: 'Players with Discord Social SDK play 48% longer' },
+    ],
+    reactions: [
+      { emoji: '🔥', count: 47 },
+      { emoji: '😤', count: 23 },
+      { emoji: '🎯', count: 18 },
     ]
   },
   {
@@ -178,6 +184,87 @@ the server witnessed the whole journey`,
     impactStats: [
       { label: 'Conversion lift', traditional: 'Baseline', personalized: '+12-25%', source: 'Firebase case studies: personalized content drives 12-25% more conversions' },
       { label: 'Member lifetime', traditional: '1x', personalized: '5x', source: 'Well-managed Discord communities see 5x longer member lifetime' },
+    ],
+    reactions: [
+      { emoji: '👑', count: 89 },
+      { emoji: '🙏', count: 52 },
+      { emoji: '💀', count: 34 },
+    ]
+  },
+  {
+    id: 4,
+    type: 'discord',
+    channel: 'deaths',
+    game: 'Oxygenkills',
+    botName: 'Gopnik',
+    botEmoji: '🚀',
+    message: `RIP @zero_gravity 💀
+the void took us all
+
+and there is no sound in vacuum`,
+    media: 'video',
+    mediaSrc: '/videos/oxygenkills.mp4',
+    username: 'SpaceRunner_7',
+    avatar: '🧑‍🚀',
+    title: 'SO CLOSE YET SO FAR 💀',
+    views: '1.8M',
+    likes: '245K',
+    comments: '18.2K',
+    shares: '52K',
+    thumbnail: 'linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #00d4ff 100%)',
+    duration: '0:28',
+    isVerified: true,
+    contextMessages: [
+      { username: 'asteroid_miner', avatar: '⛏️', message: 'how long did you survive this run?' },
+      { username: 'zero_gravity', avatar: '🌌', message: 'bro watch this death 💀⬇️' },
+    ],
+    impactStats: [
+      { label: 'Clip shares', traditional: '< 1%', personalized: '12%+', source: 'Personalized clip sharing increases virality 12x' },
+      { label: 'Session time', traditional: 'Baseline', personalized: '+31%', source: 'Players with shared clips play 31% longer sessions' },
+    ],
+    reactions: [
+      { emoji: '💀', count: 156 },
+      { emoji: '😭', count: 89 },
+      { emoji: '🚀', count: 41 },
+    ]
+  },
+  {
+    id: 5,
+    type: 'discord',
+    channel: 'cursed-clips',
+    game: 'Woodcringe',
+    botName: 'Chicka',
+    botEmoji: '🐔',
+    message: `@ChickenRunner_69 survived 47 seconds as a chick 🐤
+
+why is this game so cursed 😭`,
+    media: 'video',
+    mediaSrc: '/videos/woodcringe.mp4',
+    username: 'ChickenRunner_69',
+    avatar: '🐤',
+    title: 'PEAK GAMING RIGHT HERE 💀',
+    views: '3.1M',
+    likes: '412K',
+    comments: '24.6K',
+    shares: '89K',
+    thumbnail: 'linear-gradient(135deg, #8B4513 0%, #228B22 50%, #90EE90 100%)',
+    duration: '0:19',
+    isVerified: true,
+    contextMessages: [
+      { username: 'roblox_refugee', avatar: '🧱', message: 'what even is this game lmao' },
+      { username: 'indie_enjoyer', avatar: '🎮', message: 'trust me just watch ⬇️' },
+    ],
+    communityReply: {
+      username: 'cursed_curator',
+      avatar: '💀',
+      message: 'this is the content i signed up for 😭'
+    },
+    impactStats: [
+      { label: 'Community retention', traditional: '30 days', personalized: '90+ days', source: 'Highlight-sharing communities retain 3x longer' },
+      { label: 'Daily active %', traditional: '15%', personalized: '45%+', source: 'Content-rich Discord servers see 3x daily engagement' },
+    ],
+    reactions: [
+      { emoji: '🐔', count: 167 },
     ]
   },
 ]
@@ -565,6 +652,18 @@ export default function Home() {
                 >
                   👑 Platinum
                 </button>
+                <button
+                  className={`scenario-btn ${activeShort === 3 ? 'active' : ''}`}
+                  onClick={() => selectShort(3)}
+                >
+                  🌌 Oxygenkills
+                </button>
+                <button
+                  className={`scenario-btn ${activeShort === 4 ? 'active' : ''}`}
+                  onClick={() => selectShort(4)}
+                >
+                  🌲 Woodcringe
+                </button>
               </div>
             </div>
 
@@ -757,11 +856,11 @@ export default function Home() {
                       </div>
                       
                       {/* Reactions - only for channel posts, not DMs */}
-                      {showReactions && currentShort.type === 'discord' && (
+                      {showReactions && currentShort.type === 'discord' && currentShort.reactions && (
                         <div className="msg-reactions">
-                          <span className="reaction">🔥 12</span>
-                          <span className="reaction">💀 8</span>
-                          <span className="reaction">📈 5</span>
+                          {currentShort.reactions.map((r, i) => (
+                            <span key={i} className="reaction">{r.emoji} {r.count}</span>
+                          ))}
                         </div>
                       )}
                     </div>
@@ -1273,6 +1372,8 @@ export default function Home() {
               { name: 'Blin', emoji: '🎬', status: 'Sharing clips to Discord', demoIndex: 0 },
               { name: 'Boris', emoji: '🎙️', status: 'DM re-engagement', demoIndex: 1 },
               { name: 'Babushka', emoji: '👵', status: 'Posting achievements', demoIndex: 2 },
+              { name: 'Gopnik', emoji: '🚀', status: 'Oxygenkills death clip', demoIndex: 3 },
+              { name: 'Chicka', emoji: '🐔', status: 'Woodcringe cursed clip', demoIndex: 4 },
             ].map((bot, idx) => (
               <div 
                 key={idx} 
