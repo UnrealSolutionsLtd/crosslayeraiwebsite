@@ -226,14 +226,6 @@ export default function FeedWidgetDemo() {
               </div>
             </div>
           </div>
-
-          <a 
-            href="mailto:business@crosslayerai.com"
-            className="widget-docs-link"
-          >
-            <ExternalLink size={16} />
-            Get Your Embed Code
-          </a>
         </div>
       </div>
     </section>
