@@ -1,10 +1,27 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Copy, CheckCircle2, Code, ExternalLink } from 'lucide-react'
+import { Copy, CheckCircle2, Code } from 'lucide-react'
+import TryItDemo, { DISCORD_INVITE } from './TryItDemo'
+
+// Feed item type
+export interface FeedItem {
+  id: string
+  playerName: string
+  gameName: string
+  message: string
+  title: string
+  avatar: string
+  botName: string
+  botEmoji: string
+  likes: string
+  comments: string
+  views: string
+  media: { type: string; url: string }
+}
 
 // Static demo data - matches landing page demos
-const STATIC_FEED_DATA = [
+const STATIC_FEED_DATA: FeedItem[] = [
   {
     id: '1',
     playerName: 'Ninja_42',
@@ -112,29 +129,58 @@ const EMBED_CODE = `<!-- CrossLayerAI Feed Widget -->
         data-game="your-game-id">
 </script>`
 
-export default function FeedWidgetDemo() {
+interface FeedWidgetDemoProps {
+  additionalClips?: FeedItem[]
+  onClipSubmit?: (clip: FeedItem) => void
+  isPrimary?: boolean // When true, this is THE main demo (larger, more prominent)
+}
+
+export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, isPrimary = false }: FeedWidgetDemoProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [copied, setCopied] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const scriptRef = useRef<HTMLScriptElement | null>(null)
+  const prevClipCountRef = useRef(0)
+
+  // Combine additional clips with static data (new clips first)
+  const allFeedData = [...additionalClips, ...STATIC_FEED_DATA]
 
   useEffect(() => {
-    // Set static data before loading script
-    (window as any).CROSSLAYER_FEED_DATA = STATIC_FEED_DATA
+    // Set feed data before loading script
+    (window as any).CROSSLAYER_FEED_DATA = allFeedData
 
-    // Dynamically load embed.js
-    const script = document.createElement('script')
-    script.src = '/feed/embed.js'
-    script.async = true
-    script.onload = () => {
-      setIsLoaded(true)
+    // Only load script once
+    if (!scriptRef.current) {
+      const script = document.createElement('script')
+      script.src = '/feed/embed.js'
+      script.async = true
+      script.onload = () => {
+        setIsLoaded(true)
+      }
+      document.body.appendChild(script)
+      scriptRef.current = script
+    } else if (isLoaded && (window as any).CrossLayerFeed) {
+      // Only refresh if new clips were added
+      const hasNewClips = additionalClips.length > prevClipCountRef.current
+      if (hasNewClips) {
+        (window as any).CrossLayerFeed.refresh(true) // scroll to top for new content
+        prevClipCountRef.current = additionalClips.length
+      }
     }
-    document.body.appendChild(script)
 
     return () => {
-      // Cleanup
-      document.body.removeChild(script)
+      // Cleanup only on unmount
+    }
+  }, [additionalClips.length, isLoaded]) // Use length instead of array reference
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (scriptRef.current) {
+        document.body.removeChild(scriptRef.current)
+        scriptRef.current = null
+      }
       delete (window as any).CROSSLAYER_FEED_DATA
-      // Remove injected styles
       const style = document.getElementById('clf-css')
       if (style) style.remove()
     }
@@ -147,18 +193,21 @@ export default function FeedWidgetDemo() {
   }
 
   return (
-    <section className="widget-demo-section" id="embed-widget">
-      <div className="widget-demo-header">
-        <h2>Embed Highlights on Your Site</h2>
-        <p>Add a TikTok-style video feed to your game portal in minutes. Zero dependencies, works anywhere.</p>
-      </div>
+    <section className={`widget-demo-section ${isPrimary ? 'widget-demo-primary' : ''}`} id="embed-widget">
+      {!isPrimary && (
+        <div className="widget-demo-header">
+          <h2>Embed Highlights on Your Site</h2>
+          <p>Add a TikTok-style video feed to your game portal in minutes. Zero dependencies, works anywhere.</p>
+        </div>
+      )}
 
-      <div className="widget-demo-container">
+      {/* Top Row: Feed + Try It */}
+      <div className={`widget-top-row ${isPrimary ? 'widget-top-row-primary' : ''}`}>
         {/* Device Frame with Widget */}
-        <div className="widget-device-frame">
+        <div className={`widget-device-frame ${isPrimary ? 'widget-device-frame-primary' : ''}`}>
           <div className="widget-device-glow"></div>
           <div className="widget-device-bezel">
-            <div className="widget-device-screen">
+            <div className={`widget-device-screen ${isPrimary ? 'widget-device-screen-primary' : ''}`}>
               <div className="widget-device-notch">
                 <div className="widget-device-camera"></div>
                 <div className="widget-device-speaker"></div>
@@ -172,11 +221,31 @@ export default function FeedWidgetDemo() {
           </div>
         </div>
 
+        {/* Try It Panel - right of feed */}
+        <div className={`widget-try-panel ${isPrimary ? 'widget-try-panel-primary' : ''}`}>
+          <h3>{isPrimary ? 'Add Your Own Clip' : 'Try It Live!'}</h3>
+          <p>{isPrimary 
+            ? 'Paste any video URL below. Watch it instantly appear in the feed AND get posted to our Discord server.' 
+            : 'Paste a video URL and watch it appear in the feed AND Discord instantly.'
+          }</p>
+          <TryItDemo onClipSubmit={onClipSubmit} />
+          {isPrimary && (
+            <div className="try-panel-hints">
+              <span className="hint-item">✓ YouTube, TikTok, or direct links</span>
+              <span className="hint-item">✓ Appears in feed instantly</span>
+              <span className="hint-item">✓ Auto-posted to Discord</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom Row: Code + Features */}
+      <div className="widget-bottom-row">
         {/* Code Panel */}
         <div className="widget-code-panel">
           <div className="widget-code-header">
             <Code size={18} />
-            <span>Embed Code</span>
+            <span>Add to Your Site</span>
             <button className="widget-copy-btn" onClick={handleCopy}>
               {copied ? (
                 <>
@@ -195,35 +264,36 @@ export default function FeedWidgetDemo() {
           <pre className="widget-code-block">
             <code>{EMBED_CODE}</code>
           </pre>
+        </div>
 
-          <div className="widget-features">
-            <div className="widget-feature">
-              <span className="widget-feature-icon">⚡</span>
-              <div>
-                <strong>4KB gzipped</strong>
-                <span>Lightweight, no dependencies</span>
-              </div>
+        {/* Features */}
+        <div className="widget-features">
+          <div className="widget-feature">
+            <span className="widget-feature-icon">⚡</span>
+            <div>
+              <strong>4KB gzipped</strong>
+              <span>Lightweight, no dependencies</span>
             </div>
-            <div className="widget-feature">
-              <span className="widget-feature-icon">🎮</span>
-              <div>
-                <strong>Gaming-optimized</strong>
-                <span>Video, audio, images supported</span>
-              </div>
+          </div>
+          <div className="widget-feature">
+            <span className="widget-feature-icon">🎮</span>
+            <div>
+              <strong>Gaming-optimized</strong>
+              <span>Video, audio, images supported</span>
             </div>
-            <div className="widget-feature">
-              <span className="widget-feature-icon">🎨</span>
-              <div>
-                <strong>Customizable</strong>
-                <span>Matches your brand colors</span>
-              </div>
+          </div>
+          <div className="widget-feature">
+            <span className="widget-feature-icon">🎨</span>
+            <div>
+              <strong>Customizable</strong>
+              <span>Matches your brand colors</span>
             </div>
-            <div className="widget-feature">
-              <span className="widget-feature-icon">📱</span>
-              <div>
-                <strong>Mobile-first</strong>
-                <span>Touch gestures, scroll-snap</span>
-              </div>
+          </div>
+          <div className="widget-feature">
+            <span className="widget-feature-icon">📱</span>
+            <div>
+              <strong>Mobile-first</strong>
+              <span>Touch gestures, scroll-snap</span>
             </div>
           </div>
         </div>

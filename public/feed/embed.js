@@ -404,6 +404,77 @@
       opacity: 0.5;
     }
 
+    /* YouTube Embed */
+    .clf-youtube-embed {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+    .clf-youtube-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* External Video (TikTok, Twitch, etc.) */
+    .clf-external-video {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, ${COLORS.bg} 0%, #1a1a2e 100%);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .clf-external-thumb {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .clf-external-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.4);
+      transition: background 0.2s;
+    }
+    .clf-external-video:hover .clf-external-overlay {
+      background: rgba(0,0,0,0.6);
+    }
+    .clf-external-play {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(255,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(255,0,0,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .clf-external-video:hover .clf-external-play {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(255,0,0,0.6);
+    }
+    .clf-external-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
     /* Scroll Hint - Shows on first item */
     .clf-scroll-hint {
       position: absolute;
@@ -472,6 +543,37 @@
 
   const highlightMentions = (text) => text.replace(/@[\w_]+/g, '<span class="clf-mention">$&</span>');
 
+  // Detect external video URLs (YouTube, Twitch, etc.) that can't be played directly
+  const isExternalVideoUrl = (url) => {
+    if (!url) return false;
+    return url.includes('youtube.com') || url.includes('youtu.be') || 
+           url.includes('twitch.tv') || url.includes('tiktok.com');
+  };
+
+  // Check if URL is YouTube
+  const isYouTubeUrl = (url) => {
+    if (!url) return false;
+    return url.includes('youtube.com') || url.includes('youtu.be');
+  };
+
+  // Extract YouTube video ID
+  const getYouTubeId = (url) => {
+    const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&\s?]+)/);
+    return match ? match[1] : null;
+  };
+
+  // Get YouTube embed URL
+  const getYouTubeEmbedUrl = (url) => {
+    const id = getYouTubeId(url);
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=0&rel=0&modestbranding=1` : null;
+  };
+
+  // Get YouTube thumbnail
+  const getYouTubeThumbnail = (url) => {
+    const id = getYouTubeId(url);
+    return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
+  };
+
   // Generate voice waveform bars
   const generateWaveBars = () => {
     let bars = '';
@@ -487,13 +589,34 @@
     const isVideo = item.media?.type === 'video';
     const isAudio = item.media?.type === 'audio';
     const isImage = item.media?.type === 'image';
+    const isYouTube = isVideo && isYouTubeUrl(item.media?.url);
+    const isOtherExternal = isVideo && !isYouTube && isExternalVideoUrl(item.media?.url);
+    const ytEmbedUrl = isYouTube ? getYouTubeEmbedUrl(item.media.url) : null;
+    const ytThumbnail = isOtherExternal ? getYouTubeThumbnail(item.media.url) : null;
 
     return `
       <div class="clf-item ${hasMedia ? '' : 'no-media'}" data-id="${item.id}" data-media-type="${item.media?.type || 'none'}">
         ${hasMedia ? `
           <div class="clf-media">
             ${isVideo 
-              ? `<video src="${item.media.url}" loop playsinline preload="auto" muted></video>`
+              ? (isYouTube
+                  ? `<div class="clf-youtube-embed">
+                      <iframe 
+                        src="${ytEmbedUrl}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    </div>`
+                  : isOtherExternal 
+                    ? `<div class="clf-external-video" data-url="${item.media.url}">
+                        <img src="${ytThumbnail || ''}" alt="" class="clf-external-thumb" onerror="this.style.display='none'">
+                        <div class="clf-external-overlay">
+                          <div class="clf-external-play">▶</div>
+                          <div class="clf-external-label">Watch on External Site</div>
+                        </div>
+                      </div>`
+                    : `<video src="${item.media.url}" loop playsinline preload="auto" muted></video>`)
               : isImage
                 ? `<img src="${item.media.url}" alt="">`
                 : isAudio
@@ -511,7 +634,7 @@
                   : ''
             }
           </div>
-          ${isVideo ? `
+          ${isVideo && !isYouTube && !isOtherExternal ? `
             <div class="clf-play"><div class="clf-play-icon"></div></div>
             <button class="clf-sound" data-muted="true">🔇</button>
           ` : ''}
@@ -647,6 +770,15 @@
         playBtn.onclick = toggleAudio;
       }
 
+      // Handle external video links (YouTube, etc.)
+      const externalVideo = item.querySelector('.clf-external-video');
+      if (externalVideo) {
+        externalVideo.onclick = () => {
+          const url = externalVideo.dataset.url;
+          if (url) window.open(url, '_blank');
+        };
+      }
+
       const likeBtn = item.querySelector('[data-action="like"]');
       if (likeBtn) {
         likeBtn.onclick = () => {
@@ -709,8 +841,10 @@
     state.loading = true;
 
     // Use static data if provided (for static hosting like GitHub Pages)
-    if (CONFIG.staticData) {
-      state.items = CONFIG.staticData;
+    // Re-read from window in case it was updated dynamically
+    const staticData = window.CROSSLAYER_FEED_DATA || CONFIG.staticData;
+    if (staticData) {
+      state.items = staticData;
       state.loading = false;
       return;
     }
@@ -754,5 +888,17 @@
     init();
   }
 
-  window.CrossLayerFeed = { refresh: init };
+  // Expose global API
+  window.CrossLayerFeed = { 
+    refresh: async (scrollToTop = false) => {
+      await init();
+      // Only scroll to top if requested (e.g., when new content is added)
+      if (scrollToTop) {
+        const container = document.querySelector('.clf-scroll');
+        if (container) {
+          container.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    }
+  };
 })();

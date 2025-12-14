@@ -1,284 +1,36 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  Heart,
-  MessageCircle,
-  Share2,
   Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Flame,
-  Trophy,
-  Sparkles,
-  Users,
+  Share2,
   TrendingUp,
-  Plus,
-  Search,
-  Bell,
   Home as HomeIcon,
-  Compass,
   Film,
-  User,
-  Bookmark,
-  Music,
   Gamepad2,
-  Check,
-  X,
   Camera,
   Brain,
   ArrowRight,
-  RotateCcw,
-  Hash,
-  ChevronDown,
-  Mic,
-  Headphones,
-  Gift,
-  Smile,
-  PlusCircle,
-  Info,
   Plug,
   ChevronLeft,
   ChevronRight,
   Copy,
   CheckCircle2,
   Send,
+  Code,
+  Flame,
+  X,
+  Check,
   Zap,
   Database,
   Globe,
-  Code,
+  Bell,
+  User,
+  Search,
 } from 'lucide-react'
 import Header from './components/Header'
-import FeedWidgetDemo from './components/FeedWidgetDemo'
+import FeedWidgetDemo, { FeedItem } from './components/FeedWidgetDemo'
 import { GA_EVENTS } from './lib/analytics'
-
-// Demo content - the actual CrossLayerAI showcase
-interface DemoShort {
-  id: number
-  type: 'discord' | 'dm'
-  channel: string
-  game: string
-  botName: string
-  botEmoji: string
-  message: string
-  media: 'video' | 'image' | 'voice'
-  mediaSrc: string
-  username: string
-  avatar: string
-  title: string
-  views: string
-  likes: string
-  comments: string
-  shares: string
-  thumbnail: string
-  duration: string
-  isVerified: boolean
-  contextMessages?: { username: string; avatar: string; message: string }[]
-  communityReply?: { username: string; avatar: string; message: string }
-  impactStats: { label: string; traditional: string; personalized: string; source?: string }[]
-  reactions?: { emoji: string; count: number }[]
-}
-
-const demoShorts: DemoShort[] = [
-  {
-    id: 1,
-    type: 'discord',
-    channel: 'clips',
-    game: 'Valorant',
-    botName: 'Blin',
-    botEmoji: '🎬',
-    message: `clean ace from @Ninja_42 🎯 they said there were washed yesterday`,
-    media: 'video',
-    mediaSrc: '/videos/ace-clip.mp4',
-    username: 'Ninja_42',
-    avatar: '🎯',
-    title: 'INSANE 1v5 CLUTCH 🔥',
-    views: '2.4M',
-    likes: '324K',
-    comments: '12.4K',
-    shares: '45K',
-    thumbnail: 'linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%)',
-    duration: '0:32',
-    isVerified: true,
-    contextMessages: [
-      { username: 'aim_demon', avatar: '🎯', message: 'anyone got clips from last night?' },
-      { username: 'headshot_hero', avatar: '💀', message: 'check this one out ⬇️' },
-    ],
-    communityReply: {
-      username: 'shadow_striker',
-      avatar: '🔥',
-      message: 'bro went INSANE 😭'
-    },
-    impactStats: [
-      { label: 'Daily reach', traditional: '5-15%', personalized: '80%+', source: 'Discord data: 80% of engaged players are on Discord daily' },
-      { label: 'Engagement lift', traditional: 'Baseline', personalized: '+48%', source: 'Players with Discord Social SDK play 48% longer' },
-    ],
-    reactions: [
-      { emoji: '🔥', count: 47 },
-      { emoji: '😤', count: 23 },
-      { emoji: '🎯', count: 18 },
-    ]
-  },
-  {
-    id: 2,
-    type: 'dm',
-    channel: 'Boris',
-    game: 'Apex Legends',
-    botName: 'Boris',
-    botEmoji: '🎙️',
-    message: `Hey, it's been like 2 weeks since you played...
-
-I still remember that 2800 damage game. You were ONE shot away from that 3k badge.
-
-Just saying. 👀`,
-    media: 'voice',
-    mediaSrc: '/voice.m4a',
-    username: 'LapsedPlayer',
-    avatar: '😴',
-    title: 'Player Re-engagement',
-    views: '156K',
-    likes: '89K',
-    comments: '5.2K',
-    shares: '12K',
-    thumbnail: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    duration: '0:12',
-    isVerified: true,
-    impactStats: [
-      { label: 'Open rate', traditional: '5-15%', personalized: '80%+', source: 'Push: 5-15% vs Discord: 80%+ daily presence' },
-      { label: 'Return rate', traditional: '2%', personalized: '+36%', source: 'Account-linked players see 36% more game days' },
-    ]
-  },
-  {
-    id: 3,
-    type: 'discord',
-    channel: 'achievements',
-    game: 'Elden Ring',
-    botName: 'Babushka',
-    botEmoji: '👵',
-    message: `147 hours. 34 deaths to Margit. Almost quit twice.
-
-@SoulsBorne_Dan finally got the Platinum 👑
-
-the server witnessed the whole journey`,
-    media: 'image',
-    mediaSrc: '/tiktok_post.png',
-    username: 'SoulsBorne_Dan',
-    avatar: '⚔️',
-    title: 'PLATINUM ACHIEVED 👑',
-    views: '892K',
-    likes: '145K',
-    comments: '8.2K',
-    shares: '32K',
-    thumbnail: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    duration: '0:45',
-    isVerified: true,
-    contextMessages: [
-      { username: 'maidenless_420', avatar: '💀', message: 'anyone else stuck on malenia?' },
-      { username: 'parry_king', avatar: '🛡️', message: 'took me 200 tries no shame' },
-    ],
-    communityReply: {
-      username: 'git_gud_or_die',
-      avatar: '⚔️',
-      message: 'the dedication 🙏 respect'
-    },
-    impactStats: [
-      { label: 'Conversion lift', traditional: 'Baseline', personalized: '+12-25%', source: 'Firebase case studies: personalized content drives 12-25% more conversions' },
-      { label: 'Member lifetime', traditional: '1x', personalized: '5x', source: 'Well-managed Discord communities see 5x longer member lifetime' },
-    ],
-    reactions: [
-      { emoji: '👑', count: 89 },
-      { emoji: '🙏', count: 52 },
-      { emoji: '💀', count: 34 },
-    ]
-  },
-  {
-    id: 4,
-    type: 'discord',
-    channel: 'deaths',
-    game: 'Oxygenkills',
-    botName: 'Gopnik',
-    botEmoji: '🚀',
-    message: `RIP @zero_gravity 💀
-the void took us all
-
-and there is no sound in vacuum`,
-    media: 'video',
-    mediaSrc: '/videos/oxygenkills.mp4',
-    username: 'SpaceRunner_7',
-    avatar: '🧑‍🚀',
-    title: 'SO CLOSE YET SO FAR 💀',
-    views: '1.8M',
-    likes: '245K',
-    comments: '18.2K',
-    shares: '52K',
-    thumbnail: 'linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #00d4ff 100%)',
-    duration: '0:28',
-    isVerified: true,
-    contextMessages: [
-      { username: 'asteroid_miner', avatar: '⛏️', message: 'how long did you survive this run?' },
-      { username: 'zero_gravity', avatar: '🌌', message: 'bro watch this death 💀⬇️' },
-    ],
-    impactStats: [
-      { label: 'Clip shares', traditional: '< 1%', personalized: '12%+', source: 'Personalized clip sharing increases virality 12x' },
-      { label: 'Session time', traditional: 'Baseline', personalized: '+31%', source: 'Players with shared clips play 31% longer sessions' },
-    ],
-    reactions: [
-      { emoji: '💀', count: 156 },
-      { emoji: '😭', count: 89 },
-      { emoji: '🚀', count: 41 },
-    ]
-  },
-  {
-    id: 5,
-    type: 'discord',
-    channel: 'cursed-clips',
-    game: 'Woodcringe',
-    botName: 'Chicka',
-    botEmoji: '🐔',
-    message: `@ChickenRunner_69 survived 47 seconds as a chick 🐤
-
-why is this game so cursed 😭`,
-    media: 'video',
-    mediaSrc: '/videos/woodcringe.mp4',
-    username: 'ChickenRunner_69',
-    avatar: '🐤',
-    title: 'PEAK GAMING RIGHT HERE 💀',
-    views: '3.1M',
-    likes: '412K',
-    comments: '24.6K',
-    shares: '89K',
-    thumbnail: 'linear-gradient(135deg, #8B4513 0%, #228B22 50%, #90EE90 100%)',
-    duration: '0:19',
-    isVerified: true,
-    contextMessages: [
-      { username: 'roblox_refugee', avatar: '🧱', message: 'what even is this game lmao' },
-      { username: 'indie_enjoyer', avatar: '🎮', message: 'trust me just watch ⬇️' },
-    ],
-    communityReply: {
-      username: 'cursed_curator',
-      avatar: '💀',
-      message: 'this is the content i signed up for 😭'
-    },
-    impactStats: [
-      { label: 'Community retention', traditional: '30 days', personalized: '90+ days', source: 'Highlight-sharing communities retain 3x longer' },
-      { label: 'Daily active %', traditional: '15%', personalized: '45%+', source: 'Content-rich Discord servers see 3x daily engagement' },
-    ],
-    reactions: [
-      { emoji: '🐔', count: 167 },
-    ]
-  },
-]
-
-// Player stories data
-const playerStories = [
-  { id: 1, username: 'Ninja_42', avatar: '🎯', hasNew: true, isLive: true, game: 'Valorant' },
-  { id: 2, username: 'Boris', avatar: '🎙️', hasNew: true, isLive: false, game: 'AI Bot' },
-  { id: 3, username: 'SoulsBorne_Dan', avatar: '⚔️', hasNew: true, isLive: false, game: 'Elden Ring' },
-  { id: 4, username: 'Babushka', avatar: '👵', hasNew: true, isLive: false, game: 'AI Bot' },
-  { id: 5, username: 'shadow_striker', avatar: '🔥', hasNew: false, isLive: false, game: 'Valorant' },
-  { id: 6, username: 'parry_king', avatar: '🛡️', hasNew: true, isLive: false, game: 'Elden Ring' },
-]
 
 // Code snippet examples for the integration section
 const codeExamples = [
@@ -374,26 +126,18 @@ const message = await crosslayer.generateOutreach({
 ]
 
 export default function Home() {
-  const [activeShort, setActiveShort] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
-  const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set())
-  const [displayedText, setDisplayedText] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
-  const [showReactions, setShowReactions] = useState(false)
-  const [showCommunityReply, setShowCommunityReply] = useState(false)
-  const [showImpactStats, setShowImpactStats] = useState(false)
-  const [hoveredStat, setHoveredStat] = useState<number | null>(null)
-  const [isVoicePlaying, setIsVoicePlaying] = useState(false)
-  const [videoEnded, setVideoEnded] = useState(false)
   const [copied, setCopied] = useState(false)
   const [activeExample, setActiveExample] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [integrationPath, setIntegrationPath] = useState<'nocode' | 'developer'>('nocode')
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const [userClips, setUserClips] = useState<FeedItem[]>([])
 
-  const currentShort = demoShorts[activeShort]
+  // Handle new clip submission from TryIt form
+  const handleClipSubmit = (clip: FeedItem) => {
+    setUserClips(prev => [clip, ...prev])
+    // Scroll to demo section to show the new clip
+    document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   // Code carousel functions
   const handleCopyCode = async () => {
@@ -422,141 +166,7 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [isAutoPlaying])
 
-  // Highlight @mentions in text
-  const highlightMentions = (text: string) => {
-    const parts = text.split(/(@[\w_]+)/g)
-    return parts.map((part, idx) => 
-      part.startsWith('@') 
-        ? <span key={idx} className="discord-mention">{part}</span>
-        : part
-    )
-  }
-
-  // Play message when short changes
-  useEffect(() => {
-    setDisplayedText('')
-    setIsTyping(true)
-    setShowReactions(false)
-    setShowCommunityReply(false)
-    setShowImpactStats(false)
-    setVideoEnded(false)
-    setIsVoicePlaying(false)
-    setIsPlaying(false)
-    
-    // Reset video/audio
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0
-      videoRef.current.pause()
-    }
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0
-    }
-    
-    // Type out the message
-    let i = 0
-    const text = demoShorts[activeShort].message
-    const speed = 20
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText(text.slice(0, i + 1))
-        i++
-      } else {
-        clearInterval(interval)
-        setIsTyping(false)
-        setTimeout(() => setShowReactions(true), 400)
-        setTimeout(() => setShowCommunityReply(true), 800)
-        setTimeout(() => setShowImpactStats(true), 1200)
-      }
-    }, speed)
-    
-    // Cleanup: clear interval when activeShort changes or component unmounts
-    return () => clearInterval(interval)
-  }, [activeShort])
-
-  // Auto-advance to next demo
-  const advanceToNext = () => {
-    const nextIndex = (activeShort + 1) % demoShorts.length
-    setActiveShort(nextIndex)
-    GA_EVENTS.DEMO_SCENARIO_SELECT(nextIndex, demoShorts[nextIndex].type, demoShorts[nextIndex].game)
-  }
-
-  // Handle audio events - play immediately when voice demo is active
-  useEffect(() => {
-    const audio = audioRef.current
-    if (audio && currentShort.media === 'voice') {
-      const handleEnded = () => {
-        setIsVoicePlaying(false)
-        // Auto-advance after a short delay when audio ends
-        setTimeout(advanceToNext, 1000)
-      }
-      audio.addEventListener('ended', handleEnded)
-      // Auto-play voice immediately
-      audio.currentTime = 0
-      audio.play().then(() => {
-        setIsVoicePlaying(true)
-      }).catch(() => {})
-      return () => audio.removeEventListener('ended', handleEnded)
-    }
-  }, [activeShort, currentShort.media])
-
-  // Auto-advance for image demos after impact stats are shown
-  useEffect(() => {
-    if (currentShort.media === 'image' && showImpactStats) {
-      const timer = setTimeout(advanceToNext, 3000) // 3 seconds to view image + stats
-      return () => clearTimeout(timer)
-    }
-  }, [showImpactStats, currentShort.media, activeShort])
-
-  const handleLike = (id: number) => {
-    setLikedPosts(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(id)) {
-        newSet.delete(id)
-      } else {
-        newSet.add(id)
-      }
-      return newSet
-    })
-  }
-
-  const selectShort = (index: number) => {
-    // If same demo is selected, replay media directly
-    if (index === activeShort) {
-      // Replay audio immediately - use setTimeout to ensure ref is available
-      if (demoShorts[index].media === 'voice') {
-        setTimeout(() => {
-          if (audioRef.current) {
-            audioRef.current.currentTime = 0
-            audioRef.current.play().then(() => {
-              setIsVoicePlaying(true)
-            }).catch((e) => console.log('Audio play failed:', e))
-          }
-        }, 0)
-      }
-      // Replay video immediately
-      if (demoShorts[index].media === 'video') {
-        setTimeout(() => {
-          if (videoRef.current) {
-            videoRef.current.currentTime = 0
-            videoRef.current.play().then(() => {
-              setIsPlaying(true)
-            }).catch((e) => console.log('Video play failed:', e))
-          }
-        }, 0)
-      }
-      return
-    }
-    setActiveShort(index)
-    GA_EVENTS.DEMO_SCENARIO_SELECT(index, demoShorts[index].type, demoShorts[index].game)
-  }
-
-  const nextShort = () => {
-    if (isTyping) return
-    const nextIndex = (activeShort + 1) % demoShorts.length
-    setActiveShort(nextIndex)
-  }
-
-  // Scroll tracking
+  // Page view tracking
   useEffect(() => {
     GA_EVENTS.PAGE_VIEW('Home')
     GA_EVENTS.DEMO_STARTED()
@@ -577,20 +187,11 @@ export default function Home() {
             </a>
             <a href="#demo" className="sidebar-nav-item highlight">
               <Film size={24} />
-              <span>Shorts</span>
-              <span className="nav-badge">Live</span>
+              <span>Demo</span>
             </a>
             <a href="#live-activity" className="sidebar-nav-item">
               <TrendingUp size={24} />
               <span>Insights</span>
-            </a>
-            <a
-              href="#embed-widget"
-              className="sidebar-nav-item"
-              onClick={() => GA_EVENTS.SECTION_VIEW('Embed Widget')}
-            >
-              <Code size={24} />
-              <span>Embed Widget</span>
             </a>
             <a
               href="#integration"
@@ -631,305 +232,17 @@ export default function Home() {
             ))}
           </section> */}
 
-          {/* Hero - Live Demo Shorts */}
-          <section className="hero-shorts" id="demo">
-            <div className="hero-shorts-header">
+          {/* Hero - Interactive Feed Demo (THE Primary Demo) */}
+          <section className="hero-feed hero-feed-primary" id="demo">
+            <div className="hero-feed-header">
               <h1>Turn player moments into <span className="gradient-text">personalized outreach</span></h1>
-              <p>
-                Embed our feed. Auto-post to Discord, TikTok, Twitter, YouTube. Own your content, reach every platform.
+              <p className="hero-subtitle">
+                One upload → Feed, Discord, TikTok, everywhere. Try it below.
               </p>
             </div>
 
-            {/* Scenario Selector */}
-            <div className="scenario-selector">
-              <div className="scenario-buttons">
-                <button
-                  className={`scenario-btn ${activeShort === 0 ? 'active' : ''}`}
-                  onClick={() => selectShort(0)}
-                >
-                  💥 Clutch Clip
-                </button>
-                <button
-                  className={`scenario-btn ${activeShort === 1 ? 'active' : ''}`}
-                  onClick={() => selectShort(1)}
-                >
-                  👻 Win Back
-                </button>
-                <button
-                  className={`scenario-btn ${activeShort === 2 ? 'active' : ''}`}
-                  onClick={() => selectShort(2)}
-                >
-                  👑 Platinum
-                </button>
-                <button
-                  className={`scenario-btn ${activeShort === 3 ? 'active' : ''}`}
-                  onClick={() => selectShort(3)}
-                >
-                  🌌 Oxygenkills
-                </button>
-                <button
-                  className={`scenario-btn ${activeShort === 4 ? 'active' : ''}`}
-                  onClick={() => selectShort(4)}
-                >
-                  🌲 Woodcringe
-                </button>
-              </div>
-            </div>
-
-            <div className="demo-feed-layout">
-              {/* Shorts Player */}
-              <div className="short-player-main">
-                <div 
-                  className="short-video"
-                  style={{ background: currentShort.thumbnail }}
-                >
-                  {/* Video Media */}
-                  {currentShort.media === 'video' && (
-                    <>
-                      <video
-                        ref={videoRef}
-                        src={currentShort.mediaSrc}
-                        muted={isMuted}
-                        playsInline
-                        className="short-video-player"
-                        onEnded={() => {
-                          setVideoEnded(true)
-                          setIsPlaying(false)
-                          // Auto-advance after video ends
-                          setTimeout(advanceToNext, 800)
-                        }}
-                        onClick={() => {
-                          if (videoRef.current) {
-                            if (isPlaying) {
-                              videoRef.current.pause()
-                              setIsPlaying(false)
-                            } else {
-                              videoRef.current.play()
-                              setIsPlaying(true)
-                            }
-                          }
-                        }}
-                      />
-                      {!isPlaying && (
-                        <div 
-                          className="video-play-overlay"
-                          onClick={() => {
-                            if (videoRef.current) {
-                              videoRef.current.play()
-                              setIsPlaying(true)
-                              GA_EVENTS.DEMO_VIDEO_PLAY()
-                            }
-                          }}
-                        >
-                          <div className="play-button-large">
-                            <Play size={48} fill="white" />
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-
-                  {/* Image Media */}
-                  {currentShort.media === 'image' && (
-                    <img 
-                      src={currentShort.mediaSrc} 
-                      alt={currentShort.title}
-                      className="short-image-player"
-                    />
-                  )}
-
-                  {/* Voice Message Visual */}
-                  {currentShort.media === 'voice' && (
-                    <div className="short-voice-visual">
-                      <div className="voice-avatar">{currentShort.botEmoji}</div>
-                      <div className="voice-wave-container">
-                        {[...Array(32)].map((_, i) => (
-                          <div 
-                            key={i} 
-                            className={`voice-bar ${isVoicePlaying ? 'playing' : ''}`}
-                            style={{ 
-                              height: `${20 + Math.random() * 60}%`,
-                              animationDelay: `${i * 0.05}s`
-                            }}
-                          />
-                        ))}
-                      </div>
-                      <audio 
-                        ref={audioRef} 
-                        src={currentShort.mediaSrc} 
-                        preload="auto"
-                      />
-                    </div>
-                  )}
-
-                  {/* Overlay Info */}
-                  <div className="short-video-overlay">
-                    <div className="game-badge">
-                      <Gamepad2 size={14} />
-                      {currentShort.game}
-                    </div>
-                    
-                    {currentShort.media === 'video' && (
-                      <div className="ai-badge">
-                        RVR Capture
-                      </div>
-                    )}
-                    
-                    <div className="short-duration">{currentShort.duration}</div>
-                  </div>
-                  
-                  {/* Bottom Info */}
-                  <div className="short-info">
-                    <div className="short-user">
-                      <div className="short-avatar">{currentShort.botEmoji}</div>
-                      <div className="short-user-info">
-                        <span className="short-username">
-                          @{currentShort.botName}
-                          <Check size={14} className="verified" />
-                          <span className="bot-tag">BOT</span>
-                        </span>
-                        <span className="short-title">{currentShort.title}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="short-music">
-                      <Music size={14} />
-                      <span className="music-scroll">CrossLayerAI · {currentShort.game}</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Right Side Actions */}
-                <div className="short-actions">
-                  <button 
-                    className={`action-btn ${likedPosts.has(currentShort.id) ? 'liked' : ''}`}
-                    onClick={() => handleLike(currentShort.id)}
-                  >
-                    <Heart size={28} fill={likedPosts.has(currentShort.id) ? '#ff2d55' : 'none'} />
-                    <span>{currentShort.likes}</span>
-                  </button>
-                  <button className="action-btn">
-                    <MessageCircle size={28} />
-                    <span>{currentShort.comments}</span>
-                  </button>
-                  <button className="action-btn">
-                    <Bookmark size={28} />
-                    <span>Save</span>
-                  </button>
-                  <button className="action-btn">
-                    <Share2 size={28} />
-                    <span>{currentShort.shares}</span>
-                  </button>
-                  <button 
-                    className="action-btn mute-btn"
-                    onClick={() => {
-                      setIsMuted(!isMuted)
-                      if (isMuted) GA_EVENTS.DEMO_VIDEO_UNMUTE()
-                    }}
-                  >
-                    {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Discord Preview - Shows what AI posted */}
-              <div className="discord-preview">
-                <div className="discord-preview-header">
-                  <Hash size={18} />
-                  <span>#{currentShort.channel}</span>
-                  <span className="discord-server-name">{currentShort.type === 'dm' ? 'Direct Message' : currentShort.game + ' Community'}</span>
-                </div>
-
-                <div className="discord-preview-messages">
-                  {/* Context Messages */}
-                  {currentShort.contextMessages?.map((msg, i) => (
-                    <div key={i} className="discord-preview-msg context">
-                      <span className="msg-avatar">{msg.avatar}</span>
-                      <div className="msg-content">
-                        <span className="msg-author">{msg.username}</span>{' '}
-                        <span className="msg-text">{msg.message}</span>
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Bot Message */}
-                  <div className="discord-preview-msg bot">
-                    <span className="msg-avatar bot-avatar">{currentShort.botEmoji}</span>
-                    <div className="msg-content">
-                      <div className="msg-header">
-                        <span className="msg-author bot-name">{currentShort.botName}</span>
-                        <span className="bot-badge">BOT</span>
-                      </div>
-                      <div className="msg-text">
-                        {highlightMentions(displayedText)}
-                        {isTyping && <span className="typing-cursor">|</span>}
-                      </div>
-                      
-                      {/* Reactions - only for channel posts, not DMs */}
-                      {showReactions && currentShort.type === 'discord' && currentShort.reactions && (
-                        <div className="msg-reactions">
-                          {currentShort.reactions.map((r, i) => (
-                            <span key={i} className="reaction">{r.emoji} {r.count}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Community Reply */}
-                  {showCommunityReply && currentShort.communityReply && (
-                    <div className="discord-preview-msg reply">
-                      <span className="msg-avatar">{currentShort.communityReply.avatar}</span>
-                      <div className="msg-content">
-                        <span className="msg-author">{currentShort.communityReply.username}</span>{' '}
-                        <span className="msg-text">{currentShort.communityReply.message}</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Impact Stats */}
-                {showImpactStats && (
-                  <div className="impact-stats-inline">
-                    <div className="stats-header">
-                      <TrendingUp size={14} />
-                      <span>Why this works</span>
-                    </div>
-                    {currentShort.impactStats.map((stat, idx) => (
-                      <div 
-                        key={idx} 
-                        className="stat-item"
-                        onMouseEnter={() => setHoveredStat(idx)}
-                        onMouseLeave={() => setHoveredStat(null)}
-                      >
-                        <span className="stat-label">{stat.label}</span>
-                        <div className="stat-comparison">
-                          <span className="stat-old">{stat.traditional}</span>
-                          <span className="stat-arrow">→</span>
-                          <span className="stat-new">{stat.personalized}</span>
-                        </div>
-                        {hoveredStat === idx && stat.source && (
-                          <div className="stat-tooltip">{stat.source}</div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="shorts-cta">
-              <a 
-                href="mailto:business@crosslayerai.com"
-                className="btn-shorts"
-                onClick={() => GA_EVENTS.DEMO_CTA_CLICK()}
-              >
-                Get CrossLayerAI
-                <ArrowRight size={18} />
-              </a>
-              <span className="cta-hint">Increase your community's engagement and retention</span>
-            </div>
+            {/* Feed Widget Demo - THE main demo */}
+            <FeedWidgetDemo additionalClips={userClips} onClipSubmit={handleClipSubmit} isPrimary={true} />
           </section>
 
           {/* Platform Pitch */}
@@ -1118,8 +431,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Embeddable Widget Demo */}
-          <FeedWidgetDemo />
+
 
           {/* Integration Section */}
           <section className="code-section" id="integration">
@@ -1385,29 +697,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="suggested-panel">
-            <h4>Bots Cooked This 🔥</h4>
-            {[
-              { name: 'Blin', emoji: '🎬', status: 'Sharing clips to Discord', demoIndex: 0 },
-              { name: 'Boris', emoji: '🎙️', status: 'DM re-engagement', demoIndex: 1 },
-              { name: 'Babushka', emoji: '👵', status: 'Posting achievements', demoIndex: 2 },
-              { name: 'Gopnik', emoji: '🚀', status: 'Oxygenkills death clip', demoIndex: 3 },
-              { name: 'Chicka', emoji: '🐔', status: 'Woodcringe cursed clip', demoIndex: 4 },
-            ].map((bot, idx) => (
-              <div 
-                key={idx} 
-                className={`suggested-player clickable ${activeShort === bot.demoIndex ? 'active' : ''}`}
-                onClick={() => selectShort(bot.demoIndex)}
-              >
-                <div className="suggested-avatar">{bot.emoji}</div>
-                <div className="suggested-info">
-                  <span className="suggested-name">{bot.name}</span>
-                  <span className="suggested-game">{bot.status}</span>
-                </div>
-                <span className="bot-status-dot" />
-              </div>
-            ))}
-          </div>
 
         </aside>
       </div>
