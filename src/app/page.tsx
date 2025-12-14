@@ -627,7 +627,7 @@ export default function Home() {
             <div className="hero-shorts-header">
               <h1>Turn player moments into <span className="gradient-text">personalized outreach</span></h1>
               <p>
-                On Discord, TikTok, your website, or wherever your community lives.
+                Embed our feed. Auto-post to Discord, TikTok, Twitter, YouTube. Own your content, reach every platform.
               </p>
             </div>
 
@@ -1154,22 +1154,22 @@ export default function Home() {
                   <div className="simple-step">
                     <span className="simple-number">1</span>
                     <div className="simple-content">
-                      <span className="simple-title">Player captures clip</span>
-                      <span className="simple-sub">via RVR, Medal.tv, or manual upload</span>
+                      <span className="simple-title">Capture clip</span>
+                      <span className="simple-sub">via RVR Engine, Medal.tv or OBS</span>
                     </div>
                   </div>
                   <div className="simple-step">
                     <span className="simple-number">2</span>
                     <div className="simple-content">
-                      <span className="simple-title">CrossLayerAI adds context</span>
-                      <span className="simple-sub">Player memory + bot personality</span>
+                      <span className="simple-title">Upload to CrossLayerAI</span>
+                      <span className="simple-sub">Adds player memory</span>
                     </div>
                   </div>
                   <div className="simple-step">
                     <span className="simple-number">3</span>
                     <div className="simple-content">
-                      <span className="simple-title">Bot shares to your community</span>
-                      <span className="simple-sub">Discord, Twitter, feeds & more</span>
+                      <span className="simple-title">Share to your community</span>
+                      <span className="simple-sub">Plug&play video feed, Discord bot, Twitter and everywhere else</span>
                     </div>
                   </div>
                 </div>
