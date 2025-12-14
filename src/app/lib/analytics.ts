@@ -43,6 +43,11 @@ export const GA_EVENTS = {
   }),
 
   // ====== DEMO FUNNEL EVENTS ======
+  DEMO_SHOW_ME: () => trackEvent('demo_show_me', {
+    category: 'Demo',
+    label: 'Show Me Button Clicked',
+  }),
+
   DEMO_STARTED: () => trackEvent('demo_started', {
     category: 'Demo',
     label: 'Demo Started',
