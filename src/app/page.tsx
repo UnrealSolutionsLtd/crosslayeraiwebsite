@@ -50,6 +50,7 @@ import {
   Code,
 } from 'lucide-react'
 import Header from './components/Header'
+import FeedWidgetDemo from './components/FeedWidgetDemo'
 import { GA_EVENTS } from './lib/analytics'
 
 // Demo content - the actual CrossLayerAI showcase
@@ -584,6 +585,14 @@ export default function Home() {
               <span>Insights</span>
             </a>
             <a
+              href="#embed-widget"
+              className="sidebar-nav-item"
+              onClick={() => GA_EVENTS.SECTION_VIEW('Embed Widget')}
+            >
+              <Code size={24} />
+              <span>Embed Widget</span>
+            </a>
+            <a
               href="#integration"
               className="sidebar-nav-item"
               onClick={() => GA_EVENTS.SECTION_VIEW('Integration Code')}
@@ -1108,6 +1117,9 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          {/* Embeddable Widget Demo */}
+          <FeedWidgetDemo />
 
           {/* Integration Section */}
           <section className="code-section" id="integration">
