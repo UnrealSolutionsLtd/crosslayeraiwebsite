@@ -11,14 +11,12 @@ import {
   Camera,
   Brain,
   ArrowRight,
-  Plug,
   ChevronLeft,
   ChevronRight,
   Copy,
   CheckCircle2,
   Send,
   Code,
-  Flame,
   X,
   Check,
   Zap,
@@ -139,6 +137,11 @@ export default function Home() {
     document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // Handle view mode change from FeedWidgetDemo (for potential future use)
+  const handleViewModeChange = (_mode: 'publisher' | 'player') => {
+    // View mode is now managed within FeedWidgetDemo
+  }
+
   // Code carousel functions
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(codeExamples[activeExample].code)
@@ -177,34 +180,6 @@ export default function Home() {
       <Header />
 
       <div className="community-container">
-        
-        {/* Left Sidebar */}
-        <aside className="community-sidebar">
-          <nav className="sidebar-nav">
-            <a href="#" className="sidebar-nav-item active">
-              <HomeIcon size={24} />
-              <span>Home</span>
-            </a>
-            <a href="#demo" className="sidebar-nav-item highlight">
-              <Film size={24} />
-              <span>Demo</span>
-            </a>
-            <a href="#live-activity" className="sidebar-nav-item">
-              <TrendingUp size={24} />
-              <span>Insights</span>
-            </a>
-            <a
-              href="#integration"
-              className="sidebar-nav-item"
-              onClick={() => GA_EVENTS.SECTION_VIEW('Integration Code')}
-            >
-              <Plug size={24} />
-              <span>Integrations</span>
-            </a>
-          </nav>
-          
-        </aside>
-
         {/* Main Content */}
         <div className="community-main">
           
@@ -237,12 +212,17 @@ export default function Home() {
             <div className="hero-feed-header">
               <h1>Turn player moments into <span className="gradient-text">personalized outreach</span></h1>
               <p className="hero-subtitle">
-                One upload → Feed, Discord, TikTok, everywhere. Try it below.
+                One upload → Feed, Discord, TikTok, everywhere. Personalized re-engagement activated.
               </p>
             </div>
 
             {/* Feed Widget Demo - THE main demo */}
-            <FeedWidgetDemo additionalClips={userClips} onClipSubmit={handleClipSubmit} isPrimary={true} />
+            <FeedWidgetDemo 
+              additionalClips={userClips} 
+              onClipSubmit={handleClipSubmit} 
+              onViewModeChange={handleViewModeChange}
+              isPrimary={true} 
+            />
           </section>
 
           {/* Platform Pitch */}
@@ -274,129 +254,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Insights Dashboard */}
-          <section className="dashboard-section" id="live-activity">
-            <h2>Insights Dashboard</h2>
-            <p className="dashboard-subtitle">Real-time metrics from your community</p>
-            
-            <div className="dashboard-container">
-              {/* Left: Metrics */}
-              <div className="dashboard-metrics">
-                <div className="metrics-row-top">
-                  <div className="metric-card">
-                    <div className="metric-title">Clips Watched</div>
-                    <div className="metric-value">24.8K</div>
-                    <div className="metric-trend up">↑ 1.2K today</div>
-                  </div>
-                  <div className="metric-card">
-                    <div className="metric-title">Clips Posted</div>
-                    <div className="metric-value">847</div>
-                    <div className="metric-trend up">↑ 23 today</div>
-                  </div>
-                  <div className="metric-card">
-                    <div className="metric-title">Community Reach</div>
-                    <div className="metric-value">18.4K</div>
-                    <div className="metric-trend">Players this week</div>
-                  </div>
-                </div>
-
-                <div className="metrics-row">
-                  <div className="metric-card">
-                    <div className="metric-title">Shares & Reactions</div>
-                    <div className="metric-value">3,847</div>
-                    <div className="metric-trend up">↑ 12% this week</div>
-                  </div>
-                  <div className="metric-card">
-                    <div className="metric-title">Win-Back DMs Sent</div>
-                    <div className="metric-value">312</div>
-                    <div className="metric-trend">This week</div>
-                  </div>
-                </div>
-
-                <div className="metric-card wide">
-                  <div className="metric-header">
-                    <span className="metric-title">Content Engagement This Week</span>
-                  </div>
-                  <div className="engagement-bars">
-                    <div className="engagement-day">
-                      <div className="bar-container"><div className="bar" style={{ height: '45%' }}></div></div>
-                      <span>Mon</span>
-                    </div>
-                    <div className="engagement-day">
-                      <div className="bar-container"><div className="bar" style={{ height: '62%' }}></div></div>
-                      <span>Tue</span>
-                    </div>
-                    <div className="engagement-day">
-                      <div className="bar-container"><div className="bar" style={{ height: '78%' }}></div></div>
-                      <span>Wed</span>
-                    </div>
-                    <div className="engagement-day">
-                      <div className="bar-container"><div className="bar" style={{ height: '55%' }}></div></div>
-                      <span>Thu</span>
-                    </div>
-                    <div className="engagement-day">
-                      <div className="bar-container"><div className="bar" style={{ height: '91%' }}></div></div>
-                      <span>Fri</span>
-                    </div>
-                    <div className="engagement-day">
-                      <div className="bar-container"><div className="bar" style={{ height: '84%' }}></div></div>
-                      <span>Sat</span>
-                    </div>
-                    <div className="engagement-day today">
-                      <div className="bar-container"><div className="bar" style={{ height: '68%' }}></div></div>
-                      <span>Sun</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Live Activity */}
-              <div className="dashboard-activity">
-                <div className="activity-header">
-                  <h3><Flame size={18} /> Live Activity</h3>
-                  <span className="live-dot" />
-                </div>
-                
-                <div className="activity-list">
-                  <div className="activity-item">
-                    <span className="activity-avatar">🎬</span>
-                    <div className="activity-content">
-                      <strong>Blin</strong> shared <span className="highlight">Ninja_42's ace</span> to #clips
-                    </div>
-                    <span className="activity-time">2m</span>
-                  </div>
-                  <div className="activity-item">
-                    <span className="activity-avatar">🎙️</span>
-                    <div className="activity-content">
-                      <strong>Boris</strong> re-engaged <span className="highlight">23 lapsed players</span>
-                    </div>
-                    <span className="activity-time">5m</span>
-                  </div>
-                  <div className="activity-item">
-                    <span className="activity-avatar">⚔️</span>
-                    <div className="activity-content">
-                      <strong>SoulsBorne_Dan</strong>'s post hit <span className="highlight">100K views</span>
-                    </div>
-                    <span className="activity-time">12m</span>
-                  </div>
-                  <div className="activity-item">
-                    <span className="activity-avatar">👵</span>
-                    <div className="activity-content">
-                      <strong>Babushka</strong> sent <span className="highlight">147 messages</span>
-                    </div>
-                    <span className="activity-time">18m</span>
-                  </div>
-                  <div className="activity-item">
-                    <span className="activity-avatar">🎬</span>
-                    <div className="activity-content">
-                      <strong>Blin</strong> celebrated <span className="highlight">3 achievements</span>
-                    </div>
-                    <span className="activity-time">24m</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* Comparison */}
           <section className="comparison-section">
@@ -671,34 +528,6 @@ export default function Home() {
           </section>
 
         </div>
-
-        {/* Right Sidebar */}
-        <aside className="community-sidebar-right">
-          <div className="notification-panel">
-            <div className="notification-header">
-              <Bell size={16} />
-              <span>Pings</span>
-              <span className="notif-count">2</span>
-            </div>
-            <div className="notification-item new">
-              <span className="notif-avatar">🔥</span>
-              <div className="notif-content">
-                <strong>Your clip is trending!</strong>
-                <p>2.4K views in the last hour</p>
-              </div>
-              <span className="notif-time">Just now</span>
-            </div>
-            <div className="notification-item">
-              <span className="notif-avatar">🎯</span>
-              <div className="notif-content">
-                <strong>Ninja_42</strong> shared your clip
-              </div>
-              <span className="notif-time">2h ago</span>
-            </div>
-          </div>
-
-
-        </aside>
       </div>
 
       {/* Mobile Bottom Nav */}

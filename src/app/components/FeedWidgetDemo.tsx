@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Copy, CheckCircle2, Code } from 'lucide-react'
+import { Copy, CheckCircle2, Code, Building2, User } from 'lucide-react'
 import TryItDemo, { DISCORD_INVITE } from './TryItDemo'
 
 // Feed item type
@@ -20,15 +20,15 @@ export interface FeedItem {
   media: { type: string; url: string }
 }
 
-// Static demo data - matches landing page demos
-const STATIC_FEED_DATA: FeedItem[] = [
+// PUBLISHER VIEW - Community feed (all clips, all players)
+const PUBLISHER_FEED_DATA: FeedItem[] = [
   {
     id: '1',
     playerName: 'Ninja_42',
     gameName: 'Valorant',
     message: 'clean ace from @Ninja_42 🎯 they said there were washed yesterday',
     title: 'INSANE 1v5 CLUTCH 🔥',
-    avatar: '🎯',
+    avatar: '',
     botName: 'Blin',
     botEmoji: '🎬',
     likes: '324K',
@@ -122,6 +122,61 @@ why is this game so cursed 😭`,
   }
 ]
 
+// PLAYER VIEW - Personalized/relevant content for this player
+const PLAYER_FEED_DATA: FeedItem[] = [
+  {
+    id: 'p1',
+    playerName: '@Ninja_42',
+    gameName: 'Your Clip',
+    message: `Your ace from yesterday is trending!`,
+    title: '',
+    avatar: '',
+    botName: 'Blin',
+    botEmoji: '🎬',
+    likes: '324K',
+    comments: '12.4K',
+    views: '2.4M',
+    media: {
+      type: 'video',
+      url: '/videos/ace-clip.mp4'
+    }
+  },
+  {
+    id: 'p2',
+    playerName: '@SoulsBorne_Dan',
+    gameName: 'Elden Ring',
+    message: `Player like you got Platinum after 147 hours`,
+    title: '',
+    avatar: '',
+    botName: 'Babushka',
+    botEmoji: '👵',
+    likes: '145K',
+    comments: '8.2K',
+    views: '892K',
+    media: {
+      type: 'image',
+      url: '/tiktok_post.png'
+    }
+  },
+  {
+    id: 'p3',
+    playerName: '@zero_gravity',
+    gameName: 'Oxygenkills',
+    message: `Trending in games you play`,
+    title: '',
+    avatar: '',
+    botName: 'Gopnik',
+    botEmoji: '🚀',
+    likes: '245K',
+    comments: '18.2K',
+    views: '1.8M',
+    media: {
+      type: 'video',
+      url: '/videos/oxygenkills.mp4'
+    }
+  }
+]
+
 const EMBED_CODE = `<!-- CrossLayerAI Feed Widget -->
 <div id="crosslayer-feed" style="height: 600px;"></div>
 <script src="https://cdn.crosslayerai.com/feed/embed.js"
@@ -132,18 +187,28 @@ const EMBED_CODE = `<!-- CrossLayerAI Feed Widget -->
 interface FeedWidgetDemoProps {
   additionalClips?: FeedItem[]
   onClipSubmit?: (clip: FeedItem) => void
+  onViewModeChange?: (mode: 'publisher' | 'player') => void
   isPrimary?: boolean // When true, this is THE main demo (larger, more prominent)
 }
 
-export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, isPrimary = false }: FeedWidgetDemoProps) {
+export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, onViewModeChange, isPrimary = false }: FeedWidgetDemoProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [copied, setCopied] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [viewMode, setViewMode] = useState<'publisher' | 'player'>('publisher')
+  
+  // Notify parent of view mode changes
+  const handleViewModeChange = (mode: 'publisher' | 'player') => {
+    setViewMode(mode)
+    onViewModeChange?.(mode)
+  }
   const scriptRef = useRef<HTMLScriptElement | null>(null)
   const prevClipCountRef = useRef(0)
+  const prevViewModeRef = useRef(viewMode)
 
-  // Combine additional clips with static data (new clips first)
-  const allFeedData = [...additionalClips, ...STATIC_FEED_DATA]
+  // Get feed data based on view mode
+  const baseFeedData = viewMode === 'publisher' ? PUBLISHER_FEED_DATA : PLAYER_FEED_DATA
+  const allFeedData = viewMode === 'publisher' ? [...additionalClips, ...baseFeedData] : baseFeedData
 
   useEffect(() => {
     // Set feed data before loading script
@@ -160,18 +225,20 @@ export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, isP
       document.body.appendChild(script)
       scriptRef.current = script
     } else if (isLoaded && (window as any).CrossLayerFeed) {
-      // Only refresh if new clips were added
+      // Refresh if new clips were added OR view mode changed
       const hasNewClips = additionalClips.length > prevClipCountRef.current
-      if (hasNewClips) {
+      const viewModeChanged = viewMode !== prevViewModeRef.current
+      if (hasNewClips || viewModeChanged) {
         (window as any).CrossLayerFeed.refresh(true) // scroll to top for new content
         prevClipCountRef.current = additionalClips.length
+        prevViewModeRef.current = viewMode
       }
     }
 
     return () => {
       // Cleanup only on unmount
     }
-  }, [additionalClips.length, isLoaded]) // Use length instead of array reference
+  }, [additionalClips.length, isLoaded, viewMode, allFeedData]) // Include viewMode
 
   // Cleanup on unmount
   useEffect(() => {
@@ -201,103 +268,282 @@ export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, isP
         </div>
       )}
 
-      {/* Top Row: Feed + Try It */}
-      <div className={`widget-top-row ${isPrimary ? 'widget-top-row-primary' : ''}`}>
-        {/* Device Frame with Widget */}
-        <div className={`widget-device-frame ${isPrimary ? 'widget-device-frame-primary' : ''}`}>
-          <div className="widget-device-glow"></div>
-          <div className="widget-device-bezel">
-            <div className={`widget-device-screen ${isPrimary ? 'widget-device-screen-primary' : ''}`}>
-              <div className="widget-device-notch">
-                <div className="widget-device-camera"></div>
-                <div className="widget-device-speaker"></div>
+      {/* View Mode Toggle - Only for primary demo */}
+      {isPrimary && (
+        <div className="view-mode-toggle">
+          <button 
+            className={`view-mode-btn ${viewMode === 'publisher' ? 'active' : ''}`}
+            onClick={() => handleViewModeChange('publisher')}
+          >
+            <Building2 size={18} />
+            <span>Publisher View</span>
+          </button>
+          <button 
+            className={`view-mode-btn ${viewMode === 'player' ? 'active' : ''}`}
+            onClick={() => handleViewModeChange('player')}
+          >
+            <User size={18} />
+            <span>Player View</span>
+          </button>
+        </div>
+      )}
+
+      {/* ========== PUBLISHER VIEW ========== */}
+      {viewMode === 'publisher' && isPrimary && (
+        <div className="publisher-layout">
+          {/* TOP ROW: Feed + Metrics */}
+          <div className="publisher-top-row">
+            {/* Left: Live Video Feed */}
+            <div className="publisher-feed-panel">
+              <h4>📱 Community Feed</h4>
+              <div className="widget-device-frame publisher-device">
+                <div className="widget-device-glow"></div>
+                <div className="widget-device-bezel">
+                  <div className="widget-device-screen">
+                    <div className="widget-device-notch">
+                      <div className="widget-device-camera"></div>
+                      <div className="widget-device-speaker"></div>
+                    </div>
+                    <div 
+                      id="crosslayer-feed" 
+                      ref={containerRef}
+                      style={{ height: '100%' }}
+                    ></div>
+                  </div>
+                </div>
               </div>
-              <div 
-                id="crosslayer-feed" 
-                ref={containerRef}
-                style={{ height: '100%' }}
-              ></div>
             </div>
-          </div>
-        </div>
 
-        {/* Try It Panel - right of feed */}
-        <div className={`widget-try-panel ${isPrimary ? 'widget-try-panel-primary' : ''}`}>
-          <h3>{isPrimary ? 'Add Your Own Clip' : 'Try It Live!'}</h3>
-          <p>{isPrimary 
-            ? 'Paste any video URL below. Watch it instantly appear in the feed AND get posted to our Discord server.' 
-            : 'Paste a video URL and watch it appear in the feed AND Discord instantly.'
-          }</p>
-          <TryItDemo onClipSubmit={onClipSubmit} />
-          {isPrimary && (
-            <div className="try-panel-hints">
-              <span className="hint-item">✓ YouTube, TikTok, or direct links</span>
-              <span className="hint-item">✓ Appears in feed instantly</span>
-              <span className="hint-item">✓ Auto-posted to Discord</span>
-            </div>
-          )}
-        </div>
-      </div>
+            {/* Right: CrossLayer Metrics */}
+            <div className="publisher-insights">
+              <h4>⚡ CrossLayer Metrics</h4>
+              <div className="insights-grid">
+                <div className="insight-card highlight">
+                  <span className="insight-value">847</span>
+                  <span className="insight-label">Clips Posted</span>
+                  <span className="insight-trend up">↑ 34 today</span>
+                </div>
+                <div className="insight-card">
+                  <span className="insight-value">8.2M</span>
+                  <span className="insight-label">Clips Watched</span>
+                  <span className="insight-trend up">↑ 1.2M this week</span>
+                </div>
+                <div className="insight-card">
+                  <span className="insight-value">1.4K</span>
+                  <span className="insight-label">Personalized DMs Sent</span>
+                  <span className="insight-trend up">↑ 89 today</span>
+                </div>
+                <div className="insight-card">
+                  <span className="insight-value">24%</span>
+                  <span className="insight-label">DM Open Rate</span>
+                  <span className="insight-trend up">↑ 3% vs avg</span>
+                </div>
+              </div>
 
-      {/* Bottom Row: Code + Features */}
-      <div className="widget-bottom-row">
-        {/* Code Panel */}
-        <div className="widget-code-panel">
-          <div className="widget-code-header">
-            <Code size={18} />
-            <span>Add to Your Site</span>
-            <button className="widget-copy-btn" onClick={handleCopy}>
-              {copied ? (
-                <>
-                  <CheckCircle2 size={14} />
-                  <span>Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={14} />
-                  <span>Copy</span>
-                </>
-              )}
-            </button>
+              {/* Personalized Outreach - embedded in dashboard */}
+              <div className="dashboard-outreach-section">
+                <h4>Target Audience</h4>
+                <div className="outreach-targets">
+                  <button className="target-btn active">New comers</button>
+                  <button className="target-btn">All</button>
+                  <button className="target-btn">Returning</button>
+                  <button className="target-btn">Quiet</button>
+                  <button className="target-btn">Top Fans</button>
+                  <button className="target-btn">+</button>
+                </div>
+                <TryItDemo onClipSubmit={onClipSubmit} />
+              </div>
+            </div>
           </div>
-          
-          <pre className="widget-code-block">
-            <code>{EMBED_CODE}</code>
-          </pre>
         </div>
+      )}
 
-        {/* Features */}
-        <div className="widget-features">
-          <div className="widget-feature">
-            <span className="widget-feature-icon">⚡</span>
-            <div>
-              <strong>4KB gzipped</strong>
-              <span>Lightweight, no dependencies</span>
+      {/* ========== PLAYER VIEW ========== */}
+      {viewMode === 'player' && isPrimary && (
+        <div className="player-layout">
+          {/* Left: Personalized Video Feed */}
+          <div className="player-feed-section">
+            <h4>Personalized Feed</h4>
+            <div className="widget-device-frame player-device">
+              <div className="widget-device-glow"></div>
+              <div className="widget-device-bezel">
+                <div className="widget-device-screen">
+                  <div className="widget-device-notch">
+                    <div className="widget-device-camera"></div>
+                    <div className="widget-device-speaker"></div>
+                  </div>
+                  <div 
+                    id="crosslayer-feed" 
+                    ref={containerRef}
+                    style={{ height: '100%' }}
+                  ></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="widget-feature">
-            <span className="widget-feature-icon">🎮</span>
-            <div>
-              <strong>Gaming-optimized</strong>
-              <span>Video, audio, images supported</span>
-            </div>
-          </div>
-          <div className="widget-feature">
-            <span className="widget-feature-icon">🎨</span>
-            <div>
-              <strong>Customizable</strong>
-              <span>Matches your brand colors</span>
-            </div>
-          </div>
-          <div className="widget-feature">
-            <span className="widget-feature-icon">📱</span>
-            <div>
-              <strong>Mobile-first</strong>
-              <span>Touch gestures, scroll-snap</span>
+
+          {/* Right: Discord Channel Mockup */}
+          <div className="player-discord-section">
+            <h4>Community Celebration</h4>
+            <div className="discord-mockup">
+              <div className="discord-header">
+                <span className="channel-icon">#</span>
+                <span>highlights</span>
+              </div>
+              
+              <div className="discord-messages">
+                <div className="discord-dm">
+                  <div className="dm-avatar">🎬</div>
+                  <div className="dm-content">
+                    <div className="dm-header">
+                      <span className="dm-name">Blin</span>
+                      <span className="dm-badge">BOT</span>
+                      <span className="dm-time">Today at 4:32 PM</span>
+                    </div>
+                    <div className="dm-body">
+                      <p>🔥 <strong>INSANE ACE</strong> from <em>@Ninja_42</em>!</p>
+                      <p>1v5 clutch on Ascent. Clean headshots only. 🎯</p>
+                      <p>Show some love! 👏</p>
+                    </div>
+                    <div className="dm-embed">
+                      <div className="embed-bar"></div>
+                      <div className="embed-content">
+                        <span className="embed-title">1v5 Clutch Ace</span>
+                        <span className="embed-desc">Valorant • 2.4M views</span>
+                        <div className="embed-thumbnail">
+                          <video src="/videos/ace-clip.mp4" muted></video>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="discord-reactions">
+                      <span className="reaction">🔥 47</span>
+                      <span className="reaction">👏 32</span>
+                      <span className="reaction">😮 18</span>
+                      <span className="reaction">🎯 12</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="discord-dm">
+                  <div className="dm-avatar">👵</div>
+                  <div className="dm-content">
+                    <div className="dm-header">
+                      <span className="dm-name">Babushka</span>
+                      <span className="dm-badge">BOT</span>
+                      <span className="dm-time">Yesterday at 11:15 AM</span>
+                    </div>
+                    <div className="dm-body">
+                      <p>👑 <strong>PLATINUM UNLOCKED!</strong></p>
+                      <p><em>@SoulsBorne_Dan</em> finally did it after 147 hours!</p>
+                      <p>34 deaths to Margit. Never gave up. Legend. 🏆</p>
+                    </div>
+                    <div className="dm-embed">
+                      <div className="embed-bar"></div>
+                      <div className="embed-content">
+                        <span className="embed-title">Platinum Trophy 🏆</span>
+                        <span className="embed-desc">Elden Ring • 147 hours</span>
+                        <div className="embed-thumbnail">
+                          <img src="/tiktok_post.png" alt="" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="discord-reactions">
+                      <span className="reaction">👑 89</span>
+                      <span className="reaction">🏆 56</span>
+                      <span className="reaction">💪 41</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Non-primary fallback */}
+      {!isPrimary && (
+        <div className="widget-top-row">
+          <div className="widget-device-frame">
+            <div className="widget-device-glow"></div>
+            <div className="widget-device-bezel">
+              <div className="widget-device-screen">
+                <div className="widget-device-notch">
+                  <div className="widget-device-camera"></div>
+                  <div className="widget-device-speaker"></div>
+                </div>
+                <div 
+                  id="crosslayer-feed" 
+                  ref={containerRef}
+                  style={{ height: '100%' }}
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div className="widget-try-panel">
+            <h3>Try It Live!</h3>
+            <p>Paste a video URL and watch it appear in the feed AND Discord instantly.</p>
+            <TryItDemo onClipSubmit={onClipSubmit} />
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Row: Code + Features - Only for publisher view */}
+      {/* {viewMode === 'publisher' && (
+        <div className="widget-bottom-row">
+          <div className="widget-code-panel">
+            <div className="widget-code-header">
+              <Code size={18} />
+              <span>Add to Your Site</span>
+              <button className="widget-copy-btn" onClick={handleCopy}>
+                {copied ? (
+                  <>
+                    <CheckCircle2 size={14} />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            </div>
+            <pre className="widget-code-block">
+              <code>{EMBED_CODE}</code>
+            </pre>
+          </div>
+          <div className="widget-features">
+            <div className="widget-feature">
+              <span className="widget-feature-icon">⚡</span>
+              <div>
+                <strong>4KB gzipped</strong>
+                <span>Lightweight, no dependencies</span>
+              </div>
+            </div>
+            <div className="widget-feature">
+              <span className="widget-feature-icon">🎮</span>
+              <div>
+                <strong>Gaming-optimized</strong>
+                <span>Video, audio, images supported</span>
+              </div>
+            </div>
+            <div className="widget-feature">
+              <span className="widget-feature-icon">🎨</span>
+              <div>
+                <strong>Customizable</strong>
+                <span>Matches your brand colors</span>
+              </div>
+            </div>
+            <div className="widget-feature">
+              <span className="widget-feature-icon">📱</span>
+              <div>
+                <strong>Mobile-first</strong>
+                <span>Touch gestures, scroll-snap</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )} */}
     </section>
   )
 }

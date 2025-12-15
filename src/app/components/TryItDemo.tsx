@@ -139,7 +139,7 @@ export default function TryItDemo({ onClipSubmit }: TryItDemoProps) {
         className="discord-server-btn"
       >
         <ExternalLink size={14} />
-        View Discord Server
+        View in Discord
       </a>
     </div>
   )

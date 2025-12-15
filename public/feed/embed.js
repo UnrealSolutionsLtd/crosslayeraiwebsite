@@ -103,11 +103,13 @@
 
     /* Feed Item */
     .clf-item {
+      width: 100%;
       height: 100%;
       scroll-snap-align: start;
       scroll-snap-stop: always;
       position: relative;
       background: ${COLORS.bg};
+      overflow: hidden;
     }
 
     /* Media Container */
@@ -115,10 +117,20 @@
       position: absolute;
       inset: 0;
     }
-    .clf-media video, .clf-media img {
+    .clf-media video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .clf-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      background: ${COLORS.bg};
     }
 
     /* Play Button */
@@ -249,101 +261,75 @@
       z-index: 10;
     }
 
-    /* Bot Badge */
-    .clf-bot {
+    /* Header - Player & Game Tags */
+    .clf-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .clf-player-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: ${COLORS.accent};
+      background: rgba(0,245,212,0.15);
+      padding: 4px 12px;
+      border: 1px solid rgba(0,245,212,0.3);
+    }
+    .clf-game-tag {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.1);
+      padding: 4px 10px;
+    }
+
+    /* Bot Message */
+    .clf-bot-message {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border-left: 3px solid ${COLORS.accentPurple};
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .clf-bot-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       background: linear-gradient(135deg, ${COLORS.accentPurple}, ${COLORS.accentPink});
-      padding: 4px 10px;
-      font-size: 11px;
+      padding: 3px 8px;
+      font-size: 10px;
       font-weight: 600;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(131, 56, 236, 0.4);
-    }
-
-    /* User Info */
-    .clf-user {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       margin-bottom: 8px;
     }
-    .clf-avatar {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, ${COLORS.accent}, ${COLORS.accentPurple});
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-    .clf-name {
-      font-weight: 700;
-      font-size: 15px;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.5);
-    }
-    .clf-tag {
-      font-size: 12px;
-      color: ${COLORS.accent};
-      background: rgba(0,245,212,0.15);
-      padding: 2px 8px;
-      margin-left: 8px;
-      border: 1px solid rgba(0,245,212,0.3);
-    }
-
-    /* Content */
-    .clf-title {
+    .clf-message-text {
       font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.5);
-    }
-    .clf-message {
-      font-size: 13px;
       line-height: 1.5;
       color: #fff;
-      white-space: pre-line;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.4);
     }
     .clf-mention { 
       color: ${COLORS.accent}; 
       font-weight: 600;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 8px rgba(0,245,212,0.3);
     }
 
-    /* Action Buttons */
-    .clf-actions {
+    /* Reactions */
+    .clf-reactions {
       display: flex;
       align-items: center;
-      gap: 20px;
-      margin-top: 12px;
+      gap: 12px;
     }
-    .clf-action {
-      display: flex;
+    .clf-reaction {
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-    }
-    .clf-btn {
-      background: none;
-      border: none;
+      gap: 4px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.1);
+      padding: 6px 12px;
       cursor: pointer;
-      font-size: 18px;
-      padding: 4px;
-      transition: transform 0.2s ease;
+      transition: all 0.2s ease;
     }
-    .clf-btn:hover { 
-      transform: scale(1.2); 
-      filter: drop-shadow(0 0 8px ${COLORS.accent});
-    }
-    .clf-btn:active { transform: scale(0.95); }
-    .clf-btn.liked { 
-      animation: likeHeart 0.4s ease;
-      filter: drop-shadow(0 0 12px ${COLORS.accentPink});
-    }
-    @keyframes likeHeart {
-      50% { transform: scale(1.3); }
+    .clf-reaction:hover {
+      background: rgba(255,255,255,0.2);
     }
     .clf-count {
       font-size: 13px;
@@ -644,30 +630,21 @@
         ` : ''}
 
         <div class="clf-info">
-          <div class="clf-bot">
-            <span>${item.botEmoji || '🤖'}</span>
-            <span>${item.botName || 'CrossLayerAI'}</span>
+          <div class="clf-header">
+            <span class="clf-player-tag">${item.playerName}</span>
+            ${item.gameName ? `<span class="clf-game-tag">${item.gameName}</span>` : ''}
           </div>
-          <div class="clf-user">
-            <div class="clf-avatar">${item.avatar || '?'}</div>
-            <span class="clf-name">${item.playerName}</span>
-            <span class="clf-tag">${item.gameName}</span>
+          <div class="clf-bot-message">
+            <div class="clf-bot-badge">
+              <span>${item.botEmoji || '🤖'}</span>
+              <span>${item.botName || 'AI'}</span>
+            </div>
+            <div class="clf-message-text">${highlightMentions(item.message)}</div>
           </div>
-          ${item.title ? `<div class="clf-title">${item.title}</div>` : ''}
-          <div class="clf-message">${highlightMentions(item.message)}</div>
-          <div class="clf-actions">
-            <div class="clf-action">
-              <button class="clf-btn" data-action="like">❤️</button>
-              <span class="clf-count">${item.likes || '0'}</span>
-            </div>
-            <div class="clf-action">
-              <button class="clf-btn">💬</button>
-              <span class="clf-count">${item.comments || '0'}</span>
-            </div>
-            <div class="clf-action">
-              <button class="clf-btn">👁️</button>
-              <span class="clf-count">${item.views || '0'}</span>
-            </div>
+          <div class="clf-reactions">
+            <span class="clf-reaction">❤️ ${item.likes || '0'}</span>
+            <span class="clf-reaction">💬 ${item.comments || '0'}</span>
+            <span class="clf-reaction">👁️ ${item.views || '0'}</span>
           </div>
         </div>
       </div>
