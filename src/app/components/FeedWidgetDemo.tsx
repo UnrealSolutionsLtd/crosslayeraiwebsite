@@ -295,7 +295,7 @@ export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, onV
           <div className="publisher-top-row">
             {/* Left: Live Video Feed */}
             <div className="publisher-feed-panel">
-              <h4>📱 Community Feed</h4>
+              <h4>Community Feed</h4>
               <div className="widget-device-frame publisher-device">
                 <div className="widget-device-glow"></div>
                 <div className="widget-device-bezel">
@@ -316,7 +316,7 @@ export default function FeedWidgetDemo({ additionalClips = [], onClipSubmit, onV
 
             {/* Right: CrossLayer Metrics */}
             <div className="publisher-insights">
-              <h4>⚡ CrossLayer Metrics</h4>
+              <h4>CrossLayer Metrics</h4>
               <div className="insights-grid">
                 <div className="insight-card highlight">
                   <span className="insight-value">847</span>
