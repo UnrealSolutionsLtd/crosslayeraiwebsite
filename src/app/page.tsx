@@ -520,7 +520,7 @@ export default function Home() {
                 className="btn-integration"
                 onClick={() => GA_EVENTS.DEMO_CTA_CLICK()}
               >
-                Start Your Free Trial Now
+                Get Started with Personalized Outreach Today!
                 <ArrowRight size={18} />
               </a>
               <span className="integration-cta-hint">Questions? We're here to help</span>
