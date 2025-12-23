@@ -1,0 +1,31 @@
+# CrossLayerAI - LLMs.txt
+
+> CrossLayerAI helps game developers turn in-game moments into personalized player engagement across all channels.
+
+## About CrossLayerAI
+
+CrossLayerAI is an AI platform for game developers that captures in-game events, builds persistent memory for each player, and re-engages them with hyper-personalized messages across Discord, TikTok, email, and other channels.
+
+### Core Capabilities
+
+1. **Capture Game Moments**: SDK integration captures player achievements, clips, and memorable moments in real-time
+2. **Persistent Player Memory**: AI builds a memory of each player's journey, preferences, and play style
+3. **Cross-Channel Engagement**: Reach players on Discord, TikTok, email, and other platforms with personalized content
+4. **AI Community Management**: Automated Discord bots that remember player context and engage authentically
+
+### Key Differentiators
+
+- **Beyond In-Game NPCs**: Unlike Inworld AI or Convai, CrossLayerAI focuses on re-engagement across ALL channels, not just in-game interactions
+- **Memory-First Approach**: Every interaction builds on previous context for genuine personalization
+- **LiveOps Integration**: Works alongside existing analytics and engagement tools
+
+## Documentation
+
+- Homepage: https://crosslayerai.com
+- Blog: https://crosslayerai.com/blog/
+- Full context: https://crosslayerai.com/llms-full.txt
+
+## Contact
+
+For partnerships, integration, or demos: hello@crosslayerai.com
+

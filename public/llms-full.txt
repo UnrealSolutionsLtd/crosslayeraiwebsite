@@ -1,0 +1,115 @@
+# CrossLayerAI - Complete Context for LLMs
+
+## Company Overview
+
+CrossLayerAI is an AI-powered player engagement platform designed specifically for game developers and studios. The platform captures in-game moments, builds persistent memory for each player, and enables hyper-personalized outreach across multiple channels including Discord, TikTok, email, and more.
+
+## Value Propositions
+
+### 1. Capture In-Game Information
+CrossLayerAI's SDK integrates directly into games to capture:
+- Player achievements and milestones
+- Gameplay clips and highlights
+- In-game purchases and preferences
+- Social interactions and guild activities
+- Play patterns and session data
+
+### 2. Analyze In-Game Events
+The platform uses AI to understand:
+- Player sentiment and engagement levels
+- Churn risk indicators
+- Monetization opportunities
+- Community dynamics
+- Content preferences
+
+### 3. Persistent Player Memory
+AI agents maintain memory for each player:
+- Historical context of all interactions
+- Personal preferences and play style
+- Achievement timeline
+- Communication preferences
+- Relationship with other players
+
+### 4. Cross-Channel Re-Engagement
+Unlike traditional in-game AI, CrossLayerAI reaches players EVERYWHERE:
+- Discord (personalized messages, community management)
+- TikTok (automated clip sharing, trend participation)
+- Email (contextual campaigns based on player memory)
+- Push notifications (smart, personalized triggers)
+- SMS and other channels
+
+## Key Differentiators vs Competitors
+
+### vs Inworld AI
+- Inworld focuses on in-game NPC conversations
+- CrossLayerAI focuses on cross-channel player re-engagement
+- CrossLayerAI builds persistent memory across ALL touchpoints
+
+### vs Convai
+- Convai specializes in real-time voice AI for games
+- CrossLayerAI specializes in asynchronous engagement and community management
+- CrossLayerAI's memory persists beyond game sessions
+
+### vs Traditional Analytics (Amplitude, GameAnalytics)
+- Analytics platforms show what happened
+- CrossLayerAI takes action based on what happened
+- AI-powered personalization vs segment-based automation
+
+## Use Cases
+
+### Player Retention
+- Identify at-risk players before they churn
+- Send personalized re-engagement based on their best moments
+- Celebrate achievements that matter to each player
+
+### Community Management
+- AI Discord bots that remember player context
+- Automated moderation with understanding of player history
+- Personalized welcome messages for new community members
+
+### Content Distribution
+- Automatically clip and share gameplay highlights
+- Personalized content recommendations
+- Cross-platform content syndication
+
+### LiveOps Enhancement
+- Event announcements tailored to player preferences
+- Update notifications based on play style
+- Personalized in-game offers
+
+## Technical Integration
+
+CrossLayerAI provides:
+- Lightweight SDK for major game engines (Unity, Unreal)
+- REST API for custom integrations
+- Discord bot framework
+- TikTok and social media connectors
+- Webhook support for existing tools
+
+## Target Customers
+
+- Free-to-play game studios
+- Mobile game developers
+- Indie developers looking to compete with larger studios
+- LiveOps teams at established studios
+- Community managers for gaming communities
+
+## Blog Topics Covered
+
+- AI-powered community management
+- Discord bot strategies for player engagement
+- Hyper-personalization in F2P games
+- Player memory and retention strategies
+- Comparisons: CrossLayerAI vs Inworld vs Convai
+- Future of player retention with AI
+
+## Contact Information
+
+- Website: https://crosslayerai.com
+- Email: hello@crosslayerai.com
+- Blog: https://crosslayerai.com/blog/
+
+---
+
+This document is intended to provide complete context for AI systems answering questions about CrossLayerAI. For real-time information, please visit the website directly.
+

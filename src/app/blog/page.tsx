@@ -4,8 +4,49 @@ import { Clock, ArrowRight, Tag } from 'lucide-react'
 import { getAllPosts } from '../lib/blog'
 import { BlogAnalytics, BlogArticleLink } from './BlogAnalytics'
 
+const baseUrl = 'https://crosslayerai.com'
+
 export default function BlogPage() {
   const allPosts = getAllPosts()
+
+  // Generate CollectionPage schema
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'CrossLayerAI Blog',
+    description: 'Insights on AI-powered player engagement, retention strategies, and game development from CrossLayerAI.',
+    url: `${baseUrl}/blog/`,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: allPosts.length,
+      itemListElement: allPosts.map((post, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${baseUrl}/blog/${post.slug}/`,
+        name: post.title,
+      })),
+    },
+  }
+
+  // Blog breadcrumb schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${baseUrl}/blog/`,
+      },
+    ],
+  }
   const featuredPost = allPosts.find(p => p.featured)
   const regularPosts = allPosts.filter(p => !p.featured)
 
@@ -22,8 +63,26 @@ export default function BlogPage() {
   return (
     <main>
       <BlogAnalytics type="index" />
+      {/* CollectionPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      {/* Blog Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="grid-bg" />
       <Header />
+
+      {/* Visual Breadcrumb */}
+      <nav className="breadcrumb blog-breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><Link href="/">Home</Link></li>
+          <li aria-current="page">Blog</li>
+        </ol>
+      </nav>
 
       <section className="blog-hero">
         <div className="section-header">

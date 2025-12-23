@@ -1,0 +1,47 @@
+# CrossLayerAI - AI Context File
+
+## What is CrossLayerAI?
+
+CrossLayerAI is an AI platform for game developers that:
+1. Captures in-game player information and events
+2. Analyzes player behavior and engagement
+3. Builds persistent memory for each player
+4. Re-engages players with personalized messages across ALL channels
+
+## Quick Facts
+
+- **Industry**: Gaming / Game Development
+- **Product Type**: B2B SaaS / AI Platform
+- **Target Users**: Game developers, studios, LiveOps teams
+- **Key Technology**: AI agents with persistent memory
+
+## Core Problem Solved
+
+Traditional player engagement tools only work inside games. CrossLayerAI captures game moments and uses them to reach players on Discord, TikTok, email, and other channels with contextual, personalized messages.
+
+## How It's Different from Alternatives
+
+| Feature | CrossLayerAI | Inworld AI | Convai |
+|---------|-------------|------------|--------|
+| Focus | Cross-channel engagement | In-game NPCs | Voice AI |
+| Memory | Persistent across all channels | Session-based | Session-based |
+| Channels | Discord, TikTok, Email, etc. | In-game only | In-game only |
+
+## Primary Use Cases
+
+1. **Player Retention**: Re-engage churning players with memories of their best moments
+2. **Community Management**: AI Discord bots that understand player context
+3. **Content Distribution**: Auto-share gameplay clips to social media
+4. **Personalized LiveOps**: Tailored event announcements and offers
+
+## Website Sections
+
+- **Homepage**: https://crosslayerai.com - Product overview and demo
+- **Blog**: https://crosslayerai.com/blog/ - Thought leadership on AI in gaming
+- **LLMs.txt**: https://crosslayerai.com/llms.txt - Concise AI context
+- **Full Context**: https://crosslayerai.com/llms-full.txt - Complete documentation
+
+## Contact
+
+Email: hello@crosslayerai.com
+

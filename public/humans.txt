@@ -1,0 +1,11 @@
+/* TEAM */
+Company: CrossLayerAI
+Contact: hello@crosslayerai.com
+Site: https://crosslayerai.com
+
+/* SITE */
+Last update: 2024-12-23
+Standards: HTML5, CSS3, TypeScript
+Components: Next.js, React, TailwindCSS
+Software: Cursor, VS Code
+

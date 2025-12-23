@@ -6,6 +6,68 @@ import { getAllSlugs, getPostBySlug } from '../../lib/blog'
 import BlogContent from './BlogContent'
 import { BlogAnalytics, BlogCTAButton, BlogShareButton, BlogBackLink } from '../BlogAnalytics'
 
+const baseUrl = 'https://crosslayerai.com'
+
+// Generate Article and Breadcrumb structured data
+function generateStructuredData(post: { slug: string; title: string; date: string; description: string; readTime: string; tags: string[] }) {
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.description,
+    datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: 'CrossLayerAI',
+      url: baseUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'CrossLayerAI',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/blog/${post.slug}/`,
+    },
+    image: `${baseUrl}/og-image-v2.png`,
+    keywords: post.tags.join(', '),
+    articleSection: 'Gaming AI',
+    wordCount: Math.round(parseInt(post.readTime) * 200), // Estimate based on read time
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${baseUrl}/blog/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: `${baseUrl}/blog/${post.slug}/`,
+      },
+    ],
+  }
+
+  return { articleSchema, breadcrumbSchema }
+}
+
 // Required for static export - tells Next.js which pages to generate
 export function generateStaticParams() {
   const slugs = getAllSlugs()
@@ -66,15 +128,34 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     )
   }
 
+  const { articleSchema, breadcrumbSchema } = generateStructuredData(post)
+
   return (
     <main>
       <BlogAnalytics type="article" slug={slug} title={post.title} />
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="grid-bg" />
       <Header />
 
       <article className="blog-post">
         <header className="post-header">
-          <BlogBackLink slug={slug} />
+          {/* Visual Breadcrumb Navigation */}
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/blog/">Blog</Link></li>
+              <li aria-current="page">{post.title}</li>
+            </ol>
+          </nav>
           <h1>{post.title}</h1>
           <div className="post-meta">
             <span>{formatDate(post.date)}</span>

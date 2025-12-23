@@ -1,0 +1,32 @@
+{
+  "name": "CrossLayerAI",
+  "short_name": "CrossLayerAI",
+  "description": "Turn game moments into personalized player engagement across all channels",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00ff88",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/logo-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["business", "developer-tools", "games"],
+  "lang": "en",
+  "dir": "ltr"
+}
+
