@@ -1,10 +1,15 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import Header from '../components/Header'
-import { Clock, ArrowRight, Tag } from 'lucide-react'
+import { Clock, ArrowRight, Tag, User } from 'lucide-react'
 import { getAllPosts } from '../lib/blog'
 import { BlogAnalytics, BlogArticleLink } from './BlogAnalytics'
 
 const baseUrl = 'https://crosslayerai.com'
+
+export const metadata: Metadata = {
+  title: 'AI-Powered Player Engagement Strategies: Transforming Gaming Communities',
+}
 
 export default function BlogPage() {
   const allPosts = getAllPosts()
@@ -89,7 +94,10 @@ export default function BlogPage() {
           <span className="section-tag">Insights</span>
           <h1>CrossLayerAI Blog</h1>
           <p>
-            Deep dives into AI-powered player engagement, retention strategies, and the future of gaming.
+            Keeping players is hard. Most games lose 70% of players in the first week.
+          </p>
+          <p>
+            This blog shows how AI helps fix this problem. Learn about smart NPCs and tools that reach players across platforms. Discover ways to create custom experiences that bring players back.
           </p>
         </div>
       </section>
@@ -102,6 +110,7 @@ export default function BlogPage() {
             <h2>{featuredPost.title}</h2>
             <p>{featuredPost.description}</p>
             <div className="featured-meta">
+              <span><User size={14} /> CrossLayerAI Team</span>
               <span className="meta-date">{formatDate(featuredPost.date)}</span>
               <span className="meta-read"><Clock size={14} /> {featuredPost.readTime}</span>
             </div>
@@ -125,6 +134,7 @@ export default function BlogPage() {
               <h3>{post.title}</h3>
               <p>{post.description}</p>
               <div className="card-meta">
+                <span><User size={12} /> CrossLayerAI Team</span>
                 <span>{formatDate(post.date)}</span>
                 <span><Clock size={12} /> {post.readTime}</span>
               </div>
@@ -143,23 +153,22 @@ export default function BlogPage() {
         <div className="seo-content">
           <h2>AI Gaming Solutions: Understanding Your Options</h2>
           <p>
-            The gaming industry is rapidly adopting AI to enhance player experiences and improve retention. 
-            From <strong>AI NPCs</strong> powered by platforms like Inworld AI and Convai, to <strong>player analytics</strong> tools 
-            like GameAnalytics and Amplitude, game developers have more options than ever.
+            Games now use AI to make play better and keep players longer. Developers have many tools to pick from. 
+            <strong>AI NPCs</strong> come from Inworld AI and Convai. <strong>Player analytics</strong> tools 
+            include GameAnalytics and Amplitude.
           </p>
           <p>
-            <strong>CrossLayerAI</strong> represents a new category: the <em>AI-powered player engagement platform</em> that combines 
-            in-game intelligence with cross-platform outreach. Unlike traditional solutions that stay confined to the game, 
-            CrossLayerAI agents follow players to Discord, social media, and beyond - maintaining persistent memory 
-            and building real relationships over time.
+            <strong>CrossLayerAI</strong> is a new type of tool. It&apos;s an <em>AI platform for player engagement</em> that works 
+            both in-game and beyond. Most tools only work inside games. Our AI agents also reach players on Discord and social media. 
+            They remember each player and build real bonds over time.
           </p>
           <h3>Key Topics We Cover</h3>
           <ul>
-            <li><strong>AI Player Engagement</strong> - How intelligent agents transform player retention</li>
-            <li><strong>Player Retention Strategies</strong> - Moving beyond push notifications to emotional connections</li>
+            <li><strong>AI Player Engagement</strong> - How smart AI agents help keep players</li>
+            <li><strong>Player Retention Strategies</strong> - Going beyond alerts to real connections</li>
             <li><strong>Discord Bot Development</strong> - Building community with AI that knows your players</li>
-            <li><strong>Game Analytics vs AI</strong> - Why data alone isn&apos;t enough for modern retention</li>
-            <li><strong>LiveOps Automation</strong> - Personalized re-engagement at scale</li>
+            <li><strong>Game Analytics vs AI</strong> - Why data alone isn&apos;t enough today</li>
+            <li><strong>LiveOps Automation</strong> - Custom outreach for many players at once</li>
           </ul>
         </div>
       </section>

@@ -79,7 +79,8 @@ export default function Header() {
         <a href="/" style={logoLinkStyle} onClick={() => GA_EVENTS.HEADER_LOGO_CLICK()}>
           <Image 
             src="/logo-icon.svg" 
-            alt="CrossLayerAI Logo" 
+            alt="CrossLayerAI Logo"
+            title="CrossLayerAI Logo"
             width={32} 
             height={32}
             style={{ minWidth: '28px', minHeight: '28px' }}

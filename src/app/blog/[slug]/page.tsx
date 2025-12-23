@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Header from '../../components/Header'
-import { ArrowLeft, Clock, Tag } from 'lucide-react'
+import { ArrowLeft, Clock, Tag, User } from 'lucide-react'
 import type { Metadata } from 'next'
 import { getAllSlugs, getPostBySlug } from '../../lib/blog'
 import BlogContent from './BlogContent'
@@ -158,6 +158,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </nav>
           <h1>{post.title}</h1>
           <div className="post-meta">
+            <span><User size={14} /> CrossLayerAI Team</span>
             <span>{formatDate(post.date)}</span>
             <span><Clock size={14} /> {post.readTime}</span>
           </div>
@@ -191,7 +192,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-logo-container">
-            <img src="/logo-icon.svg" alt="CrossLayerAI" width={40} height={40} />
+            <img src="/logo-icon.svg" alt="CrossLayerAI" title="CrossLayerAI" width={40} height={40} />
             <div className="footer-logo">CROSSLAYERAI</div>
           </div>
           <p>
