@@ -210,9 +210,9 @@ export default function Home() {
           {/* Hero - Interactive Feed Demo (THE Primary Demo) */}
           <section className="hero-feed hero-feed-primary" id="demo">
             <div className="hero-feed-header">
-              <h1>Turn player moments into <span className="gradient-text">personalized outreach</span></h1>
+              <h1>CrossLayerAI transforms game moments into <span className="gradient-text">personalized player outreach</span></h1>
               <p className="hero-subtitle">
-                One upload → Feed, Discord, TikTok, everywhere. Personalized re-engagement activated.
+                A platform that enhances engagement on Discord and social media—one upload, everywhere.
               </p>
             </div>
 
@@ -520,7 +520,7 @@ export default function Home() {
                 className="btn-integration"
                 onClick={() => GA_EVENTS.DEMO_CTA_CLICK()}
               >
-                Get Started
+                Start Your Free Trial Now
                 <ArrowRight size={18} />
               </a>
               <span className="integration-cta-hint">Questions? We're here to help</span>
