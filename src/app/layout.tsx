@@ -225,6 +225,24 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* BreadcrumbList Schema for Homepage */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: 'https://crosslayerai.com',
+                },
+              ],
+            }),
+          }}
+        />
         {/* OpenSearch for browser search integration */}
         <link rel="search" type="application/opensearchdescription+xml" title="CrossLayerAI" href="https://crosslayerai.com/opensearch.xml" />
       </head>
